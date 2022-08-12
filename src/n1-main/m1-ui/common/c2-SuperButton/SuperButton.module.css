@@ -1,0 +1,29 @@
+.default {
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 20px;
+    min-width: 90px;
+    color: #2A3B48;
+    background-color: #90CAF9;
+    cursor: pointer;
+    transition: background-color 200ms;
+    text-transform: uppercase;
+    font-weight: bold;
+
+}
+
+.default:hover {
+    background-color: #42A5F5;
+}
+
+.default:disabled {
+    background-color: #283543;
+    color: #67717A;
+    cursor: auto;
+}
+
+.red {
+    background: red;
+    color: black;
+}
