@@ -9,5 +9,5 @@ const rootReducer = combineReducers({
   profile: profileReducer,
 })
 export const store = createStore(rootReducer, applyMiddleware(thunk))
-export type AppRootState = ReturnType<typeof rootReducer>
+export type AppRootStateType = ReturnType<typeof rootReducer>
 export default store

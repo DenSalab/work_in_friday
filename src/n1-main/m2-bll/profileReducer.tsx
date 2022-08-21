@@ -1,5 +1,6 @@
 import { profileAPI, UserType } from '../../n2-feature/Profile/profileAPI'
-import { Dispatch } from 'react'
+import { AppRootStateType } from './store'
+import { ThunkAction } from 'redux-thunk'
 const UPDATE_USER = 'UPDATE_USER'
 const initialState: UserType = {
   _id: '1234',
@@ -32,16 +33,20 @@ export const updateUserAC = (name: string, avatar: string | undefined) =>
     name,
     avatar,
   } as const)
-export const updateUserTC = (name: string, avatar: string) => (dispatch: Dispatch<any>) => {
-  profileAPI
-    .updateUser(name, avatar)
-    .then((res) => {
-      dispatch(updateUserAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
-    })
-    .catch((err) => {
-      console.log(err.response.data.error)
-    })
-}
+export const updateUserTC =
+  (name: string, avatar: string): AppThunk =>
+  (dispatch) => {
+    profileAPI
+      .updateUser(name, avatar)
+      .then((res) => {
+        dispatch(updateUserAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
+        console.log(res.data.updatedUser)
+      })
+      .catch((err) => {
+        console.log(err.response.data.error)
+      })
+  }
 
 type initialStateType = UserType
 type ActionsType = ReturnType<typeof updateUserAC>
+type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>
