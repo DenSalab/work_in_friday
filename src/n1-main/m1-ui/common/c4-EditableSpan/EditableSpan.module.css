@@ -1,0 +1,20 @@
+.symbols{
+  width: 15px;
+}
+.name {
+  top: 44.03%;
+  right: 48.28%;
+  bottom: 52.64%;
+  left: 48.36%;
+
+  display: flex;
+  align-items: center;
+
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 24px;
+  color: #000000;
+
+}
