@@ -1,29 +1,35 @@
 .default {
-    padding: 8px 10px;
-    border-radius: 5px;
-    border: none;
-    margin-bottom: 20px;
-    min-width: 90px;
-    color: #2A3B48;
-    background-color: #90CAF9;
-    cursor: pointer;
-    transition: background-color 200ms;
-    text-transform: uppercase;
-    font-weight: bold;
+  cursor: pointer;
 
+  min-width: 90px;
+  margin-bottom: 20px;
+  padding: 8px 10px;
+
+  font-weight: bold;
+  color: #2a3b48;
+  text-transform: uppercase;
+
+  background-color: #90caf9;
+  border: none;
+  border-radius: 5px;
+
+  transition: background-color 200ms;
 }
 
 .default:hover {
-    background-color: #42A5F5;
+  background-color: #42a5f5;
 }
 
 .default:disabled {
-    background-color: #283543;
-    color: #67717A;
-    cursor: auto;
+  cursor: auto;
+
+  color: #67717a;
+
+  background-color: #283543;
 }
 
 .red {
-    background: red;
-    color: black;
+  color: black;
+
+  background: red;
 }

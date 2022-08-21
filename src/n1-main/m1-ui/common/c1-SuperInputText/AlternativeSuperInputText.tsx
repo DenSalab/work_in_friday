@@ -1,9 +1,7 @@
 import React from 'react'
 
 function AlternativeSuperInputText() {
-    return (
-        <input/>
-    )
+  return <input />
 }
 
 export default AlternativeSuperInputText
