@@ -7,8 +7,6 @@ const instance = axios.create({
 })
 
 // api
-export const todolistsAPI = {}
-
 export const authAPI = {
   login() {},
   logout() {},
@@ -35,10 +33,18 @@ export const authAPI = {
     }>('auth/me')
     return promise
   },
+  passwordRecovery(data: PasswordRecoveryRequestType) {
+    const promise = instance.post<{ info: string; error: string }>('auth/forgot')
+  },
 }
 
 // types
 export type RegisterRequestType = {
   email: string
   password: string
+}
+export type PasswordRecoveryRequestType = {
+  email: string
+  from: string
+  message: string
 }

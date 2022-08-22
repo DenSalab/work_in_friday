@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from '../m2-bll/store'
 import { initializeAppTC } from '../m2-bll/app-reducer'
 import { useAppDispatch } from './hooks/hooks'
+import { PasswordRecovery } from '../../n2-feature/PasswordRecovery/PasswordRecovery'
+import { CheckEmail } from '../../n2-feature/CheckEmail/CheckEmail'
 
 // hashRouter*
 // добавить навлинки чтобы прыгать через хедер а не через логику
@@ -21,7 +23,14 @@ function App() {
 
   if (!isInitialized) {
     return (
-      <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
+      <div
+        style={{
+          position: 'fixed',
+          top: '30%',
+          textAlign: 'center',
+          width: '100%',
+        }}
+      >
         <div>ОЖИДАЕМ ИДЕТ СОЕДИНЕНИЕ С СЕРВЕРОМ</div>
       </div>
     )
@@ -42,7 +51,7 @@ function App() {
         <Route path={'work_in_friday/register'} element={<Register />} />
         <Route path={'work_in_friday/profile'} element={<>profile</>} />
         <Route path={'work_in_friday/404'} element={<Page404 />} />
-        <Route path={'work_in_friday/password_recovery'} element={<>password recovery</>} />
+        <Route path={'work_in_friday/password_recovery'} element={<PasswordRecovery />} />
         <Route path={'work_in_friday/new_password'} element={<>new password</>} />
         <Route path={'work_in_friday/test'} element={<>test</>} />
       </Routes>
