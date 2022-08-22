@@ -1,7 +1,7 @@
 import s from './Login.module.css'
-import SuperInputText from '../common/c1-SuperInputText/SuperInputText'
-import SuperCheckbox from '../common/c3-SuperCheckbox/SuperCheckbox'
-import SuperButton from '../common/c2-SuperButton/SuperButton'
+import SuperInputText from '../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText'
+import SuperCheckbox from '../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox'
+import SuperButton from '../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton'
 
 export const Login = () => {
   return (
