@@ -18,7 +18,6 @@ type SuperInputTextPropsType = DefaultInputPropsType & {
 }
 
 const SuperInputText: React.FC<SuperInputTextPropsType> = ({
-  // type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
   onChange,
   onChangeText,
   onKeyPress,
@@ -49,7 +48,7 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = ({
   return (
     <div className={s.inputBox}>
       <input
-        // type={'text'}
+        type={restProps.type === 'password' ? 'password' : 'text'}
         onChange={onChangeCallback}
         onKeyPress={onKeyPressCallback}
         className={finalInputClassName}

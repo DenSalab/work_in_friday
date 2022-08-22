@@ -7,24 +7,27 @@
 
 .superInput {
   margin-bottom: 20px;
-  padding: 8px 10px;
+  padding: 5px 0px;
 
+  font: inherit;
   color: #434e5b;
 
-  border: 1px solid #434e5b;
-  border-radius: 5px;
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
   outline: 0;
 }
 
-.superInput:hover,
 .superInput:focus {
-  border: 1px solid #318ce7;
+  border-bottom: 2px solid #318ce7;
+}
+.superInput:hover {
+  border-bottom: 2px solid rgba(49, 140, 231, 0.5);
 }
 
 .errorInput,
 .errorInput:hover,
 .errorInput:focus {
-  border: 1px solid red;
+  border-bottom: 2px solid red;
 }
 
 .error {
