@@ -1,7 +1,7 @@
 import { profileAPI, UserType } from '../../n2-feature/Profile/profileAPI'
 import { AppRootStateType } from './store'
 import { ThunkAction } from 'redux-thunk'
-const UPDATE_USER = 'UPDATE_USER'
+const UPDATE_USER = 'profileReducer/UPDATE_USER'
 const initialState: UserType = {
   _id: '1234',
   email: '123@mail.ru',
@@ -20,7 +20,7 @@ export const profileReducer = (
   action: ActionsType
 ): UserType => {
   switch (action.type) {
-    case 'UPDATE_USER':
+    case 'profileReducer/UPDATE_USER':
       return { ...state, name: action.name, avatar: action.avatar }
     default:
       return state
