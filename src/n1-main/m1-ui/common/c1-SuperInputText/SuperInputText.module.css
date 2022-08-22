@@ -1,27 +1,37 @@
 .inputBox {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 4px;
 }
 
 .superInput {
-    padding: 8px 10px;
-    border: 1px solid #434E5B;
-    border-radius: 5px;
-    outline: 0;
-    color: #434E5B;
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+  padding: 5px 0px;
+
+  font: inherit;
+  color: #434e5b;
+
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  outline: 0;
 }
 
-.superInput:hover, .superInput:focus {
-    border: 1px solid #318CE7;
+.superInput:focus {
+  border-bottom: 2px solid #318ce7;
+}
+.superInput:hover {
+  border-bottom: 2px solid rgba(49, 140, 231, 0.5);
 }
 
-.errorInput, .errorInput:hover, .errorInput:focus {
-    border: 1px solid red;
+.errorInput,
+.errorInput:hover,
+.errorInput:focus {
+  border-bottom: 2px solid red;
 }
 
 .error {
-    color: red;
-    margin-top: -21px;
+  margin-top: -21px;
+
+  color: red;
 }

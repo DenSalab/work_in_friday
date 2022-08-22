@@ -1,3 +1,3 @@
-export const mainReducer = (state: any={}, action: any) => {
-    return state;
+export const mainReducer = (state: any = {}, action: any) => {
+  return state
 }
