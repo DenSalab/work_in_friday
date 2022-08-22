@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from '../m2-bll/store'
 import { initializeAppTC } from '../m2-bll/app-reducer'
 import { useAppDispatch } from './hooks/hooks'
+import { Login } from '../../n2-feature/f1-auth/a1-login/Login'
 
 // hashRouter*
 // добавить навлинки чтобы прыгать через хедер а не через логику
@@ -38,7 +39,7 @@ function App() {
       <Link to={'work_in_friday/test'}>test</Link>
       <br />
       <Routes>
-        <Route path={'work_in_friday/login'} element={<>login</>} />
+        <Route path={'work_in_friday/login'} element={<Login />} />
         <Route path={'work_in_friday/register'} element={<Register />} />
         <Route path={'work_in_friday/profile'} element={<>profile</>} />
         <Route path={'work_in_friday/404'} element={<Page404 />} />
