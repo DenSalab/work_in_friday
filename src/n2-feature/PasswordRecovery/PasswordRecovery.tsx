@@ -4,15 +4,16 @@ import SuperInputText from '../../n1-main/m1-ui/common/c1-SuperInputText/SuperIn
 import SuperButton from '../../n1-main/m1-ui/common/c2-SuperButton/SuperButton'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { registerTC } from '../../n1-main/m2-bll/auth-reducer'
+import { passwordRecoveryTC, registerTC } from '../../n1-main/m2-bll/auth-reducer'
 import { useAppDispatch } from '../../n1-main/m1-ui/hooks/hooks'
+import { Navigate } from 'react-router-dom'
 
 type FormikErrorType = {
   email?: string
 }
 
 export const PasswordRecovery = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -27,7 +28,8 @@ export const PasswordRecovery = () => {
       return errors
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values))
+      console.log(values.email)
+      dispatch(passwordRecoveryTC(values.email))
     },
   })
 

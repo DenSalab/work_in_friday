@@ -54,6 +54,7 @@ function App() {
         <Route path={'work_in_friday/password_recovery'} element={<PasswordRecovery />} />
         <Route path={'work_in_friday/new_password'} element={<>new password</>} />
         <Route path={'work_in_friday/test'} element={<>test</>} />
+        <Route path={'work_in_friday/check-email'} element={<CheckEmail />} />
       </Routes>
       {serverError ? (
         <span>Ошибка сервера - {serverError}</span>
