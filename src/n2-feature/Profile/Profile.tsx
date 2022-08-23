@@ -14,26 +14,17 @@ export const Profile = () => {
   const user = useSelector<AppRootStateType, UserType>((state) => state.profile.user)
   const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
   const dispatch: any = useDispatch()
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      return
+    }
+    dispatch(initializeAppTC())
+  }, [])
+
   if (!isLoggedIn) {
     return <Navigate to={'/login'} />
   }
-  if (!user) {
-    dispatch(initializeAppTC())
-    if (!user) {
-      return <Navigate to={'/login'} />
-    }
-  }
-  /////need to delete later
-  useEffect(() => {
-    authAPI
-      .login()
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err.response.data)
-      })
-  }, [])
 
   return (
     <div className={s.profile}>
