@@ -9,7 +9,7 @@ import { loginReducer } from './loginReducer'
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { appReducer } from './app-reducer'
 import { authReducer } from './auth-reducer'
-import { profileReducer } from './profileReducer'
+import { profileReducer } from './profile-reducer'
 
 const rootReducer = combineReducers({
   main: mainReducer,

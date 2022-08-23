@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux'
 import { authAPI } from '../m1-ui/api/api'
 import { setIsLoggedInAC, setServerErrorAC } from '../m2-bll/auth-reducer'
+import { setUserAC, setUserTC } from './profile-reducer'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -38,12 +39,13 @@ export const setAppErrorAC = (error: string | null) => ({ type: 'APP/SET-ERROR',
 export const setAppInitializedAC = (value: boolean) =>
   ({ type: 'APP/SET-IS-INITIALIZED', value } as const)
 
-export const initializeAppTC = () => (dispatch: Dispatch) => {
+export const initializeAppTC = () => (dispatch: any) => {
   authAPI
     .me()
     .then((res) => {
       console.log('Успешно')
-      // dispatch(setIsLoggedInAC(true))
+      dispatch(setIsLoggedInAC(true))
+      dispatch(setUserTC()) //added by Julie
     })
     .catch((error) => {
       dispatch(setServerErrorAC(error.response.statusText))

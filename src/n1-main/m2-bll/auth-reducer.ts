@@ -1,6 +1,5 @@
 import { Dispatch } from 'redux'
 import {
-  setAppErrorAC,
   SetAppErrorActionType,
   setAppStatusAC,
   SetAppStatusActionType,
@@ -8,7 +7,7 @@ import {
 import { authAPI, RegisterRequestType } from '../m1-ui/api/api'
 
 const initialState = {
-  isLoggedIn: false, //пользователь залогинен?
+  isLoggedIn: true, //пользователь залогинен?
   isRegistered: false, //пользователь зарегистрирован?
   serverError: '', //пришла ли ошибка от сервера?
 }

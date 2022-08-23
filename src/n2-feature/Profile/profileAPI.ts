@@ -6,17 +6,17 @@ const instance = axios.create({
 
 // types
 export type UserType = {
-  _id: string
-  email: string
+  _id: string | null
+  email: string | null
   name: string
-  avatar?: string
-  publicCardPacksCount: number
+  avatar: string
+  publicCardPacksCount: number | null
   created: Date | null
   updated: Date | null
   isAdmin: boolean
   verified: boolean
   rememberMe: boolean
-  error?: string
+  error?: string | null
 }
 export type ResponseType<D = {}> = {
   updatedUser: D
@@ -24,23 +24,10 @@ export type ResponseType<D = {}> = {
 }
 
 export const profileAPI = {
-  authMe() {
-    return instance.post('/auth/me', {})
+  setUser() {
+    return instance.post<ResponseType<UserType>>(`/auth/me`, {})
   },
-  login() {
-    return instance.post('/auth/login', {
-      email: 'nya-admin@nya.nya',
-      password: '1qazxcvBG',
-      rememberMe: true,
-    })
-  },
-  logout() {
-    return instance.delete('/auth/me', {})
-  },
-  updateUser(name: string, avatar: string) {
-    return instance.put<ResponseType<UserType>>(`/auth/me`, {
-      name: name,
-      avatar: avatar,
-    })
+  updateUser(name: string, avatar: string | null) {
+    return instance.put<ResponseType<UserType>>(`/auth/me`, { name, avatar })
   },
 }
