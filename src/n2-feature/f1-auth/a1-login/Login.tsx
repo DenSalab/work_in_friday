@@ -4,16 +4,19 @@ import SuperCheckbox from '../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperC
 import SuperButton from '../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
+import { loginTC } from '../../../n1-main/m2-bll/loginReducer'
+import { useAppDispatch } from '../../../n1-main/m1-ui/hooks/hooks'
 
 export const Login = () => {
+  const dispatch = useAppDispatch()
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
-      remember: false,
+      email: 'nya-admin@nya.nya',
+      password: '1qazxcvBG',
+      rememberMe: false,
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+      dispatch(loginTC(values))
     },
   })
   return (
@@ -41,11 +44,11 @@ export const Login = () => {
 
         <div className={s.remember}>
           <SuperCheckbox
-            id="remember"
+            id="rememberMe"
             onChange={formik.handleChange}
-            checked={formik.values.remember}
+            checked={formik.values.rememberMe}
           />
-          <label htmlFor={'remember'}>Remember me</label>
+          <label htmlFor={'rememberMe'}>Remember me</label>
         </div>
         <Link className={s.forgotPass} to={'/forgot'}>
           Forgot password?
