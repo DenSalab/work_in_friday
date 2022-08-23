@@ -17,9 +17,9 @@ export const loginReducer = (state = initialState, action: LoginActionsType) => 
 
 // action creators
 export const setUserData = (userData: LoginResponseDataType) => {
-  return { type: SET_USER_DATA, userData }
+  return { type: SET_USER_DATA, userData } as const
 }
-export const clearUserData = () => ({ type: SET_USER_DATA })
+export const clearUserData = () => ({ type: CLEAR_USER_DATA } as const)
 
 // thunk creators
 export const loginTC =
@@ -27,16 +27,25 @@ export const loginTC =
     authAPI
       .login(loginData)
       .then((res) => {
-        console.log(res.data)
         dispatch(setUserData(res.data))
       })
       .catch((e) => {
         console.log(e.response.data)
       })
   }
+export const logoutTC = () => (dispatch: Dispatch<LoginActionsType>) => {
+  authAPI
+    .logout()
+    .then(() => {
+      dispatch(clearUserData())
+    })
+    .catch((e) => {
+      console.log(e.response.data)
+    })
+}
 
 //types
-type LoginActionsType = ReturnType<typeof setUserData> | ReturnType<typeof setUserData>
+type LoginActionsType = ReturnType<typeof setUserData> | ReturnType<typeof clearUserData>
 
 export type LoginRequestDataType = {
   email: string
@@ -67,3 +76,12 @@ type DeviceTokenType = {
   token: string
   tokenDeathTime: number
 }
+
+export type LogoutResponseType =
+  | {
+      error: string
+      in: string
+    }
+  | {
+      info: string
+    }

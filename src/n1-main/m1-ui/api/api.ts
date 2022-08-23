@@ -1,6 +1,10 @@
 import axios, { AxiosResponse } from 'axios'
 import { registerTC } from '../../m2-bll/auth-reducer'
-import { LoginRequestDataType, LoginResponseDataType } from '../../m2-bll/loginReducer'
+import {
+  LoginRequestDataType,
+  LoginResponseDataType,
+  LogoutResponseType,
+} from '../../m2-bll/loginReducer'
 
 const instance = axios.create({
   baseURL: 'http://localhost:7542/2.0/',
@@ -14,7 +18,9 @@ export const authAPI = {
   login(loginData: LoginRequestDataType) {
     return instance.post<LoginResponseDataType>('auth/login', loginData)
   },
-  logout() {},
+  logout() {
+    return instance.delete<LogoutResponseType>('auth/me')
+  },
   register(data: RegisterRequestType) {
     const promise = instance.post<{
       addedUser: {}
