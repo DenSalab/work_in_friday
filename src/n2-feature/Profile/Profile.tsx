@@ -7,7 +7,6 @@ import { AppRootStateType } from '../../n1-main/m2-bll/store'
 import { EditableSpan } from '../../n1-main/m1-ui/common/c4-EditableSpan/EditableSpan'
 import { Navigate } from 'react-router-dom'
 import { initializeAppTC } from '../../n1-main/m2-bll/app-reducer'
-import { authAPI } from '../../n1-main/m1-ui/api/api'
 import { UserType } from './profileAPI'
 
 export const Profile = () => {

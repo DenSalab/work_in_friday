@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { Page404 } from './page404/Page404'
 import { Register } from '../../n2-feature/Register/Register'
@@ -7,7 +7,8 @@ import { AppRootStateType } from '../m2-bll/store'
 import { initializeAppTC } from '../m2-bll/app-reducer'
 import { useAppDispatch } from './hooks/hooks'
 import { Profile } from '../../n2-feature/Profile/Profile'
-import { Login } from '../../n2-feature/Login'
+import {Login} from '../../n2-feature/f1-auth/a1-login/Login';
+
 
 // hashRouter*
 // добавить навлинки чтобы прыгать через хедер а не через логику
@@ -30,22 +31,22 @@ function App() {
 
   return (
     <div>
-      <Link to={'work_in_friday/login'}>login</Link>---
-      <Link to={'work_in_friday/register'}>register</Link>---
-      <Link to={'work_in_friday/profile'}>profile</Link>---
-      <Link to={'work_in_friday/404'}>404</Link>---
-      <Link to={'work_in_friday/password_recovery'}>password_recovery</Link>---
-      <Link to={'work_in_friday/new_password'}>new_password</Link>---
-      <Link to={'work_in_friday/test'}>test</Link>
+      <Link to={'/login'}>login</Link>---
+      <Link to={'/register'}>register</Link>---
+      <Link to={'/profile'}>profile</Link>---
+      <Link to={'/404'}>404</Link>---
+      <Link to={'/password_recovery'}>password_recovery</Link>---
+      <Link to={'/new_password'}>new_password</Link>---
+      <Link to={'/test'}>test</Link>
       <br />
       <Routes>
-        <Route path={'work_in_friday/login'} element={<Login />} />
-        <Route path={'work_in_friday/register'} element={<Register />} />
-        <Route path={'work_in_friday/profile'} element={<Profile />} />
-        <Route path={'work_in_friday/404'} element={<Page404 />} />
-        <Route path={'work_in_friday/password_recovery'} element={<>password recovery</>} />
-        <Route path={'work_in_friday/new_password'} element={<>new password</>} />
-        <Route path={'work_in_friday/test'} element={<>test</>} />
+        <Route path={'/login'} element={<Login />} />
+        <Route path={'/register'} element={<Register />} />
+        <Route path={'/profile'} element={<Profile />} />
+        <Route path={'/404'} element={<Page404 />} />
+        <Route path={'/password_recovery'} element={<>password recovery</>} />
+        <Route path={'/new_password'} element={<>new password</>} />
+        <Route path={'/test'} element={<>test</>} />
       </Routes>
       {serverError ? (
         <span>Ошибка сервера - {serverError}</span>
