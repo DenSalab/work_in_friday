@@ -7,7 +7,7 @@ import {
 import { authAPI, RegisterRequestType } from '../m1-ui/api/api'
 
 const initialState = {
-  isLoggedIn: true, //пользователь залогинен?
+  isLoggedIn: false, //пользователь залогинен?
   isRegistered: false, //пользователь зарегистрирован?
   serverError: '', //пришла ли ошибка от сервера?
 }
