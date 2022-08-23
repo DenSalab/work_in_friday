@@ -1,5 +1,10 @@
 import axios, { AxiosResponse } from 'axios'
 import { registerTC } from '../../m2-bll/auth-reducer'
+import {
+  LoginRequestDataType,
+  LoginResponseDataType,
+  LogoutResponseType,
+} from '../../m2-bll/loginReducer'
 
 const instance = axios.create({
   baseURL: 'http://localhost:7542/2.0/',
@@ -9,18 +14,12 @@ const instance = axios.create({
 // api
 export const todolistsAPI = {}
 
-///need to add arg (email: string, password: string, rememberMe: boolean)
 export const authAPI = {
-  ///need fix
-  login() {
-    return instance.post('/auth/login', {
-      email: 'nya-admin@nya.nya',
-      password: '1qazxcvBG',
-      rememberMe: true,
-    })
+  login(loginData: LoginRequestDataType) {
+    return instance.post<LoginResponseDataType>('auth/login', loginData)
   },
   logout() {
-    return instance.delete('/auth/me', {})
+    return instance.delete<LogoutResponseType>('auth/me')
   },
   register(data: RegisterRequestType) {
     const promise = instance.post<{
