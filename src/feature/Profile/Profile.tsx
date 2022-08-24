@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import s from './Profile.module.css'
-import logout from '../../main/ui/images/logout_FILL0_wght400_GRAD0_opsz48.png'
 import { updateUserTC } from '../../main/bll/profile-reducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from '../../main/bll/store'
@@ -8,6 +7,8 @@ import { EditableSpan } from '../../main/ui/common/EditableSpan/EditableSpan'
 import { Navigate } from 'react-router-dom'
 import { initializeAppTC } from '../../main/bll/app-reducer'
 import { UserType } from '../../main/dal/api'
+import { Logout } from './Logout/Logout'
+import { ProfileAvatar } from './Avatar/ProfileAvatar'
 
 export const Profile = () => {
   const user = useSelector<AppRootStateType, UserType>((state) => state.profile.user)
@@ -31,16 +32,13 @@ export const Profile = () => {
         <div className={s.header}>
           <span>Personal Information</span>
         </div>
-        <div className={s.avatar}>{user.avatar}</div>
+        <ProfileAvatar user={user} />
         <EditableSpan
           title={user.name}
           onChange={(name) => dispatch(updateUserTC({ ...user, name: name }))}
         />
         <div className={s.email}>{user.email}</div>
-        <div className={s.button}>
-          <img src={logout} className={s.symbols} alt="logout" />
-          <span className={s.title}>Log out</span>
-        </div>
+        <Logout />
       </div>
     </div>
   )
