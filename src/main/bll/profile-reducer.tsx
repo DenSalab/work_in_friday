@@ -1,7 +1,7 @@
-import { profileAPI, UserType } from '../../feature/Profile/profileAPI'
 import { AppRootStateType } from './store'
 import { ThunkAction } from 'redux-thunk'
 import { setAppErrorAC, SetAppErrorActionType } from './app-reducer'
+import { authAPI, UserType } from '../dal/api'
 
 const SET_USER = 'profile/SET_USER'
 const UPDATE_USER = 'profile/UPDATE_USER'
@@ -48,7 +48,7 @@ export const updateUserAC = (name: string, avatar: string) =>
   } as const)
 
 export const setUserTC = (): AppThunk => (dispatch) => {
-  profileAPI
+  authAPI
     .setUser()
     .then((res) => {
       dispatch(setUserAC(res.data.updatedUser))
@@ -61,7 +61,7 @@ export const setUserTC = (): AppThunk => (dispatch) => {
 export const updateUserTC =
   (user: UserType): AppThunk =>
   (dispatch) => {
-    profileAPI
+    authAPI
       .updateUser(user.name, user.avatar)
       .then((res) => {
         dispatch(updateUserAC(res.data.updatedUser.name, res.data.updatedUser.avatar))

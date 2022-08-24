@@ -12,7 +12,6 @@ const instance = axios.create({
 })
 
 // api
-export const todolistsAPI = {}
 
 export const authAPI = {
   login(loginData: LoginRequestDataType) {
@@ -28,14 +27,19 @@ export const authAPI = {
     }>('auth/register', { ...data })
   },
   me() {
-    return instance.put<AuthMeResponseType>('auth/me')
+    return instance.put<UserType>('auth/me')
   },
   passwordRecovery(email: string) {
     const data: PasswordRecoveryRequestType = getPasswordRecoveryRequestData(email)
     return instance.post<{ info: string; error: string }>('auth/forgot', { ...data })
   },
+  setUser() {
+    return instance.post<ResponseType<UserType>>(`/auth/me`, {})
+  },
+  updateUser(name: string, avatar: string | null) {
+    return instance.put<ResponseType<UserType>>(`/auth/me`, { name, avatar })
+  },
 }
-
 export const getPasswordRecoveryRequestData = (email: string) => {
   return {
     email,
@@ -49,19 +53,22 @@ export type RegisterRequestType = {
   email: string
   password: string
 }
-
-export type AuthMeResponseType = {
-  _id: string
-  email: string
+export type ResponseType<D = {}> = {
+  updatedUser: D
+  error?: string
+}
+export type UserType = {
+  _id: string | null
+  email: string | null
   name: string
-  avatar?: string
-  publicCardPacksCount: number
-  created: Date
-  updated: Date
+  avatar: string
+  publicCardPacksCount: number | null
+  created: Date | null
+  updated: Date | null
   isAdmin: boolean
   verified: boolean
   rememberMe: boolean
-  error?: string
+  error?: string | null
 }
 export type PasswordRecoveryRequestType = {
   email: string

@@ -7,7 +7,7 @@ import { AppRootStateType } from '../../main/bll/store'
 import { EditableSpan } from '../../main/ui/common/EditableSpan/EditableSpan'
 import { Navigate } from 'react-router-dom'
 import { initializeAppTC } from '../../main/bll/app-reducer'
-import { UserType } from './profileAPI'
+import { UserType } from '../../main/dal/api'
 
 export const Profile = () => {
   const user = useSelector<AppRootStateType, UserType>((state) => state.profile.user)
