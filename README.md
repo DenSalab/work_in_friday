@@ -1,10 +1,10 @@
-# Getting Started with Create React App
+# Welcome to our Cards.app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Developers
 
-## Available Scripts
-
-In the project directory, you can run:
+### `Julie Benchuk` @DenisSalabash [http://localhost:3000](http://localhost:3000)
+### `Andrei Averkin`
+### `Denis Salabash`
 
 ### `yarn start`
 
