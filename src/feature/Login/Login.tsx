@@ -1,11 +1,11 @@
 import s from './Login.module.css'
-import SuperInputText from '../../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText'
-import SuperCheckbox from '../../../n1-main/m1-ui/common/c3-SuperCheckbox/SuperCheckbox'
-import SuperButton from '../../../n1-main/m1-ui/common/c2-SuperButton/SuperButton'
+import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
+import SuperCheckbox from '../../main/ui/common/SuperCheckbox/SuperCheckbox'
+import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { loginTC } from '../../../n1-main/m2-bll/loginReducer'
-import { useAppDispatch } from '../../../n1-main/m1-ui/hooks/hooks'
+import { loginTC } from '../../main/bll/login-reducer'
+import { useAppDispatch } from '../../main/ui/hooks/hooks'
 
 export const Login = () => {
   const dispatch = useAppDispatch()

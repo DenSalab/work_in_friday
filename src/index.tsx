@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { HashRouter } from 'react-router-dom'
-import App from './n1-main/m1-ui/App'
-import store from './n1-main/m2-bll/store'
+import App from './main/ui/App'
+import store from './main/bll/store'
 import { Provider } from 'react-redux'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)

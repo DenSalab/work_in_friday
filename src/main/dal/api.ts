@@ -1,10 +1,10 @@
-import axios, { AxiosResponse } from 'axios'
-import { registerTC } from '../../m2-bll/auth-reducer'
+import axios from 'axios'
+
 import {
   LoginRequestDataType,
   LoginResponseDataType,
   LogoutResponseType,
-} from '../../m2-bll/loginReducer'
+} from '../bll/login-reducer'
 
 const instance = axios.create({
   baseURL: 'http://localhost:7542/2.0/',
@@ -22,14 +22,13 @@ export const authAPI = {
     return instance.delete<LogoutResponseType>('auth/me')
   },
   register(data: RegisterRequestType) {
-    const promise = instance.post<{
+    return instance.post<{
       addedUser: {}
       error?: string
     }>('auth/register', { ...data })
-    return promise
   },
   me() {
-    const promise = instance.put<{
+    return instance.put<{
       _id: string
       email: string
       name: string
@@ -42,7 +41,6 @@ export const authAPI = {
       rememberMe: boolean
       error?: string
     }>('auth/me')
-    return promise
   },
 }
 

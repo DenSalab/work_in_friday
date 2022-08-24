@@ -1,10 +1,6 @@
 import { Dispatch } from 'redux'
-import {
-  SetAppErrorActionType,
-  setAppStatusAC,
-  SetAppStatusActionType,
-} from '../m2-bll/app-reducer'
-import { authAPI, RegisterRequestType } from '../m1-ui/api/api'
+import { SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType } from './app-reducer'
+import { authAPI, RegisterRequestType } from '../dal/api'
 
 const initialState = {
   isLoggedIn: true, //пользователь залогинен?
@@ -23,6 +19,7 @@ export const authReducer = (
     case 'login/SET-IS-REGISTERED':
       return { ...state, isRegistered: action.value }
     case 'login/SET-SERVER-ERROR':
+      console.log(action.error)
       return { ...state, serverError: action.error }
     default:
       return state
@@ -41,7 +38,7 @@ export const registerTC = (data: RegisterRequestType) => (dispatch: Dispatch<Aut
   dispatch(setAppStatusAC('loading'))
   authAPI
     .register(data)
-    .then((res) => {
+    .then(() => {
       dispatch(setIsRegisteredAC(true))
       dispatch(setServerErrorAC(''))
     })

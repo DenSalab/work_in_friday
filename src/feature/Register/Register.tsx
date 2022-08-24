@@ -1,13 +1,13 @@
 import React from 'react'
 import s from './Register.module.css'
-import SuperInputText from '../../n1-main/m1-ui/common/c1-SuperInputText/SuperInputText'
-import SuperButton from '../../n1-main/m1-ui/common/c2-SuperButton/SuperButton'
+import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
+import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { registerTC } from '../../n1-main/m2-bll/auth-reducer'
-import { useAppDispatch } from '../../n1-main/m1-ui/hooks/hooks'
+import { registerTC } from '../../main/bll/auth-reducer'
+import { useAppDispatch } from '../../main/ui/hooks/hooks'
 import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../../n1-main/m2-bll/store'
+import { AppRootStateType } from '../../main/bll/store'
 import { Navigate } from 'react-router-dom'
 
 type FormikErrorType = {

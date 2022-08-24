@@ -1,7 +1,6 @@
-import { profileAPI, UserType } from '../../n2-feature/Profile/profileAPI'
+import { profileAPI, UserType } from '../../feature/Profile/profileAPI'
 import { AppRootStateType } from './store'
 import { ThunkAction } from 'redux-thunk'
-import { authAPI } from '../m1-ui/api/api'
 import { setAppErrorAC, SetAppErrorActionType } from './app-reducer'
 
 const SET_USER = 'profile/SET_USER'

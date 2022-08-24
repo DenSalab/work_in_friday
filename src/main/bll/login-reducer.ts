@@ -1,5 +1,6 @@
-import { authAPI } from '../m1-ui/api/api'
+import { authAPI } from '../dal/api'
 import { Dispatch } from 'redux'
+import { setIsLoggedInAC, setServerErrorAC } from './auth-reducer'
 
 const SET_USER_DATA = 'login/SET_USER_DATA'
 const CLEAR_USER_DATA = 'login/CLEAR_USER_DATA'
@@ -28,9 +29,11 @@ export const loginTC =
       .login(loginData)
       .then((res) => {
         dispatch(setUserData(res.data))
+        dispatch(setIsLoggedInAC(true))
       })
       .catch((e) => {
-        console.log(e.response.data)
+        dispatch(setIsLoggedInAC(false))
+        dispatch(setServerErrorAC(e.response.data.error))
       })
   }
 export const logoutTC = () => (dispatch: Dispatch<LoginActionsType>) => {
@@ -45,7 +48,11 @@ export const logoutTC = () => (dispatch: Dispatch<LoginActionsType>) => {
 }
 
 //types
-type LoginActionsType = ReturnType<typeof setUserData> | ReturnType<typeof clearUserData>
+type LoginActionsType =
+  | ReturnType<typeof setUserData>
+  | ReturnType<typeof clearUserData>
+  | ReturnType<typeof setIsLoggedInAC>
+  | ReturnType<typeof setServerErrorAC>
 
 export type LoginRequestDataType = {
   email: string

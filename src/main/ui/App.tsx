@@ -1,18 +1,14 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-import { Page404 } from './page404/Page404'
-import { Register } from '../../n2-feature/Register/Register'
+import { Page404 } from '../../feature/Page404/Page404'
+import { Register } from '../../feature/Register/Register'
 import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../m2-bll/store'
-import { initializeAppTC } from '../m2-bll/app-reducer'
+import { AppRootStateType } from '../bll/store'
+import { initializeAppTC } from '../bll/app-reducer'
 import { useAppDispatch } from './hooks/hooks'
-import { Profile } from '../../n2-feature/Profile/Profile'
-import {Login} from '../../n2-feature/f1-auth/a1-login/Login';
+import { Profile } from '../../feature/Profile/Profile'
+import { Login } from '../../feature/Login/Login'
 
-
-// hashRouter*
-// добавить навлинки чтобы прыгать через хедер а не через логику
-// <Main/>  общие структуры
 function App() {
   const dispatch = useAppDispatch()
   const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
