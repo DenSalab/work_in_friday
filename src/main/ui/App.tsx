@@ -9,6 +9,9 @@ import { useAppDispatch } from './hooks/hooks'
 import { Profile } from '../../feature/Profile/Profile'
 import { Login } from '../../feature/Login/Login'
 
+import { PasswordRecovery } from '../../feature/PasswordRecovery/PasswordRecovery'
+import { CheckEmail } from '../../feature/CheckEmail/CheckEmail'
+
 function App() {
   const dispatch = useAppDispatch()
   const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
@@ -40,9 +43,9 @@ function App() {
         <Route path={'/register'} element={<Register />} />
         <Route path={'/profile'} element={<Profile />} />
         <Route path={'/404'} element={<Page404 />} />
-        <Route path={'/password_recovery'} element={<>password recovery</>} />
+        <Route path={'/password_recovery'} element={<PasswordRecovery />} />
         <Route path={'/new_password'} element={<>new password</>} />
-        <Route path={'/test'} element={<>test</>} />
+        <Route path={'/test'} element={<CheckEmail />} />
       </Routes>
       {serverError ? (
         <span>Ошибка сервера - {serverError}</span>
