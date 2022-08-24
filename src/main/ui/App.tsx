@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
-import { Page404 } from '../feature/Page404/Page404'
-import { Register } from '../feature/Register/Register'
+import { Page404 } from '../../feature/page404/Page404'
+import { Register } from '../../feature/Register/Register'
 import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../main/bll/store'
-import { initializeAppTC } from '../main/bll/app-reducer'
+import { AppRootStateType } from '../bll/store'
+import { initializeAppTC } from '../bll/app-reducer'
 import { useAppDispatch } from './hooks/hooks'
-import { Profile } from '../feature/Profile/Profile'
-import { Login } from '../feature/Login/Login'
+import { Profile } from '../../feature/Profile/Profile'
+import { Login } from '../../feature/Login/Login'
 
-import { PasswordRecovery } from '../feature/PasswordRecovery/PasswordRecovery'
-import { CheckEmail } from '../feature/CheckEmail/CheckEmail'
+import { PasswordRecovery } from '../../feature/PasswordRecovery/PasswordRecovery'
+import { CheckEmail } from '../../feature/CheckEmail/CheckEmail'
 
 // hashRouter*
 // добавить навлинки чтобы прыгать через хедер а не через логику

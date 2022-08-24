@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux'
-import { authAPI } from '../../dal/api'
+import { authAPI } from '../dal/api'
 import { setIsLoggedInAC, setServerErrorAC } from './auth-reducer'
 import { setUserAC, setUserTC } from './profile-reducer'
 

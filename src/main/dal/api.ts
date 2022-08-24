@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from 'axios'
-import { registerTC } from '../main/bll/auth-reducer'
+import { registerTC } from '../bll/auth-reducer'
 import {
   LoginRequestDataType,
   LoginResponseDataType,
   LogoutResponseType,
-} from '../main/bll/loginReducer'
+} from '../bll/loginReducer'
 
 const instance = axios.create({
   baseURL: 'http://localhost:7542/2.0/',

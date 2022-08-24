@@ -1,4 +1,4 @@
-import { authAPI } from '../../dal/api'
+import { authAPI } from '../dal/api'
 import { Dispatch } from 'redux'
 
 const SET_USER_DATA = 'login/SET_USER_DATA'

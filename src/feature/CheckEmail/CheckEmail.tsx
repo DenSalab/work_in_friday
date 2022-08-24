@@ -1,12 +1,12 @@
 import React from 'react'
 import s from './CheckEmail.module.css'
-import SuperInputText from '../../ui/common/c1-SuperInputText/SuperInputText'
-import SuperButton from '../../ui/common/c2-SuperButton/SuperButton'
+import SuperInputText from '../../main/ui/common/c1-SuperInputText/SuperInputText'
+import SuperButton from '../../main/ui/common/c2-SuperButton/SuperButton'
 import { Link } from 'react-router-dom'
 import icon from './emailIcon.png'
 import { useFormik } from 'formik'
 import { registerTC } from '../../main/bll/auth-reducer'
-import { useAppDispatch } from '../../ui/hooks/hooks'
+import { useAppDispatch } from '../../main/ui/hooks/hooks'
 
 export const CheckEmail = () => {
   // const dispatch = useAppDispatch();

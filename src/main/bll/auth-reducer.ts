@@ -1,6 +1,10 @@
 import { Dispatch } from 'redux'
-import { SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType } from './app-reducer'
-import { authAPI, PasswordRecoveryRequestType, RegisterRequestType } from '../../dal/api'
+import {
+  SetAppErrorActionType,
+  setAppStatusAC,
+  SetAppStatusActionType,
+} from './app-reducer'
+import { authAPI, PasswordRecoveryRequestType, RegisterRequestType } from '../dal/api'
 
 const initialState = {
   isLoggedIn: true, //пользователь залогинен?
