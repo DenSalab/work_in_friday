@@ -4,9 +4,8 @@ import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { passwordRecoveryTC, registerTC } from '../../main/bll/auth-reducer'
+import { passwordRecoveryTC } from '../../main/bll/auth-reducer'
 import { useAppDispatch } from '../../main/ui/hooks/hooks'
-import { Navigate } from 'react-router-dom'
 
 type FormikErrorType = {
   email?: string

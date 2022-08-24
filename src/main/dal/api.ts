@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from 'axios'
-import { registerTC } from '../bll/auth-reducer'
+import axios from 'axios'
+
 import {
   LoginRequestDataType,
   LoginResponseDataType,

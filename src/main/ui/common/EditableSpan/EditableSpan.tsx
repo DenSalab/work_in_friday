@@ -26,7 +26,7 @@ export const EditableSpan = React.memo((props: EditableSpanPropsSpan) => {
   ) : (
     <span onDoubleClick={editSpanHandler} className={style.name}>
       {props.title}
-      <img src={pen} className={style.symbols} />
+      <img src={pen} className={style.symbols} alt={'pen'} />
     </span>
   )
 })

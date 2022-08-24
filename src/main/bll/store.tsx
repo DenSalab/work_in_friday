@@ -6,7 +6,7 @@ import {
 } from 'redux'
 import { mainReducer } from './mainReducer'
 import { loginReducer } from './loginReducer'
-import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import thunk, { ThunkDispatch } from 'redux-thunk'
 import { appReducer } from './app-reducer'
 import { authReducer } from './auth-reducer'
 import { profileReducer } from './profile-reducer'

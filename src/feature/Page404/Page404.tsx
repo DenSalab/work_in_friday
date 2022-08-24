@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export const Page404 = (props: any) => {
+export const Page404 = () => {
   const canvasRef = useRef(null)
 
   useEffect(() => {
