@@ -7,8 +7,10 @@ import { EditableSpan } from '../../main/ui/common/EditableSpan/EditableSpan'
 import { Navigate } from 'react-router-dom'
 import { initializeAppTC } from '../../main/bll/app-reducer'
 import { UserType } from '../../main/dal/api'
-import { Logout } from './Logout/Logout'
 import { ProfileAvatar } from './Avatar/ProfileAvatar'
+import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
+import { logoutTC } from '../../main/bll/login-reducer'
+import logout from '../../main/ui/images/logout_FILL0_wght400_GRAD0_opsz48.png'
 
 export const Profile = () => {
   const user = useSelector<AppRootStateType, UserType>((state) => state.profile.user)
@@ -38,7 +40,10 @@ export const Profile = () => {
           onChange={(name) => dispatch(updateUserTC({ ...user, name: name }))}
         />
         <div className={s.email}>{user.email}</div>
-        <Logout />
+        <SuperButton onClick={() => dispatch(logoutTC())}>
+          <img src={logout} className={s.symbols} alt="logout" />
+          <span className={s.title}>Log out</span>
+        </SuperButton>
       </div>
     </div>
   )
