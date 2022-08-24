@@ -7,8 +7,10 @@ import { AppRootStateType } from '../m2-bll/store'
 import { initializeAppTC } from '../m2-bll/app-reducer'
 import { useAppDispatch } from './hooks/hooks'
 import { Profile } from '../../n2-feature/Profile/Profile'
-import {Login} from '../../n2-feature/f1-auth/a1-login/Login';
+import { Login } from '../../n2-feature/f1-auth/a1-login/Login'
 
+import { PasswordRecovery } from '../../n2-feature/PasswordRecovery/PasswordRecovery'
+import { CheckEmail } from '../../n2-feature/CheckEmail/CheckEmail'
 
 // hashRouter*
 // добавить навлинки чтобы прыгать через хедер а не через логику
@@ -23,7 +25,14 @@ function App() {
 
   if (!isInitialized) {
     return (
-      <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
+      <div
+        style={{
+          position: 'fixed',
+          top: '30%',
+          textAlign: 'center',
+          width: '100%',
+        }}
+      >
         <div>ОЖИДАЕМ ИДЕТ СОЕДИНЕНИЕ С СЕРВЕРОМ</div>
       </div>
     )
@@ -44,9 +53,9 @@ function App() {
         <Route path={'/register'} element={<Register />} />
         <Route path={'/profile'} element={<Profile />} />
         <Route path={'/404'} element={<Page404 />} />
-        <Route path={'/password_recovery'} element={<>password recovery</>} />
+        <Route path={'/password_recovery'} element={<PasswordRecovery />} />
         <Route path={'/new_password'} element={<>new password</>} />
-        <Route path={'/test'} element={<>test</>} />
+        <Route path={'/test'} element={<CheckEmail />} />
       </Routes>
       {serverError ? (
         <span>Ошибка сервера - {serverError}</span>
