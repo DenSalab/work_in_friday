@@ -2,6 +2,6 @@
 
 ## Developers
 
-### `Julie Benchuk` @DenisSalabash
+### `Julie Benchuk` 
 ### `Andrei Averkin`
-### `Denis Salabash`
+### `Denis Salabash` @DenisSalabash
