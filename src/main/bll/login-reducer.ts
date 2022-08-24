@@ -41,6 +41,7 @@ export const logoutTC = () => (dispatch: Dispatch<LoginActionsType>) => {
     .logout()
     .then(() => {
       dispatch(clearUserData())
+      dispatch(setIsLoggedInAC(false))
     })
     .catch((e) => {
       console.log(e.response.data)
