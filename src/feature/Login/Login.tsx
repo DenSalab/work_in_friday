@@ -4,11 +4,15 @@ import SuperCheckbox from '../../main/ui/common/SuperCheckbox/SuperCheckbox'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { loginTC } from '../../main/bll/login-reducer'
+import { LoginStatusType, loginTC } from '../../main/bll/login-reducer'
 import { useAppDispatch } from '../../main/ui/hooks/hooks'
+import { useSelector } from 'react-redux'
+import { AppRootStateType } from '../../main/bll/store'
 
 export const Login = () => {
   const dispatch = useAppDispatch()
+  const status = useSelector<AppRootStateType, LoginStatusType>((state) => state.login)
+
   const formik = useFormik({
     initialValues: {
       email: 'nya-admin@nya.nya',
@@ -61,6 +65,7 @@ export const Login = () => {
           <Link to="/register">Sign Up</Link>
         </div>
       </form>
+      {status.loading ? 'КРУТИЛКА' : status.error}
     </div>
   )
 }

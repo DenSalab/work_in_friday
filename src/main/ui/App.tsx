@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import { Page404 } from '../../feature/Page404/Page404'
 import { Register } from '../../feature/Register/Register'
 import { useSelector } from 'react-redux'
@@ -12,16 +12,25 @@ import s from './App.module.css'
 import { PasswordRecovery } from '../../feature/PasswordRecovery/PasswordRecovery'
 import { CheckEmail } from '../../feature/CheckEmail/CheckEmail'
 import { SetNewPassword } from '../../feature/SetNewPassword/SetNewPassword'
+import { LoginStatusType } from '../bll/login-reducer'
 
 function App() {
   const dispatch = useAppDispatch()
-  const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
+  // const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
   const serverError = useSelector<AppRootStateType, string>((state) => state.auth.serverError)
-  useEffect(() => {
-    dispatch(initializeAppTC())
-  }, [])
+  const loginStatus = useSelector<AppRootStateType, LoginStatusType>((state) => state.login)
+  const navigate = useNavigate()
 
-  if (!isInitialized) {
+  useEffect(() => {
+    if (loginStatus.success) {
+      dispatch(initializeAppTC())
+      navigate('/profile')
+    } else {
+      navigate('/login')
+    }
+  }, [loginStatus.success])
+
+  if (loginStatus.loading) {
     return (
       <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
         <div>ОЖИДАЕМ ИДЕТ СОЕДИНЕНИЕ С СЕРВЕРОМ</div>
