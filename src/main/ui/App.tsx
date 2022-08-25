@@ -36,7 +36,7 @@ function App() {
       <Link to={'/register'}>register</Link>
       <Link to={'/profile'}>profile</Link>
       <Link to={'/404'}>error404</Link>
-      <Link to={'/password_recovery'}>password_recovery</Link>
+        <Link to={'/forgot'}>password_recovery</Link>
       <Link to={'/set_new_password'}>new_password</Link>
       <Link to={'/test'}>test</Link>
       <br />
@@ -45,8 +45,8 @@ function App() {
         <Route path={'/register'} element={<Register />} />
         <Route path={'/profile'} element={<Profile />} />
         <Route path={'/404'} element={<Page404 />} />
-        <Route path={'/password_recovery'} element={<PasswordRecovery />} />
-        <Route path={'/set_new_password'} element={<SetNewPassword />} />
+          <Route path={'/forgot'} element={<PasswordRecovery />} />
+          <Route path={'/set_new_password'} element={<SetNewPassword />} />
         <Route path={'/test'} element={<CheckEmail />} />
       </Routes>
       {serverError ? (
