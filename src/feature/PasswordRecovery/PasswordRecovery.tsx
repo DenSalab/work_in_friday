@@ -40,7 +40,7 @@ export const PasswordRecovery = () => {
     },
   })
 
-  if (recoveryRequestStatus == 'succeeded') return <Navigate to={'/test'} />
+  if (recoveryRequestStatus === 'succeeded') return <Navigate to={'/test'} />
 
   return (
     <div className={s.passwordRecovery}>

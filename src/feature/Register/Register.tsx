@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'
 import { AppRootStateType } from '../../main/bll/store'
 import { Navigate } from 'react-router-dom'
 
-type FormikErrorType = {
+export type FormikErrorType = {
   email?: string
   password?: string
   confirmPassword?: string
