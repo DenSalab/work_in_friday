@@ -18,14 +18,14 @@ export type FormikErrorType = {
 
 export const Register = () => {
   const dispatch = useAppDispatch()
-  const isRegistered = useSelector<AppRootStateType, boolean>((state) => state.auth.isRegistered)
+  const isRegistered = useSelector<AppRootStateType, boolean>(state => state.auth.isRegistered)
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
       confirmPassword: '',
     },
-    validate: (values) => {
+    validate: values => {
       const errors: FormikErrorType = {}
       if (!values.email) {
         errors.email = 'Required'
@@ -40,7 +40,7 @@ export const Register = () => {
         errors.confirmPassword = "Passwords don't match"
       return errors
     },
-    onSubmit: (values) => {
+    onSubmit: values => {
       alert(JSON.stringify(values))
       const data = { email: values.email, password: values.password }
       dispatch(registerTC(data))

@@ -13,8 +13,8 @@ import { logoutTC } from '../../main/bll/login-reducer'
 import logout from '../../main/ui/images/logout_FILL0_wght400_GRAD0_opsz48.png'
 
 export const Profile = () => {
-  const user = useSelector<AppRootStateType, UserDataType>((state) => state.profile.user)
-  const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
+  const user = useSelector<AppRootStateType, UserDataType>(state => state.profile.user)
+  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
   const dispatch: any = useDispatch()
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export const Profile = () => {
         <ProfileAvatar user={user} />
         <EditableSpan
           title={user.name}
-          onChange={(name) => dispatch(updateUserTC({ ...user, name: name }))}
+          onChange={name => dispatch(updateUserTC({ ...user, name: name }))}
         />
         <div className={s.email}>{user.email}</div>
         <SuperButton onClick={() => dispatch(logoutTC())}>

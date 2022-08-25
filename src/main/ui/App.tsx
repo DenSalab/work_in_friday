@@ -15,8 +15,8 @@ import { SetNewPassword } from '../../feature/SetNewPassword/SetNewPassword'
 
 function App() {
   const dispatch = useAppDispatch()
-  const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
-  const serverError = useSelector<AppRootStateType, string>((state) => state.auth.serverError)
+  const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+  const serverError = useSelector<AppRootStateType, string>(state => state.auth.serverError)
   useEffect(() => {
     dispatch(initializeAppTC())
   }, [])
@@ -36,7 +36,7 @@ function App() {
       <Link to={'/register'}>register</Link>
       <Link to={'/profile'}>profile</Link>
       <Link to={'/404'}>error404</Link>
-        <Link to={'/forgot'}>password_recovery</Link>
+      <Link to={'/forgot'}>password_recovery</Link>
       <Link to={'/set_new_password'}>new_password</Link>
       <Link to={'/test'}>test</Link>
       <br />
@@ -45,8 +45,8 @@ function App() {
         <Route path={'/register'} element={<Register />} />
         <Route path={'/profile'} element={<Profile />} />
         <Route path={'/404'} element={<Page404 />} />
-          <Route path={'/forgot'} element={<PasswordRecovery />} />
-          <Route path={'/set-new-password/:token'} element={<SetNewPassword />} />
+        <Route path={'/forgot'} element={<PasswordRecovery />} />
+        <Route path={'/set-new-password/:token'} element={<SetNewPassword />} />
         <Route path={'/test'} element={<CheckEmail />} />
       </Routes>
       {serverError ? (

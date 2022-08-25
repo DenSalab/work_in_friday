@@ -40,11 +40,11 @@ export const passwordRecoveryTC = (email: string) => (dispatch: Dispatch<AuthAct
   dispatch(recoveryRequestStatusAC('loading'))
   authAPI
     .passwordRecovery(email)
-    .then((res) => {
+    .then(res => {
       console.log(res)
       dispatch(recoveryRequestStatusAC('succeeded'))
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(recoveryRequestStatusAC('failed'))
       dispatch(setServerErrorAC(error.response.statusText))
     })
@@ -52,6 +52,26 @@ export const passwordRecoveryTC = (email: string) => (dispatch: Dispatch<AuthAct
       dispatch(setAppStatusAC('succeeded'))
     })
 }
+
+export const setNewPasswordTC =
+  (password: string, resetPasswordToken: string) => (dispatch: Dispatch<AuthActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
+    dispatch(newPasswordRequestStatusAC('loading'))
+    authAPI
+      .setNewPassword(password, resetPasswordToken)
+      .then(res => {
+        console.log(res)
+        dispatch(newPasswordRequestStatusAC('succeeded'))
+      })
+      .catch(error => {
+        dispatch(recoveryRequestStatusAC('failed'))
+        dispatch(setServerErrorAC(error.response.statusText))
+      })
+      .finally(() => {
+        dispatch(setAppStatusAC('succeeded'))
+      })
+  }
+
 // types
 
 export type RecoveryRequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'

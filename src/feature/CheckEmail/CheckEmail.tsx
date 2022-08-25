@@ -14,10 +14,10 @@ import { useAppDispatch } from '../../main/ui/hooks/hooks'
 export const CheckEmail = () => {
   const dispatch = useAppDispatch()
   const recoveryEmail = useSelector<AppRootStateType, string>(
-    (state) => state.passwordRecovery.recoveryEmail
+    state => state.passwordRecovery.recoveryEmail
   )
   const recoveryRequestStatus = useSelector<AppRootStateType, RecoveryRequestStatusType>(
-    (state) => state.passwordRecovery.recoveryRequestStatus
+    state => state.passwordRecovery.recoveryRequestStatus
   )
 
   const onClickHandler = () => {

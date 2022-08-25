@@ -41,7 +41,7 @@ export const registerTC = (data: RegisterRequestType) => (dispatch: Dispatch<Aut
       dispatch(setIsRegisteredAC(true))
       dispatch(setServerErrorAC(''))
     })
-    .catch((error) => {
+    .catch(error => {
       dispatch(setServerErrorAC(error.response.statusText))
     })
     .finally(() => {

@@ -27,11 +27,11 @@ export const loginTC =
   (loginData: LoginRequestDataType) => (dispatch: Dispatch<LoginActionsType>) => {
     authAPI
       .login(loginData)
-      .then((res) => {
+      .then(res => {
         dispatch(setUserData(res.data))
         dispatch(setIsLoggedInAC(true))
       })
-      .catch((e) => {
+      .catch(e => {
         dispatch(setIsLoggedInAC(false))
         dispatch(setServerErrorAC(e.response.data.error))
       })
@@ -43,7 +43,7 @@ export const logoutTC = () => (dispatch: Dispatch<LoginActionsType>) => {
       dispatch(clearUserData())
       dispatch(setIsLoggedInAC(false))
     })
-    .catch((e) => {
+    .catch(e => {
       console.log(e.response.data)
     })
 }
