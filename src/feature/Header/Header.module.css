@@ -1,24 +1,35 @@
-.header{
-    height: 5vh;
+.componentContainer {
     width: 100vw;
+    min-height: 100vh;
+
+    background-color: #ffffff;
+}
+.header{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
     align-items: center;
-    background-color: #000000;
+    justify-content: space-evenly;
+
+    width: 100vw;
+    height: 5vh;
+
     font-family: Montserrat;
     font-size: 14px;
+
+    background-color: #000000;
 }
 .links{
 
 }
 .linkItem{
-    text-decoration: none;
-    color: #ffffff;
     padding: 10px;
+
+    color: #ffffff;
+    text-decoration: none;
 }
 .linkItem:hover{
     color: white;
+
     background-color: red;
 
 

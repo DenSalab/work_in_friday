@@ -1,13 +1,6 @@
-.appWrapper{
+.appWrapper {
+    width: 100vw;
+    min-height: 100vh;
 
-}
-.appWrapper > a{
-    /*** temporary properties ***/
-/*    margin: 5px;
-
-    color: #42a5f5;
-    text-decoration: none;*/
-}
-.appWrapper >a:hover{
-  /*  color: red;*/
+    background-color: #ffffff;
 }

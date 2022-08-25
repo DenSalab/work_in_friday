@@ -1,0 +1,14 @@
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100vw;
+    height: 5vh;
+
+    font-family: Montserrat;
+    font-size: 14px;
+    color: white;
+
+    background-color: #254f9c;
+}

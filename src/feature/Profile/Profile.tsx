@@ -29,7 +29,7 @@ export const Profile = () => {
   }
 
   return (
-    <div className={s.profile}>
+    <div className={s.container}>
       <div className={s.profile_block}>
         <div className={s.header}>
           <span>Personal Information</span>
