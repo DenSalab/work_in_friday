@@ -44,7 +44,7 @@ export const initializeAppTC = () => (dispatch: any) => {
     .then(() => {
       console.log('Успешно')
       dispatch(setIsLoggedInAC(true))
-      dispatch(getUserTC()) //added by Julie
+      dispatch(getUserTC())
     })
     .catch((error) => {
       dispatch(setServerErrorAC(error.response.statusText))

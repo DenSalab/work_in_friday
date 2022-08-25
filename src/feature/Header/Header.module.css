@@ -1,0 +1,25 @@
+.header{
+    height: 5vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #000000;
+    font-family: Montserrat;
+    font-size: 14px;
+}
+.links{
+
+}
+.linkItem{
+    text-decoration: none;
+    color: #ffffff;
+    padding: 10px;
+}
+.linkItem:hover{
+    color: white;
+    background-color: red;
+
+
+}

@@ -13,6 +13,7 @@ import { PasswordRecovery } from '../../feature/PasswordRecovery/PasswordRecover
 import { CheckEmail } from '../../feature/CheckEmail/CheckEmail'
 import { Preloader } from './common/Preloader/Preloader'
 import { SetNewPassword } from '../../feature/SetNewPassword/SetNewPassword'
+import {Header} from "../../feature/Header/Header";
 
 function App() {
   const dispatch = useAppDispatch()
@@ -33,25 +34,8 @@ function App() {
 
   return (
     <div className={s.appWrapper}>
-      <Link to={'/'}>main</Link>
-      <Link to={'/login'}>login</Link>
-      <Link to={'/register'}>register</Link>
-      <Link to={'/profile'}>profile</Link>
-      <Link to={'/404'}>error404</Link>
-      <Link to={'/password_recovery'}>password_recovery</Link>
-      <Link to={'/set_new_password'}>new_password</Link>
-      <Link to={'/test'}>test</Link>
-      <br />
+     <Header />
       {status === 'loading' && <Preloader />}
-      <Routes>
-        <Route path={'/login'} element={<Login />} />
-        <Route path={'/register'} element={<Register />} />
-        <Route path={'/profile'} element={<Profile />} />
-        <Route path={'/404'} element={<Page404 />} />
-        <Route path={'/password_recovery'} element={<PasswordRecovery />} />
-        <Route path={'/set_new_password'} element={<SetNewPassword />} />
-        <Route path={'/test'} element={<CheckEmail />} />
-      </Routes>
       {serverError ? (
         <span>Ошибка сервера - {serverError}</span>
       ) : (

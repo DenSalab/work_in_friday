@@ -3,11 +3,11 @@
 }
 .appWrapper > a{
     /*** temporary properties ***/
-    margin: 5px;
+/*    margin: 5px;
 
     color: #42a5f5;
-    text-decoration: none;
+    text-decoration: none;*/
 }
 .appWrapper >a:hover{
-    color: red;
+  /*  color: red;*/
 }
