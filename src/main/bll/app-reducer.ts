@@ -1,6 +1,6 @@
 import { authAPI } from '../dal/api'
 import { setIsLoggedInAC, setServerErrorAC } from './auth-reducer'
-import { setUserTC } from './profile-reducer'
+import { getUserTC } from './profile-reducer'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -44,7 +44,7 @@ export const initializeAppTC = () => (dispatch: any) => {
     .then(() => {
       console.log('Успешно')
       dispatch(setIsLoggedInAC(true))
-      dispatch(setUserTC()) //added by Julie
+      dispatch(getUserTC()) //added by Julie
     })
     .catch((error) => {
       dispatch(setServerErrorAC(error.response.statusText))

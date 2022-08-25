@@ -6,6 +6,7 @@ import { authAPI, UserDataType } from '../dal/api'
 const SET_USER = 'profile/SET_USER'
 const UPDATE_USER = 'profile/UPDATE_USER'
 const initialState: initialStateType = {
+    // в момент регистрации мы не имеем никаких данных
   user: {} as UserDataType,
 }
 
@@ -17,12 +18,14 @@ export const profileReducer = (
     case SET_USER:
       return { ...state, user: action.user }
     case UPDATE_USER:
-      return { ...state, ...action.updateUser }
+      return {  ...action.updateUser }
     default:
       return state
   }
 }
 
+// set, потому, что сетаем юзера в стор
+// получаем юзера целикома
 export const setUserAC = (user: UserDataType) =>
   ({
     type: SET_USER,
@@ -34,11 +37,11 @@ export const updateUserAC = (updateUser: UserDataType) =>
     updateUser,
   } as const)
 
-export const setUserTC = (): AppThunk => (dispatch) => {
+// get - потому, что получаем его с сервера
+export const getUserTC = (): AppThunk => (dispatch) => {
   authAPI
     .getUser()
     .then((res) => {
-      debugger
       dispatch(setUserAC(res.data))
     })
     .catch((err) => {
