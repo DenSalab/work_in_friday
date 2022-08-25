@@ -31,8 +31,6 @@ export const setIsRegisteredAC = (value: boolean) =>
   ({ type: 'login/SET-IS-REGISTERED', value } as const)
 export const setServerErrorAC = (error: string) =>
   ({ type: 'login/SET-SERVER-ERROR', error } as const)
-export const setRecoveryEmailAC = (email: string) =>
-  ({ type: 'login/SET-RECOVERY-EMAIL', email } as const)
 
 // thunks
 export const registerTC = (data: RegisterRequestType) => (dispatch: Dispatch<AuthActionsType>) => {
