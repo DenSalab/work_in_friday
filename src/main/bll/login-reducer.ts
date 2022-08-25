@@ -1,4 +1,4 @@
-import { authAPI } from '../dal/api'
+import { authAPI, LoginRequestDataType, UserDataType } from '../dal/api'
 import { Dispatch } from 'redux'
 import { setIsLoggedInAC, setServerErrorAC } from './auth-reducer'
 
@@ -17,7 +17,7 @@ export const loginReducer = (state = initialState, action: LoginActionsType) => 
 }
 
 // action creators
-export const setUserData = (userData: LoginResponseDataType) => {
+export const setUserData = (userData: UserDataType) => {
   return { type: SET_USER_DATA, userData } as const
 }
 export const clearUserData = () => ({ type: CLEAR_USER_DATA } as const)
@@ -54,42 +54,3 @@ type LoginActionsType =
   | ReturnType<typeof clearUserData>
   | ReturnType<typeof setIsLoggedInAC>
   | ReturnType<typeof setServerErrorAC>
-
-export type LoginRequestDataType = {
-  email: string
-  password: string
-  rememberMe: boolean
-}
-
-export type LoginResponseDataType = {
-  _id: string
-  email: string
-  rememberMe: boolean
-  isAdmin: boolean
-  name: string
-  verified: boolean
-  publicCardPacksCount: number
-  created: string
-  updated: string
-  __v: number
-  token: string
-  tokenDeathTime: number
-  avatar: string
-  deviceTokens: DeviceTokenType[]
-}
-
-type DeviceTokenType = {
-  _id: string
-  device: string
-  token: string
-  tokenDeathTime: number
-}
-
-export type LogoutResponseType =
-  | {
-      error: string
-      in: string
-    }
-  | {
-      info: string
-    }

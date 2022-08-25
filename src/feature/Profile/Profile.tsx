@@ -6,14 +6,14 @@ import { AppRootStateType } from '../../main/bll/store'
 import { EditableSpan } from '../../main/ui/common/EditableSpan/EditableSpan'
 import { Navigate } from 'react-router-dom'
 import { initializeAppTC } from '../../main/bll/app-reducer'
-import { UserType } from '../../main/dal/api'
+import { UserDataType } from '../../main/dal/api'
 import { ProfileAvatar } from './Avatar/ProfileAvatar'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import { logoutTC } from '../../main/bll/login-reducer'
 import logout from '../../main/ui/images/logout_FILL0_wght400_GRAD0_opsz48.png'
 
 export const Profile = () => {
-  const user = useSelector<AppRootStateType, UserType>((state) => state.profile.user)
+  const user = useSelector<AppRootStateType, UserDataType>((state) => state.profile.user)
   const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
   const dispatch: any = useDispatch()
 
