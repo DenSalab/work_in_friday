@@ -6,7 +6,7 @@ import { authAPI, UserDataType } from '../dal/api'
 const SET_USER = 'profile/SET_USER'
 const UPDATE_USER = 'profile/UPDATE_USER'
 const initialState: initialStateType = {
-    // в момент регистрации мы не имеем никаких данных
+  // в момент регистрации мы не имеем никаких данных
   user: {} as UserDataType,
 }
 
@@ -18,7 +18,8 @@ export const profileReducer = (
     case SET_USER:
       return { ...state, user: action.user }
     case UPDATE_USER:
-      return {  ...action.updateUser }
+      console.log(state)
+      return { ...state, user: action.updateUser }
     default:
       return state
   }

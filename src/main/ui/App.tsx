@@ -37,7 +37,7 @@ function App() {
       <Link to={'/profile'}>profile</Link>
       <Link to={'/404'}>error404</Link>
       <Link to={'/password_recovery'}>password_recovery</Link>
-      <Link to={'/new_password'}>new_password</Link>
+      <Link to={'/set_new_password'}>new_password</Link>
       <Link to={'/test'}>test</Link>
       <br />
       <Routes>
