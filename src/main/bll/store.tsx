@@ -4,15 +4,13 @@ import {
   combineReducers,
   applyMiddleware,
 } from 'redux'
-import { mainReducer } from './mainReducer'
-import { loginReducer } from './loginReducer'
+import { loginReducer } from './login-reducer'
 import thunk, { ThunkDispatch } from 'redux-thunk'
 import { appReducer } from './app-reducer'
 import { authReducer } from './auth-reducer'
 import { profileReducer } from './profile-reducer'
 
 const rootReducer = combineReducers({
-  main: mainReducer,
   login: loginReducer,
   app: appReducer,
   auth: authReducer,

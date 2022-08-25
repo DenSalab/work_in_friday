@@ -4,7 +4,7 @@ import {
   LoginRequestDataType,
   LoginResponseDataType,
   LogoutResponseType,
-} from '../bll/loginReducer'
+} from '../bll/login-reducer'
 
 const instance = axios.create({
   baseURL: 'http://localhost:7542/2.0/',
