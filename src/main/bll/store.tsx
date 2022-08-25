@@ -10,6 +10,7 @@ import thunk, { ThunkDispatch } from 'redux-thunk'
 import { appReducer } from './app-reducer'
 import { authReducer } from './auth-reducer'
 import { profileReducer } from './profile-reducer'
+import { passwordRecoveryReducer } from './passwordRecovery-reducer'
 
 const rootReducer = combineReducers({
   main: mainReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
   profile: profileReducer,
+  passwordRecovery: passwordRecoveryReducer,
 })
 const store = createStore(rootReducer, applyMiddleware(thunk))
 export type AppRootStateType = ReturnType<typeof rootReducer>

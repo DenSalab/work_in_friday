@@ -4,7 +4,7 @@ import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { registerTC } from '../../main/bll/auth-reducer'
+import { registerTC } from '../../main/bll/passwordRecovery-reducer'
 import { useAppDispatch } from '../../main/ui/hooks/hooks'
 import { useSelector } from 'react-redux'
 import { AppRootStateType } from '../../main/bll/store'
@@ -47,7 +47,7 @@ export const Register = () => {
     },
   })
 
-  if (isRegistered) return <Navigate to={'work_in_friday/login'} />
+  if (isRegistered) return <Navigate to={'/login'} />
 
   return (
     <div className={s.register}>
@@ -83,7 +83,7 @@ export const Register = () => {
           </div>
           <div className={s.text_if_login}>Already have an account?</div>
           <div className={s.link_to_login}>
-            <Link to={'work_in_friday/login'}>Sign In</Link>
+            <Link to={'/login'}>Sign In</Link>
           </div>
         </div>
       </form>

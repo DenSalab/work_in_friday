@@ -1,87 +1,86 @@
 .container {
-    max-width: 413px;
-    margin: 25px auto;
-    padding: 33px;
+  max-width: 413px;
+  margin: 25px auto;
+  padding: 33px;
 
-    background: #FFFFFF;
-    border-radius: 2px;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 2px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    font-size: 26px;
-    font-weight: 600;
-    line-height: 32px;
-    text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 32px;
+  text-align: center;
 }
 
 label {
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 20px;
-    color: #000000;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #000000;
 
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .remember {
-    text-align: left;
+  text-align: left;
 }
 
 .remember label {
-    user-select: none;
+  user-select: none;
 
-    opacity: 1;
+  opacity: 1;
 }
 
 .forgotPass {
-    display: block;
+  display: block;
 
-    margin: 15px 0 15px auto;
+  margin: 15px 0 15px auto;
 
-    font-size: 14px;
-    font-weight: 500;
-    color: #42a5f5;
-    text-align: right;
-    text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #42a5f5;
+  text-align: right;
+  text-decoration: none;
 }
 
 .forgotPass:hover {
-    cursor: pointer;
+  cursor: pointer;
 
-    text-decoration: underline;
+  text-decoration: underline;
 
-    background: none;
+  background: none;
 }
 
 .signIn button {
-    width: 100%;
+  width: 100%;
 }
 
 .signUp {
-    margin: 15px;
+  margin: 15px;
 
-    text-align: center;
+  text-align: center;
 }
 .signUp span {
-    display: block;
+  display: block;
 
-    margin: 15px;
+  margin: 15px;
 
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 24px;
-    text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: center;
 }
 
 .signUp a {
-    color: #42a5f5;
-    text-decoration: none;
+  color: #42a5f5;
+  text-decoration: none;
 }
 
 .signUp a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 
-    background: none;
+  background: none;
 }
-
