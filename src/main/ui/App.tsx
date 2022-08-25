@@ -4,18 +4,20 @@ import { Page404 } from '../../feature/Page404/Page404'
 import { Register } from '../../feature/Register/Register'
 import { useSelector } from 'react-redux'
 import { AppRootStateType } from '../bll/store'
-import { initializeAppTC } from '../bll/app-reducer'
+import { initializeAppTC, RequestStatusType } from '../bll/app-reducer'
 import { useAppDispatch } from './hooks/hooks'
 import { Profile } from '../../feature/Profile/Profile'
 import { Login } from '../../feature/Login/Login'
 
 import { PasswordRecovery } from '../../feature/PasswordRecovery/PasswordRecovery'
 import { CheckEmail } from '../../feature/CheckEmail/CheckEmail'
+import { Preloader } from './common/Preloader/Preloader'
 
 function App() {
   const dispatch = useAppDispatch()
   const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
   const serverError = useSelector<AppRootStateType, string>((state) => state.auth.serverError)
+  const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
   useEffect(() => {
     dispatch(initializeAppTC())
   }, [])
@@ -38,6 +40,7 @@ function App() {
       <Link to={'/new_password'}>new_password</Link>---
       <Link to={'/test'}>test</Link>
       <br />
+      {status === 'loading' && <Preloader />}
       <Routes>
         <Route path={'/login'} element={<Login />} />
         <Route path={'/register'} element={<Register />} />
