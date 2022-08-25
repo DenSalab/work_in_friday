@@ -8,10 +8,11 @@ import { initializeAppTC, RequestStatusType } from '../bll/app-reducer'
 import { useAppDispatch } from './hooks/hooks'
 import { Profile } from '../../feature/Profile/Profile'
 import { Login } from '../../feature/Login/Login'
-
+import s from './App.module.css'
 import { PasswordRecovery } from '../../feature/PasswordRecovery/PasswordRecovery'
 import { CheckEmail } from '../../feature/CheckEmail/CheckEmail'
 import { Preloader } from './common/Preloader/Preloader'
+import { SetNewPassword } from '../../feature/SetNewPassword/SetNewPassword'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -31,13 +32,14 @@ function App() {
   }
 
   return (
-    <div>
-      <Link to={'/login'}>login</Link>---
-      <Link to={'/register'}>register</Link>---
-      <Link to={'/profile'}>profile</Link>---
-      <Link to={'/404'}>404</Link>---
-      <Link to={'/password_recovery'}>password_recovery</Link>---
-      <Link to={'/new_password'}>new_password</Link>---
+    <div className={s.appWrapper}>
+      <Link to={'/'}>main</Link>
+      <Link to={'/login'}>login</Link>
+      <Link to={'/register'}>register</Link>
+      <Link to={'/profile'}>profile</Link>
+      <Link to={'/404'}>error404</Link>
+      <Link to={'/password_recovery'}>password_recovery</Link>
+      <Link to={'/set_new_password'}>new_password</Link>
       <Link to={'/test'}>test</Link>
       <br />
       {status === 'loading' && <Preloader />}
@@ -47,7 +49,7 @@ function App() {
         <Route path={'/profile'} element={<Profile />} />
         <Route path={'/404'} element={<Page404 />} />
         <Route path={'/password_recovery'} element={<PasswordRecovery />} />
-        <Route path={'/new_password'} element={<>new password</>} />
+        <Route path={'/set_new_password'} element={<SetNewPassword />} />
         <Route path={'/test'} element={<CheckEmail />} />
       </Routes>
       {serverError ? (

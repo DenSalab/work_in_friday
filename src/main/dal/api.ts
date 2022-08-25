@@ -1,48 +1,39 @@
 import axios from 'axios'
-
-import {
-  LoginRequestDataType,
-  LoginResponseDataType,
-  LogoutResponseType,
-} from '../bll/loginReducer'
+import { getPasswordRecoveryRequestData } from './utils/getPasswordRecoveryRequestData'
 
 const instance = axios.create({
-  baseURL: /*'http://localhost:7542/2.0/' |*/ 'https://neko-back.herokuapp.com/2.0',
+  // baseURL: 'http://localhost:7542/2.0/',
+  baseURL: ' https://neko-back.herokuapp.com/2.0',
   withCredentials: true,
 })
 
 // api
-
 export const authAPI = {
-  me() {
-    return instance.post<UserType>(`/auth/me`, {})
+  getUser() {
+    return instance.post<UserDataType>(`/auth/me`, {})
   },
   login(loginData: LoginRequestDataType) {
-    return instance.post<LoginResponseDataType>('auth/login', loginData)
+    return instance.post<UserDataType>('auth/login', loginData)
   },
   logout() {
     return instance.delete<LogoutResponseType>('auth/me')
   },
   register(data: RegisterRequestType) {
-    return instance.post<{
-      addedUser: {}
-      error?: string
-    }>('auth/register', { ...data })
+    return instance.post<RegisterResponseType>('auth/register', data)
   },
   passwordRecovery(email: string) {
     const data: PasswordRecoveryRequestType = getPasswordRecoveryRequestData(email)
-    return instance.post<{ info: string; error: string }>('auth/forgot', { ...data })
+    return instance.post<PasswordRecoveryResponseType>('auth/forgot', data)
   },
-  updateUser(name: string, avatar: string | null) {
-    return instance.put<ResponseType<UserType>>(`/auth/me`, { name, avatar })
+  setNewPassword(password: string, resetPasswordToken: string) {
+    return instance.post<SetNewPasswordResponseType>('/auth/set-new-password', {
+      password,
+      resetPasswordToken,
+    })
   },
-}
-export const getPasswordRecoveryRequestData = (email: string) => {
-  return {
-    email,
-    from: 'test-front-admin <ai73a@yandex.by>',
-    message: `<div style="background-color: lime; padding: 15px">password recovery link:<a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`,
-  }
+  updateUser(name: string, avatar: string | null = null) {
+    return instance.put<UpdateUserRequestType>(`/auth/me`, { name, avatar })
+  },
 }
 
 // types
@@ -50,25 +41,76 @@ export type RegisterRequestType = {
   email: string
   password: string
 }
-export type ResponseType<D = {}> = {
-  updatedUser: D
+
+export type UpdateUserRequestType = {
+  updatedUser: UserDataType
   error?: string
-}
-export type UserType = {
-  _id: string | null
-  email: string | null
-  name: string
-  avatar: string
-  publicCardPacksCount: number | null
-  created: Date | null
-  updated: Date | null
-  isAdmin: boolean
-  verified: boolean
-  rememberMe: boolean
-  error?: string | null
 }
 export type PasswordRecoveryRequestType = {
   email: string
   from: string
   message: string
+}
+export type PasswordRecoveryResponseType = {
+  info: string
+  error: string
+}
+
+export type UserDataType = {
+  _id: string
+  email: string
+  rememberMe: boolean
+  isAdmin: boolean
+  name: string
+  verified: boolean // подтвердил ли почту
+  publicCardPacksCount: number // количество колод
+  created: Date
+  updated: Date
+  __v: number
+  token: string
+  tokenDeathTime: number
+  avatar?: string
+  error?: string
+  deviceTokens: DeviceTokenType[]
+}
+
+type DeviceTokenType = {
+  _id: string
+  device: string
+  token: string
+  tokenDeathTime: number
+}
+
+export type LogoutResponseType = {
+  info?: string
+  error: string
+}
+
+export type LoginRequestDataType = {
+  email: string
+  password: string
+  rememberMe: boolean
+  // rememberMe: false - куки умрут через 3 часа
+  // rememberMe: false: true - куки умрут через 7 часов
+}
+
+export type RegisterResponseType = {
+  addedUser: {
+    _id: string
+    email: string
+    rememberMe: boolean
+    isAdmin: boolean
+    name: string
+    verified: boolean
+    publicCardPacksCount: number
+    created: Date
+    updated: Date
+    __v: number
+  }
+  error?: string
+}
+
+export type SetNewPasswordResponseType = {
+  info: string
+  error: string
 }

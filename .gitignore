@@ -24,7 +24,7 @@ yarn-error.log*
 
 .idea/
 
-.eslintrc.js
-.prettierrc.js
-.stylelintrc.js
-.vscode/
+/.eslintrc.js
+/.prettierrc.js
+/.stylelintrc.js
+/.vscode/

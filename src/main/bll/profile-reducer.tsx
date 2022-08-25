@@ -1,24 +1,13 @@
 import { AppRootStateType } from './store'
 import { ThunkAction } from 'redux-thunk'
 import { setAppErrorAC, SetAppErrorActionType } from './app-reducer'
-import { authAPI, UserType } from '../dal/api'
+import { authAPI, UserDataType } from '../dal/api'
 
 const SET_USER = 'profile/SET_USER'
 const UPDATE_USER = 'profile/UPDATE_USER'
 const initialState: initialStateType = {
-  user: {
-    _id: null,
-    email: 'qwerty@gmail.com',
-    name: 'test',
-    avatar: 'avatar must be here',
-    publicCardPacksCount: 1,
-    created: null,
-    updated: null,
-    isAdmin: false,
-    verified: false,
-    rememberMe: false,
-    error: null,
-  },
+  // в момент регистрации мы не имеем никаких данных
+  user: {} as UserDataType,
 }
 
 export const profileReducer = (
@@ -29,29 +18,32 @@ export const profileReducer = (
     case SET_USER:
       return { ...state, user: action.user }
     case UPDATE_USER:
-      return { ...state, user: { ...state.user, name: action.name, avatar: action.avatar } }
+      console.log(state)
+      return { ...state, user: action.updateUser }
     default:
       return state
   }
 }
 
-export const getUserAC = (user: UserType) =>
+// set, потому, что сетаем юзера в стор
+// получаем юзера целикома
+export const setUserAC = (user: UserDataType) =>
   ({
     type: SET_USER,
     user,
   } as const)
-export const updateUserAC = (name: string, avatar: string) =>
+export const updateUserAC = (updateUser: UserDataType) =>
   ({
     type: UPDATE_USER,
-    name,
-    avatar,
+    updateUser,
   } as const)
 
+// get - потому, что получаем его с сервера
 export const getUserTC = (): AppThunk => (dispatch) => {
   authAPI
-    .me()
+    .getUser()
     .then((res) => {
-      dispatch(getUserAC(res.data))
+      dispatch(setUserAC(res.data))
     })
     .catch((err) => {
       dispatch(setAppErrorAC(err.response.data.error))
@@ -59,12 +51,12 @@ export const getUserTC = (): AppThunk => (dispatch) => {
     })
 }
 export const updateUserTC =
-  (user: UserType): AppThunk =>
+  (user: UserDataType): AppThunk =>
   (dispatch) => {
     authAPI
       .updateUser(user.name, user.avatar)
       .then((res) => {
-        dispatch(updateUserAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
+        dispatch(updateUserAC(res.data.updatedUser))
         console.log(res.data.updatedUser)
       })
       .catch((err) => {
@@ -74,10 +66,10 @@ export const updateUserTC =
   }
 
 type initialStateType = {
-  user: UserType
+  user: UserDataType
 }
 type ActionsType =
   | ReturnType<typeof updateUserAC>
-  | ReturnType<typeof getUserAC>
+  | ReturnType<typeof setUserAC>
   | SetAppErrorActionType
 type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>

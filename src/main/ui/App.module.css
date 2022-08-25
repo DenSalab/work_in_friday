@@ -1,0 +1,13 @@
+.appWrapper{
+
+}
+.appWrapper > a{
+    /*** temporary properties ***/
+    margin: 5px;
+
+    color: #42a5f5;
+    text-decoration: none;
+}
+.appWrapper >a:hover{
+    color: red;
+}

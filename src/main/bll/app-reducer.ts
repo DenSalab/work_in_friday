@@ -40,7 +40,7 @@ export const setAppInitializedAC = (value: boolean) =>
 
 export const initializeAppTC = () => (dispatch: any) => {
   authAPI
-    .me()
+    .getUser()
     .then(() => {
       console.log('Успешно')
       dispatch(setIsLoggedInAC(true))
