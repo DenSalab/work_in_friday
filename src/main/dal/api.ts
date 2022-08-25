@@ -14,6 +14,9 @@ const instance = axios.create({
 // api
 
 export const authAPI = {
+  me() {
+    return instance.post<UserType>(`/auth/me`, {})
+  },
   login(loginData: LoginRequestDataType) {
     return instance.post<LoginResponseDataType>('auth/login', loginData)
   },
@@ -26,15 +29,9 @@ export const authAPI = {
       error?: string
     }>('auth/register', { ...data })
   },
-  me() {
-    return instance.put<UserType>('auth/me')
-  },
   passwordRecovery(email: string) {
     const data: PasswordRecoveryRequestType = getPasswordRecoveryRequestData(email)
     return instance.post<{ info: string; error: string }>('auth/forgot', { ...data })
-  },
-  setUser() {
-    return instance.post<ResponseType<UserType>>(`/auth/me`, {})
   },
   updateUser(name: string, avatar: string | null) {
     return instance.put<ResponseType<UserType>>(`/auth/me`, { name, avatar })

@@ -35,7 +35,7 @@ export const profileReducer = (
   }
 }
 
-export const setUserAC = (user: UserType) =>
+export const getUserAC = (user: UserType) =>
   ({
     type: SET_USER,
     user,
@@ -47,11 +47,11 @@ export const updateUserAC = (name: string, avatar: string) =>
     avatar,
   } as const)
 
-export const setUserTC = (): AppThunk => (dispatch) => {
+export const getUserTC = (): AppThunk => (dispatch) => {
   authAPI
-    .setUser()
+    .me()
     .then((res) => {
-      dispatch(setUserAC(res.data.updatedUser))
+      dispatch(getUserAC(res.data))
     })
     .catch((err) => {
       dispatch(setAppErrorAC(err.response.data.error))
@@ -78,6 +78,6 @@ type initialStateType = {
 }
 type ActionsType =
   | ReturnType<typeof updateUserAC>
-  | ReturnType<typeof setUserAC>
+  | ReturnType<typeof getUserAC>
   | SetAppErrorActionType
 type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>
