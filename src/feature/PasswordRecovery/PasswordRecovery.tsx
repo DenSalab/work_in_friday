@@ -2,10 +2,15 @@ import React from 'react'
 import s from './PasswordRecovery.module.css'
 import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { passwordRecoveryTC } from '../../main/bll/auth-reducer'
+import {
+  passwordRecoveryTC,
+  RecoveryRequestStatusType,
+} from '../../main/bll/passwordRecovery-reducer'
 import { useAppDispatch } from '../../main/ui/hooks/hooks'
+import { useSelector } from 'react-redux'
+import { AppRootStateType } from '../../main/bll/store'
 
 type FormikErrorType = {
   email?: string
@@ -13,11 +18,14 @@ type FormikErrorType = {
 
 export const PasswordRecovery = () => {
   const dispatch = useAppDispatch()
+  const recoveryRequestStatus = useSelector<AppRootStateType, RecoveryRequestStatusType>(
+    state => state.passwordRecovery.recoveryRequestStatus
+  )
   const formik = useFormik({
     initialValues: {
       email: '',
     },
-    validate: (values) => {
+    validate: values => {
       const errors: FormikErrorType = {}
       if (!values.email) {
         errors.email = 'Required'
@@ -26,11 +34,13 @@ export const PasswordRecovery = () => {
       }
       return errors
     },
-    onSubmit: (values) => {
+    onSubmit: values => {
       console.log(values.email)
       dispatch(passwordRecoveryTC(values.email))
     },
   })
+
+  if (recoveryRequestStatus === 'succeeded') return <Navigate to={'/test'} />
 
   return (
     <div className={s.passwordRecovery}>
@@ -53,7 +63,7 @@ export const PasswordRecovery = () => {
           </div>
           <div className={s.text}>Did you remember your password?</div>
           <div className={s.link_to_login}>
-            <Link to={'work_in_friday/login'}>Try logging in</Link>
+            <Link to={'/login'}>Try logging in</Link>
           </div>
         </div>
       </form>

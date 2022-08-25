@@ -19,7 +19,7 @@ export const Login = () => {
       password: '1qazxcvBG',
       rememberMe: false,
     },
-    onSubmit: (values) => {
+    onSubmit: values => {
       dispatch(loginTC(values))
     },
   })

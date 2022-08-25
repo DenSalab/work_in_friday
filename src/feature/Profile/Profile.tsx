@@ -24,7 +24,7 @@ export const Profile = () => {
         <ProfileAvatar user={user} />
         <EditableSpan
           title={user.name}
-          onChange={(name) => dispatch(updateUserTC({ ...user, name: name }))}
+          onChange={name => dispatch(updateUserTC({ ...user, name: name }))}
         />
         <div className={s.email}>{user.email}</div>
         <SuperButton
