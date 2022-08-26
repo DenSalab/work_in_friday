@@ -1,12 +1,14 @@
-import s from './Login.module.css'
-import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
-import SuperCheckbox from '../../main/ui/common/SuperCheckbox/SuperCheckbox'
-import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
-import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { LoginStatusType, loginTC } from '../../main/bll/login-reducer'
+import { Link } from 'react-router-dom'
+
+import { loginTC } from '../../main/bll/login-reducer'
+import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
+import SuperCheckbox from '../../main/ui/common/SuperCheckbox/SuperCheckbox'
+import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
 import { useAppDispatch, useAppSelector } from '../../main/ui/hooks/hooks'
-import { AppRootStateType } from '../../main/bll/store'
+import mainStyles from '../main-styles/Container.module.css'
+
+import s from './Login.module.css'
 
 export const Login = () => {
   const dispatch = useAppDispatch()
@@ -24,11 +26,11 @@ export const Login = () => {
   })
 
   return (
-    <div className={s.container}>
+    <div className={mainStyles.container}>
       <form onSubmit={formik.handleSubmit}>
         <h2>Sign in</h2>
 
-        <div className={s.inputs}>
+        <div>
           <label htmlFor={'email'}>Email</label>
 
           <SuperInputText
@@ -60,15 +62,15 @@ export const Login = () => {
           <label htmlFor={'rememberMe'}>Remember me</label>
         </div>
 
-        <Link className={s.forgotPass} to={'/forgot'}>
-          Forgot password?
-        </Link>
-
-        <div className={s.signIn}>
-          <SuperButton type={'submit'}>Sign in</SuperButton>
+        <div className={mainStyles.header}>
+          <Link to={'/forgot'}>Forgot password?</Link>
         </div>
 
-        <div className={s.signUp}>
+        <SuperButton type={'submit'} className={mainStyles.mainButton}>
+          Sign in
+        </SuperButton>
+
+        <div className={mainStyles.header}>
           <span>Don&apos;t have an account?</span>
 
           <Link to="/register">Sign Up</Link>

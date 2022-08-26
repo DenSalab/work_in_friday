@@ -1,15 +1,14 @@
 import React from 'react'
-import s from './Register.module.css'
-import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
-import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
+
 import { useFormik } from 'formik'
 import { Link, Navigate } from 'react-router-dom'
+
 import { registerTC } from '../../main/bll/auth-reducer'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
 import { useAppDispatch, useAppSelector } from '../../main/ui/hooks/hooks'
 
-import s from './Register.module.css'
+import mainStyles from './../main-styles/Container.module.css'
 
 export type FormikErrorType = {
   email?: string
@@ -42,11 +41,13 @@ export const Register = () => {
         errors.password = 'Invalid password. Passord should be longer then 2 simvols!'
       if (values.password !== values.confirmPassword)
         errors.confirmPassword = "Passwords don't match"
+
       return errors
     },
     onSubmit: values => {
       alert(JSON.stringify(values))
       const data = { email: values.email, password: values.password }
+
       dispatch(registerTC(data))
     },
   })

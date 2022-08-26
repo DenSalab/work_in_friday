@@ -27,6 +27,8 @@
 
     min-height: 80px;
     margin: 20px;
+
+    color: #434e5b;
 }
 .mainButton{
     display: flex;

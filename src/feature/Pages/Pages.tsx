@@ -1,13 +1,15 @@
 import React from 'react'
-import s from '../Header/Header.module.css'
+
 import { Route, Routes } from 'react-router-dom'
+
+import { CheckEmail } from '../CheckEmail/CheckEmail'
+import s from '../Header/Header.module.css'
 import { Login } from '../Login/Login'
-import { Register } from '../Register/Register'
-import { Profile } from '../Profile/Profile'
 import { Page404 } from '../Page404/Page404'
 import { PasswordRecovery } from '../PasswordRecovery/PasswordRecovery'
+import { Profile } from '../Profile/Profile'
+import { Register } from '../Register/Register'
 import { SetNewPassword } from '../SetNewPassword/SetNewPassword'
-import { CheckEmail } from '../CheckEmail/CheckEmail'
 
 export const Pages = () => {
   return (

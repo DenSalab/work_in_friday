@@ -7,8 +7,7 @@ import { passwordRecoveryTC } from '../../main/bll/passwordRecovery-reducer'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
 import { useAppDispatch, useAppSelector } from '../../main/ui/hooks/hooks'
-
-import s from './PasswordRecovery.module.css'
+import mainStyles from '../main-styles/Container.module.css'
 
 type FormikErrorType = {
   email?: string
@@ -43,29 +42,25 @@ export const PasswordRecovery = () => {
   if (recoveryRequestStatus === 'succeeded') return <Navigate to={'/test'} />
 
   return (
-    <div className={s.passwordRecovery}>
+    <div className={mainStyles.container}>
       <form onSubmit={formik.handleSubmit}>
         <div>
-          <div className={s.formName}>Forgot your password?</div>
-          <div className={s.inputsBox}>
-            <div className={s.inputWrapper}>
-              <span>Email</span>
+          <h2>Forgot your password?</h2>
+          <div>
+            <div>
+              <label>Email</label>
               <SuperInputText {...formik.getFieldProps('email')} error={formik.errors.email} />
             </div>
 
-            <div className={s.text}>
-              Enter your email address and we will send you further instructions
-            </div>
+            <p>Enter your email address and we will send you further instructions</p>
           </div>
 
-          <div className={s.buttonWrapper}>
-            <SuperButton width100pr={true} type={'submit'}>
-              Send Instructions
-            </SuperButton>
-          </div>
+          <SuperButton width100pr={true} type={'submit'} className={mainStyles.mainButton}>
+            Send Instructions
+          </SuperButton>
 
-          <div className={s.text}>Did you remember your password?</div>
-          <div className={s.link_to_login}>
+          <p>Did you remember your password?</p>
+          <div className={mainStyles.header}>
             <Link to={'/login'}>Try logging in</Link>
           </div>
         </div>

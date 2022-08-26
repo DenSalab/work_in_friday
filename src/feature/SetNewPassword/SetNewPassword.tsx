@@ -7,13 +7,11 @@ import {
   newPasswordRequestStatusAC,
   setNewPasswordTC,
 } from '../../main/bll/passwordRecovery-reducer'
-import { AppRootStateType } from '../../main/bll/store'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
 import { useAppDispatch, useAppSelector } from '../../main/ui/hooks/hooks'
-import { FormikErrorType } from '../Register/Register'
-
 import mainStyles from '../main-styles/Container.module.css'
+import { FormikErrorType } from '../Register/Register'
 
 export const SetNewPassword = () => {
   const params = useParams()

@@ -24,7 +24,7 @@ export const authAPI = {
     return instance.post<UserDataType>('auth/login', loginData)
   },
   logout() {
-    return instance.delete<LogoutResponseType>('auth/me', {})
+    return instance.delete<LogoutResponseType>('auth/me')
   },
   register(data: RegisterRequestType) {
     return instance.post<RegisterResponseType>('auth/register', data)
@@ -71,8 +71,8 @@ export type UserDataType = {
   rememberMe: boolean
   isAdmin: boolean
   name: string
-  verified: boolean // подтвердил ли почту
-  publicCardPacksCount: number // количество колод
+  verified: boolean
+  publicCardPacksCount: number
   created: Date
   updated: Date
   __v: number
