@@ -1,14 +1,15 @@
 import React from 'react'
-import mainStyles from '../main-styles/Container.module.css'
+import s from './Register.module.css'
 import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
-import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
+import { Link, Navigate } from 'react-router-dom'
 import { registerTC } from '../../main/bll/auth-reducer'
-import { useAppDispatch } from '../../main/ui/hooks/hooks'
-import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../../main/bll/store'
-import { Navigate } from 'react-router-dom'
+import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
+import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
+import { useAppDispatch, useAppSelector } from '../../main/ui/hooks/hooks'
+
+import s from './Register.module.css'
 
 export type FormikErrorType = {
   email?: string
@@ -18,15 +19,18 @@ export type FormikErrorType = {
 
 export const Register = () => {
   const dispatch = useAppDispatch()
-  const isRegistered = useSelector<AppRootStateType, boolean>((state) => state.auth.isRegistered)
+  const isRegistered = useAppSelector(state => state.auth.isRegistered)
+
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
       confirmPassword: '',
     },
-    validate: (values) => {
+
+    validate: values => {
       const errors: FormikErrorType = {}
+
       if (!values.email) {
         errors.email = 'Required'
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -40,7 +44,7 @@ export const Register = () => {
         errors.confirmPassword = "Passwords don't match"
       return errors
     },
-    onSubmit: (values) => {
+    onSubmit: values => {
       alert(JSON.stringify(values))
       const data = { email: values.email, password: values.password }
       dispatch(registerTC(data))

@@ -1,17 +1,19 @@
-import { Dispatch } from 'redux'
-import { SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType } from './app-reducer'
 import { authAPI, RegisterRequestType } from '../dal/api'
 
+import { setAppStatusAC } from './app-reducer'
+import { ActionsType, AppThunk } from './store'
+
 const initialState = {
-  isLoggedIn: true, //пользователь залогинен?
-  isRegistered: false, //пользователь зарегистрирован?
-  serverError: '', //пришла ли ошибка от сервера?
+  isLoggedIn: true,
+  isRegistered: false,
+  serverError: '',
 }
+
 type InitialStateType = typeof initialState
 
 export const authReducer = (
   state: InitialStateType = initialState,
-  action: AuthActionsType
+  action: ActionsType
 ): InitialStateType => {
   switch (action.type) {
     case 'login/SET-IS-LOGGED-IN':
@@ -33,26 +35,20 @@ export const setServerErrorAC = (error: string) =>
   ({ type: 'login/SET-SERVER-ERROR', error } as const)
 
 // thunks
-export const registerTC = (data: RegisterRequestType) => (dispatch: Dispatch<AuthActionsType>) => {
-  dispatch(setAppStatusAC('loading'))
-  authAPI
-    .register(data)
-    .then(() => {
-      dispatch(setIsRegisteredAC(true))
-      dispatch(setServerErrorAC(''))
-    })
-    .catch(error => {
-      dispatch(setServerErrorAC(error.response.statusText))
-    })
-    .finally(() => {
-      dispatch(setAppStatusAC('succeeded'))
-    })
-}
-
-// types
-export type AuthActionsType =
-  | ReturnType<typeof setIsLoggedInAC>
-  | SetAppStatusActionType
-  | SetAppErrorActionType
-  | ReturnType<typeof setIsRegisteredAC>
-  | ReturnType<typeof setServerErrorAC>
+export const registerTC =
+  (data: RegisterRequestType): AppThunk =>
+  dispatch => {
+    dispatch(setAppStatusAC('loading'))
+    authAPI
+      .register(data)
+      .then(() => {
+        dispatch(setIsRegisteredAC(true))
+        dispatch(setServerErrorAC(''))
+      })
+      .catch(error => {
+        dispatch(setServerErrorAC(error.response.statusText))
+      })
+      .finally(() => {
+        dispatch(setAppStatusAC('succeeded'))
+      })
+  }

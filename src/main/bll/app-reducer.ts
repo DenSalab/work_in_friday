@@ -2,6 +2,7 @@ import { authAPI } from '../dal/api'
 
 import { setIsLoggedInAC, setServerErrorAC } from './auth-reducer'
 import { getUserTC } from './profile-reducer'
+import { ActionsType, AppThunk } from './store'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -11,15 +12,15 @@ const initialState = {
   isInitialized: false,
 }
 
-export type InitialStateType = {
-  status: RequestStatusType // происходит ли сейчас взаимодействие с сервером
-  error: string | null // если глобальная ошибка - то запишем текст ошибки
-  isInitialized: boolean // true когда приложение проинициализировалось (проверили юзера, получили настройки от сервера)
+type InitialStateType = {
+  status: RequestStatusType
+  error: string | null
+  isInitialized: boolean
 }
 
 export const appReducer = (
   state: InitialStateType = initialState,
-  action: AppActionsType
+  action: ActionsType
 ): InitialStateType => {
   switch (action.type) {
     case 'APP/SET-STATUS':
@@ -39,7 +40,7 @@ export const setAppErrorAC = (error: string | null) => ({ type: 'APP/SET-ERROR',
 export const setAppInitializedAC = (value: boolean) =>
   ({ type: 'APP/SET-IS-INITIALIZED', value } as const)
 
-export const initializeAppTC = () => (dispatch: any) => {
+export const initializeAppTC = (): AppThunk => dispatch => {
   dispatch(setAppStatusAC('loading'))
   authAPI
     .getUser()
@@ -60,8 +61,3 @@ export const initializeAppTC = () => (dispatch: any) => {
 export type SetAppStatusActionType = { type: 'APP/SET-STATUS'; status: RequestStatusType }
 export type SetAppErrorActionType = { type: 'APP/SET-ERROR'; error: string | null }
 export type SetAppInitializedActionType = { type: 'APP/SET-IS-INITIALIZED'; value: boolean }
-
-export type AppActionsType =
-  | SetAppStatusActionType
-  | SetAppErrorActionType
-  | SetAppInitializedActionType

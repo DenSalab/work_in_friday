@@ -1,16 +1,16 @@
 import s from './Login.module.css'
-import mainStyles from '../main-styles/Container.module.css'
 import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
 import SuperCheckbox from '../../main/ui/common/SuperCheckbox/SuperCheckbox'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { loginTC } from '../../main/bll/login-reducer'
-import { useAppDispatch } from '../../main/ui/hooks/hooks'
+import { LoginStatusType, loginTC } from '../../main/bll/login-reducer'
+import { useAppDispatch, useAppSelector } from '../../main/ui/hooks/hooks'
+import { AppRootStateType } from '../../main/bll/store'
 
 export const Login = () => {
   const dispatch = useAppDispatch()
-  // const status = useSelector<AppRootStateType, LoginStatusType>((state) => state.login)
+  const status = useAppSelector(state => state.login)
 
   const formik = useFormik({
     initialValues: {
@@ -18,32 +18,37 @@ export const Login = () => {
       password: '1qazxcvBG',
       rememberMe: false,
     },
-    onSubmit: (values) => {
+    onSubmit: values => {
       dispatch(loginTC(values))
     },
   })
+
   return (
-    <div className={mainStyles.container}>
+    <div className={s.container}>
       <form onSubmit={formik.handleSubmit}>
-        <h2>Sign In</h2>
+        <h2>Sign in</h2>
 
-        <label htmlFor={'email'}>Email</label>
-        <SuperInputText
-          type="email"
-          id="email"
-          placeholder={'email'}
-          onChange={formik.handleChange}
-          value={formik.values.email}
-        />
+        <div className={s.inputs}>
+          <label htmlFor={'email'}>Email</label>
 
-        <label htmlFor={'password'}>Password</label>
-        <SuperInputText
-          type="password"
-          id={'password'}
-          placeholder={'password'}
-          onChange={formik.handleChange}
-          value={formik.values.password}
-        />
+          <SuperInputText
+            type="email"
+            id="email"
+            placeholder={'email'}
+            onChange={formik.handleChange}
+            value={formik.values.email}
+          />
+
+          <label htmlFor={'password'}>Password</label>
+
+          <SuperInputText
+            type="password"
+            id={'password'}
+            placeholder={'password'}
+            onChange={formik.handleChange}
+            value={formik.values.password}
+          />
+        </div>
 
         <div className={s.remember}>
           <SuperCheckbox
@@ -51,6 +56,7 @@ export const Login = () => {
             onChange={formik.handleChange}
             checked={formik.values.rememberMe}
           />
+
           <label htmlFor={'rememberMe'}>Remember me</label>
         </div>
 
@@ -58,15 +64,17 @@ export const Login = () => {
           Forgot password?
         </Link>
 
-        <SuperButton className={mainStyles.mainButton} type={'submit'}>
-          Sign in
-        </SuperButton>
+        <div className={s.signIn}>
+          <SuperButton type={'submit'}>Sign in</SuperButton>
+        </div>
 
-        <div className={mainStyles.header}>
+        <div className={s.signUp}>
           <span>Don&apos;t have an account?</span>
+
           <Link to="/register">Sign Up</Link>
         </div>
       </form>
+      {status.loading ? 'КРУТИЛКА' : status.error}
     </div>
   )
 }

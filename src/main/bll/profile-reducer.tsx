@@ -2,20 +2,14 @@ import { ThunkAction } from 'redux-thunk'
 
 import { authAPI, UserDataType } from '../dal/api'
 
-import {
-  setAppErrorAC,
-  SetAppErrorActionType,
-  setAppStatusAC,
-  SetAppStatusActionType,
-} from './app-reducer'
-import { setIsLoggedInAC, setServerErrorAC } from './auth-reducer'
+import { setAppErrorAC, setAppStatusAC } from './app-reducer'
+import { setIsLoggedInAC } from './auth-reducer'
 import { setSuccess } from './login-reducer'
-import { AppRootStateType } from './store'
+import { ActionsType, AppThunk } from './store'
 
 const SET_USER = 'profile/SET_USER'
 const UPDATE_USER = 'profile/UPDATE_USER'
-const initialState: initialStateType = {
-  // в момент регистрации мы не имеем никаких данных
+const initialState = {
   user: {} as UserDataType,
 }
 
@@ -35,8 +29,6 @@ export const profileReducer = (
   }
 }
 
-// set, потому, что сетаем юзера в стор
-// получаем юзера целикома
 export const setUserAC = (user: UserDataType) =>
   ({
     type: SET_USER,
@@ -48,7 +40,6 @@ export const updateUserAC = (updateUser: UserDataType) =>
     updateUser,
   } as const)
 
-// get - потому, что получаем его с сервера
 export const getUserTC = (): AppThunk => dispatch => {
   dispatch(setAppStatusAC('loading'))
   authAPI
@@ -99,14 +90,4 @@ export const logoutTC = (): AppThunk => dispatch => {
       dispatch(setAppStatusAC('succeeded'))
     })
 }
-type initialStateType = {
-  user: UserDataType
-}
-type ActionsType =
-  | ReturnType<typeof updateUserAC>
-  | ReturnType<typeof setUserAC>
-  | SetAppErrorActionType
-  | ReturnType<typeof setIsLoggedInAC>
-  | ReturnType<typeof setSuccess>
-  | SetAppStatusActionType
-type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>
+type initialStateType = typeof initialState

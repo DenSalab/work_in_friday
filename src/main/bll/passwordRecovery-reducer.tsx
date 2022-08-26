@@ -1,18 +1,18 @@
-import { Dispatch } from 'redux'
-import { SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType } from './app-reducer'
 import { authAPI } from '../dal/api'
-import { setIsLoggedInAC, setServerErrorAC } from './auth-reducer'
+
+import { setAppStatusAC } from './app-reducer'
+import { setServerErrorAC } from './auth-reducer'
+import { ActionsType, AppThunk } from './store'
 
 const initialState = {
-  recoveryEmail: '', //email на который отправляется ссылка для восстановления пароля
+  recoveryEmail: '',
   recoveryRequestStatus: 'idle' as RecoveryRequestStatusType,
   newPasswordRequestStatus: 'idle' as RecoveryRequestStatusType,
 }
-type InitialStateType = typeof initialState
 
 export const passwordRecoveryReducer = (
   state: InitialStateType = initialState,
-  action: AuthActionsType
+  action: ActionsType
 ): InitialStateType => {
   switch (action.type) {
     case 'recovery/SET-RECOVERY-EMAIL':
@@ -34,35 +34,39 @@ export const newPasswordRequestStatusAC = (status: RecoveryRequestStatusType) =>
   ({ type: 'recovery/NEW-PASSWORD-RECOVERY-REQUEST-STATUS', status } as const)
 
 // thunks
-export const passwordRecoveryTC = (email: string) => (dispatch: Dispatch<AuthActionsType>) => {
-  dispatch(setAppStatusAC('loading'))
-  dispatch(setRecoveryEmailAC(email))
-  dispatch(recoveryRequestStatusAC('loading'))
-  authAPI
-    .passwordRecovery(email)
-    .then(() => {
-      dispatch(recoveryRequestStatusAC('succeeded'))
-    })
-    .catch((error) => {
-      dispatch(recoveryRequestStatusAC('failed'))
-      dispatch(setServerErrorAC(error.response.statusText))
-    })
-    .finally(() => {
-      dispatch(setAppStatusAC('succeeded'))
-    })
-}
+export const passwordRecoveryTC =
+  (email: string): AppThunk =>
+  dispatch => {
+    dispatch(setAppStatusAC('loading'))
+    dispatch(setRecoveryEmailAC(email))
+    dispatch(recoveryRequestStatusAC('loading'))
+    authAPI
+      .passwordRecovery(email)
+      .then(res => {
+        console.log(res)
+        dispatch(recoveryRequestStatusAC('succeeded'))
+      })
+      .catch(error => {
+        dispatch(recoveryRequestStatusAC('failed'))
+        dispatch(setServerErrorAC(error.response.statusText))
+      })
+      .finally(() => {
+        dispatch(setAppStatusAC('succeeded'))
+      })
+  }
 
 export const setNewPasswordTC =
-  (password: string, resetPasswordToken: string) => (dispatch: Dispatch<AuthActionsType>) => {
+  (password: string, resetPasswordToken: string): AppThunk =>
+  dispatch => {
     dispatch(setAppStatusAC('loading'))
     dispatch(newPasswordRequestStatusAC('loading'))
     authAPI
       .setNewPassword(password, resetPasswordToken)
-      .then((res) => {
+      .then(res => {
         console.log(res)
         dispatch(newPasswordRequestStatusAC('succeeded'))
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(recoveryRequestStatusAC('failed'))
         dispatch(setServerErrorAC(error.response.statusText))
       })
@@ -72,14 +76,5 @@ export const setNewPasswordTC =
   }
 
 // types
-
+type InitialStateType = typeof initialState
 export type RecoveryRequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-
-export type AuthActionsType =
-  | ReturnType<typeof setIsLoggedInAC>
-  | SetAppStatusActionType
-  | SetAppErrorActionType
-  | ReturnType<typeof setServerErrorAC>
-  | ReturnType<typeof setRecoveryEmailAC>
-  | ReturnType<typeof recoveryRequestStatusAC>
-  | ReturnType<typeof newPasswordRequestStatusAC>
