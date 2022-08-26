@@ -52,7 +52,7 @@ export const loginTC = (values: LoginRequestDataType) => (dispatch: Dispatch<Log
       dispatch(setUserAC(res.data))
     })
     .catch(e => {
-      const error = e.response ? e.response.data.error : e.message + ', more details in the console'
+      const error = e.response.data ? e.response.data.error : e.message + ', more details in the console'
 
       console.log(error)
       dispatch(setError(error))
