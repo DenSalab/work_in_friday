@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { Footer } from '../../feature/Footer/Footer'
 import { Header } from '../../feature/Header/Header'
 import { Pages } from '../../feature/Pages/Pages'
-import { initializeAppTC } from '../bll/app-reducer'
+import { initializeAppTC, RequestStatusType } from '../bll/app-reducer'
 import { LoginStatusType } from '../bll/login-reducer'
 import { AppRootStateType } from '../bll/store'
 
@@ -20,6 +20,7 @@ function App() {
   const serverError = useSelector<AppRootStateType, string>(state => state.auth.serverError)
   const loginStatus = useSelector<AppRootStateType, LoginStatusType>(state => state.login)
   const navigate = useNavigate()
+  const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
 
   useEffect(() => {
     if (loginStatus.success) {
