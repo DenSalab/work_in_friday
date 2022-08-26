@@ -35,6 +35,7 @@ function App() {
     return (
       <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
         <div>ОЖИДАЕМ ИДЕТ СОЕДИНЕНИЕ С СЕРВЕРОМ</div>
+        <Preloader />
       </div>
     )
   }
