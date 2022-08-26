@@ -1,11 +1,12 @@
 import { authAPI } from '../dal/api'
+
 import { setIsLoggedInAC, setServerErrorAC } from './auth-reducer'
 import { getUserTC } from './profile-reducer'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
-  status: 'loading' as RequestStatusType,
+  status: 'succeeded' as RequestStatusType,
   error: null,
   isInitialized: false,
 }
@@ -39,6 +40,7 @@ export const setAppInitializedAC = (value: boolean) =>
   ({ type: 'APP/SET-IS-INITIALIZED', value } as const)
 
 export const initializeAppTC = () => (dispatch: any) => {
+  dispatch(setAppStatusAC('loading'))
   authAPI
     .getUser()
     .then(() => {

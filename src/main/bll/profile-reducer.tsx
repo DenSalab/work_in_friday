@@ -2,8 +2,13 @@ import { ThunkAction } from 'redux-thunk'
 
 import { authAPI, UserDataType } from '../dal/api'
 
-import { setAppErrorAC, SetAppErrorActionType } from './app-reducer'
-import { setIsLoggedInAC } from './auth-reducer'
+import {
+  setAppErrorAC,
+  SetAppErrorActionType,
+  setAppStatusAC,
+  SetAppStatusActionType,
+} from './app-reducer'
+import { setIsLoggedInAC, setServerErrorAC } from './auth-reducer'
 import { setSuccess } from './login-reducer'
 import { AppRootStateType } from './store'
 
@@ -45,6 +50,7 @@ export const updateUserAC = (updateUser: UserDataType) =>
 
 // get - потому, что получаем его с сервера
 export const getUserTC = (): AppThunk => dispatch => {
+  dispatch(setAppStatusAC('loading'))
   authAPI
     .getUser()
     .then(res => {
@@ -54,10 +60,14 @@ export const getUserTC = (): AppThunk => dispatch => {
       dispatch(setAppErrorAC(err.response.data.error))
       console.log(err.response.data.error)
     })
+    .finally(() => {
+      dispatch(setAppStatusAC('succeeded'))
+    })
 }
 export const updateUserTC =
   (user: UserDataType): AppThunk =>
   dispatch => {
+    dispatch(setAppStatusAC('loading'))
     authAPI
       .updateUser(user.name, user.avatar)
       .then(res => {
@@ -68,8 +78,12 @@ export const updateUserTC =
         dispatch(setAppErrorAC(err.response.data.error))
         console.log(err.response.data.error)
       })
+      .finally(() => {
+        dispatch(setAppStatusAC('succeeded'))
+      })
   }
 export const logoutTC = (): AppThunk => dispatch => {
+  dispatch(setAppStatusAC('loading'))
   authAPI
     .logout()
     .then(() => {
@@ -79,7 +93,10 @@ export const logoutTC = (): AppThunk => dispatch => {
       dispatch(setSuccess(false))
     })
     .catch(e => {
-      console.log(e.response.data)
+      console.log(e.response.data.error)
+    })
+    .finally(() => {
+      dispatch(setAppStatusAC('succeeded'))
     })
 }
 type initialStateType = {
@@ -91,4 +108,5 @@ type ActionsType =
   | SetAppErrorActionType
   | ReturnType<typeof setIsLoggedInAC>
   | ReturnType<typeof setSuccess>
+  | SetAppStatusActionType
 type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>

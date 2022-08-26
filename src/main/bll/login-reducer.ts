@@ -1,5 +1,8 @@
 import { Dispatch } from 'redux'
+
 import { authAPI, LoginRequestDataType } from '../dal/api'
+
+import { setAppStatusAC } from './app-reducer'
 import { setUserAC } from './profile-reducer'
 
 enum login {
@@ -25,6 +28,7 @@ export const loginReducer = (state = initialState, action: LoginActionsType) => 
       return { error: '', loading: false, success: action.success }
     }
   }
+
   return state
 }
 
@@ -37,20 +41,24 @@ export const setError = (error: string) => ({ type: login.SET_ERROR, error } as 
 
 export const loginTC = (values: LoginRequestDataType) => (dispatch: Dispatch<LoginActionsType>) => {
   dispatch(setLoading(true))
-
+  dispatch(setAppStatusAC('loading'))
   authAPI
     .login(values)
-    .then((res) => {
+    .then(res => {
       // диспатчим юзера в стейт профайла:
       // dispatch(setUser(res.data)) setUser нужно сделать на странице профайла
       console.log('login success')
       dispatch(setSuccess(true))
       dispatch(setUserAC(res.data))
     })
-    .catch((e) => {
+    .catch(e => {
       const error = e.response ? e.response.data.error : e.message + ', more details in the console'
+
       console.log(error)
       dispatch(setError(error))
+    })
+    .finally(() => {
+      dispatch(setAppStatusAC('succeeded'))
     })
 }
 
@@ -60,6 +68,7 @@ type LoginActionsType =
   | ReturnType<typeof setLoading>
   | ReturnType<typeof setSuccess>
   | ReturnType<typeof setUserAC>
+  | ReturnType<typeof setAppStatusAC>
 
 export type LoginStatusType = {
   error: string
