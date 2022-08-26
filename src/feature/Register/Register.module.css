@@ -1,15 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
 
 .register {
+  max-width: 413px;
+  margin: 25px auto;
+  padding: 33px;
+
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
-}
-
-.form {
-  width: 413px;
-  height: 528px;
-  margin: 10vh auto;
-  padding: 35px;
 
   background: #ffffff;
   border-radius: 2px;

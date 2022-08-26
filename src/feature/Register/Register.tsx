@@ -52,7 +52,7 @@ export const Register = () => {
   return (
     <div className={s.register}>
       <form onSubmit={formik.handleSubmit}>
-        <div className={s.form}>
+        <div>
           <div className={s.formName}>Sign Up</div>
           <div className={s.inputsBox}>
             <div className={s.inputWrapper}>

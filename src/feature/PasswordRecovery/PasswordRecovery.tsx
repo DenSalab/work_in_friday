@@ -35,7 +35,7 @@ export const PasswordRecovery = () => {
   return (
     <div className={s.passwordRecovery}>
       <form onSubmit={formik.handleSubmit}>
-        <div className={s.form}>
+        <div>
           <div className={s.formName}>Forgot your password?</div>
           <div className={s.inputsBox}>
             <div className={s.inputWrapper}>

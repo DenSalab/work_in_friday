@@ -8,7 +8,7 @@ export const CheckEmail = () => {
 
   return (
     <div className={s.checkEmail}>
-      <div className={s.form}>
+      <div>
         <div className={s.formName}>Check Email</div>
         <div className={s.icon}>
           <img src={icon} alt="icon" />
