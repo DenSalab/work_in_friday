@@ -1,14 +1,14 @@
 import React from 'react'
-import s from './Register.module.css'
-import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
-import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
-import { Link } from 'react-router-dom'
+
 import { useFormik } from 'formik'
+import { Link, Navigate } from 'react-router-dom'
+
 import { registerTC } from '../../main/bll/auth-reducer'
-import { useAppDispatch } from '../../main/ui/hooks/hooks'
-import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../../main/bll/store'
-import { Navigate } from 'react-router-dom'
+import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
+import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
+import { useAppDispatch, useAppSelector } from '../../main/ui/hooks/hooks'
+
+import s from './Register.module.css'
 
 export type FormikErrorType = {
   email?: string
@@ -18,15 +18,18 @@ export type FormikErrorType = {
 
 export const Register = () => {
   const dispatch = useAppDispatch()
-  const isRegistered = useSelector<AppRootStateType, boolean>(state => state.auth.isRegistered)
+  const isRegistered = useAppSelector(state => state.auth.isRegistered)
+
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
       confirmPassword: '',
     },
+
     validate: values => {
       const errors: FormikErrorType = {}
+
       if (!values.email) {
         errors.email = 'Required'
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -38,11 +41,14 @@ export const Register = () => {
         errors.password = 'Invalid password. Passord should be longer then 2 simvols!'
       if (values.password !== values.confirmPassword)
         errors.confirmPassword = "Passwords don't match"
+
       return errors
     },
+
     onSubmit: values => {
       alert(JSON.stringify(values))
       const data = { email: values.email, password: values.password }
+
       dispatch(registerTC(data))
     },
   })
@@ -59,6 +65,7 @@ export const Register = () => {
               <span>Email</span>
               <SuperInputText {...formik.getFieldProps('email')} error={formik.errors.email} />
             </div>
+
             <div className={s.inputWrapper}>
               <span>Password</span>
               <SuperInputText
@@ -67,6 +74,7 @@ export const Register = () => {
                 error={formik.errors.password}
               />
             </div>
+
             <div className={s.inputWrapper}>
               <span>Confirm password</span>
               <SuperInputText
@@ -76,11 +84,13 @@ export const Register = () => {
               />
             </div>
           </div>
+
           <div className={s.buttonWrapper}>
             <SuperButton width100pr={true} type={'submit'}>
               Sign Up
             </SuperButton>
           </div>
+
           <div className={s.text_if_login}>Already have an account?</div>
           <div className={s.link_to_login}>
             <Link to={'/login'}>Sign In</Link>

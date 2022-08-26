@@ -1,19 +1,15 @@
 import React from 'react'
 
 import { useFormik } from 'formik'
-import { useSelector } from 'react-redux'
 import { Navigate, useParams } from 'react-router-dom'
 
-import { registerTC } from '../../main/bll/auth-reducer'
 import {
   newPasswordRequestStatusAC,
-  RecoveryRequestStatusType,
   setNewPasswordTC,
 } from '../../main/bll/passwordRecovery-reducer'
-import { AppRootStateType } from '../../main/bll/store'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
-import { useAppDispatch } from '../../main/ui/hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../../main/ui/hooks/hooks'
 import { FormikErrorType } from '../Register/Register'
 
 import s from './SetNewPassword.module.css'
@@ -22,7 +18,7 @@ export const SetNewPassword = () => {
   const params = useParams()
   const resetPasswordToken = params.token
   const dispatch = useAppDispatch()
-  const newPasswordRequestStatus = useSelector<AppRootStateType, RecoveryRequestStatusType>(
+  const newPasswordRequestStatus = useAppSelector(
     state => state.passwordRecovery.newPasswordRequestStatus
   )
   const formik = useFormik({
@@ -30,6 +26,7 @@ export const SetNewPassword = () => {
       password: '',
       confirmPassword: '',
     },
+
     validate: values => {
       const errors: FormikErrorType = {}
 
@@ -42,6 +39,7 @@ export const SetNewPassword = () => {
 
       return errors
     },
+
     onSubmit: values => {
       if (resetPasswordToken) dispatch(setNewPasswordTC(values.password, resetPasswordToken))
     },
@@ -67,6 +65,7 @@ export const SetNewPassword = () => {
                 error={formik.errors.password}
               />
             </div>
+
             <div className={s.inputWrapper}>
               <span>Confirm password</span>
               <SuperInputText
@@ -76,9 +75,11 @@ export const SetNewPassword = () => {
               />
             </div>
           </div>
+
           <div className={s.text_if_login}>
             Create new password and we will send you further instructions to email
           </div>
+
           <div className={s.buttonWrapper}>
             <SuperButton width100pr={true} type={'submit'}>
               Create new password

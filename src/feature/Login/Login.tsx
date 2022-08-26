@@ -1,17 +1,17 @@
-import s from './Login.module.css'
-import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
-import SuperCheckbox from '../../main/ui/common/SuperCheckbox/SuperCheckbox'
-import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
-import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
-import { LoginStatusType, loginTC } from '../../main/bll/login-reducer'
-import { useAppDispatch } from '../../main/ui/hooks/hooks'
-import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../../main/bll/store'
+import { Link } from 'react-router-dom'
+
+import { loginTC } from '../../main/bll/login-reducer'
+import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
+import SuperCheckbox from '../../main/ui/common/SuperCheckbox/SuperCheckbox'
+import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
+import { useAppDispatch, useAppSelector } from '../../main/ui/hooks/hooks'
+
+import s from './Login.module.css'
 
 export const Login = () => {
   const dispatch = useAppDispatch()
-  const status = useSelector<AppRootStateType, LoginStatusType>((state) => state.login)
+  const status = useAppSelector(state => state.login)
 
   const formik = useFormik({
     initialValues: {
@@ -23,12 +23,15 @@ export const Login = () => {
       dispatch(loginTC(values))
     },
   })
+
   return (
     <div className={s.container}>
       <form onSubmit={formik.handleSubmit}>
         <h2>Sign in</h2>
+
         <div className={s.inputs}>
           <label htmlFor={'email'}>Email</label>
+
           <SuperInputText
             type="email"
             id="email"
@@ -36,7 +39,9 @@ export const Login = () => {
             onChange={formik.handleChange}
             value={formik.values.email}
           />
+
           <label htmlFor={'password'}>Password</label>
+
           <SuperInputText
             type="password"
             id={'password'}
@@ -52,16 +57,21 @@ export const Login = () => {
             onChange={formik.handleChange}
             checked={formik.values.rememberMe}
           />
+
           <label htmlFor={'rememberMe'}>Remember me</label>
         </div>
+
         <Link className={s.forgotPass} to={'/forgot'}>
           Forgot password?
         </Link>
+
         <div className={s.signIn}>
           <SuperButton type={'submit'}>Sign in</SuperButton>
         </div>
+
         <div className={s.signUp}>
           <span>Don&apos;t have an account?</span>
+
           <Link to="/register">Sign Up</Link>
         </div>
       </form>

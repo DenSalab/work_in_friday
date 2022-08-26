@@ -4,12 +4,24 @@ import {
   combineReducers,
   applyMiddleware,
 } from 'redux'
-import { loginReducer } from './login-reducer'
-import thunk, { ThunkDispatch } from 'redux-thunk'
-import { appReducer } from './app-reducer'
-import { authReducer } from './auth-reducer'
-import { profileReducer } from './profile-reducer'
-import { passwordRecoveryReducer } from './passwordRecovery-reducer'
+import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
+
+import {
+  appReducer,
+  SetAppErrorActionType,
+  SetAppInitializedActionType,
+  setAppStatusAC,
+  SetAppStatusActionType,
+} from './app-reducer'
+import { authReducer, setIsLoggedInAC, setIsRegisteredAC, setServerErrorAC } from './auth-reducer'
+import { loginReducer, setError, setLoading, setSuccess } from './login-reducer'
+import {
+  newPasswordRequestStatusAC,
+  passwordRecoveryReducer,
+  recoveryRequestStatusAC,
+  setRecoveryEmailAC,
+} from './passwordRecovery-reducer'
+import { profileReducer, setUserAC, updateUserAC } from './profile-reducer'
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -19,6 +31,27 @@ const rootReducer = combineReducers({
   passwordRecovery: passwordRecoveryReducer,
 })
 const store = createStore(rootReducer, applyMiddleware(thunk))
+
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction>
+
+export type ActionsType =
+  | ReturnType<typeof updateUserAC>
+  | SetAppErrorActionType
+  | ReturnType<typeof setIsLoggedInAC>
+  | SetAppStatusActionType
+  | SetAppInitializedActionType
+  | ReturnType<typeof setIsRegisteredAC>
+  | ReturnType<typeof setServerErrorAC>
+  | ReturnType<typeof setError>
+  | ReturnType<typeof setLoading>
+  | ReturnType<typeof setSuccess>
+  | ReturnType<typeof setUserAC>
+  | ReturnType<typeof setAppStatusAC>
+  | ReturnType<typeof setIsLoggedInAC>
+  | ReturnType<typeof setRecoveryEmailAC>
+  | ReturnType<typeof recoveryRequestStatusAC>
+  | ReturnType<typeof newPasswordRequestStatusAC>
+export type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>
+
 export default store

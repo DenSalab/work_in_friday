@@ -1,10 +1,12 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../../main/bll/store'
+
+import { useAppSelector } from '../../main/ui/hooks/hooks'
+
 import s from './Footer.module.css'
 
 export const Footer = () => {
-  const serverError = useSelector<AppRootStateType, string>((state) => state.auth.serverError)
+  const serverError = useAppSelector(state => state.auth.serverError)
+
   return (
     <div className={s.footer}>
       {serverError ? (

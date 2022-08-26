@@ -1,9 +1,8 @@
-import { Dispatch } from 'redux'
-
 import { authAPI, LoginRequestDataType } from '../dal/api'
 
 import { setAppStatusAC } from './app-reducer'
 import { setUserAC } from './profile-reducer'
+import { ActionsType, AppThunk } from './store'
 
 enum login {
   SET_ERROR = 'SET_ERROR',
@@ -16,7 +15,7 @@ const initialState: LoginStatusType = {
   success: false,
 }
 
-export const loginReducer = (state = initialState, action: LoginActionsType) => {
+export const loginReducer = (state = initialState, action: ActionsType) => {
   switch (action.type) {
     case login.SET_ERROR: {
       return { error: action.error, loading: false, success: false }
@@ -39,37 +38,32 @@ export const setError = (error: string) => ({ type: login.SET_ERROR, error } as 
 
 // thunk creators
 
-export const loginTC = (values: LoginRequestDataType) => (dispatch: Dispatch<LoginActionsType>) => {
-  dispatch(setLoading(true))
-  dispatch(setAppStatusAC('loading'))
-  authAPI
-    .login(values)
-    .then(res => {
-      // диспатчим юзера в стейт профайла:
-      // dispatch(setUser(res.data)) setUser нужно сделать на странице профайла
-      console.log('login success')
-      dispatch(setSuccess(true))
-      dispatch(setUserAC(res.data))
-    })
-    .catch(e => {
-      const error = e.response ? e.response.data.error : e.message + ', more details in the console'
+export const loginTC =
+  (values: LoginRequestDataType): AppThunk =>
+  dispatch => {
+    dispatch(setLoading(true))
+    dispatch(setAppStatusAC('loading'))
+    authAPI
+      .login(values)
+      .then(res => {
+        console.log('login success')
+        dispatch(setSuccess(true))
+        dispatch(setUserAC(res.data))
+      })
+      .catch(e => {
+        const error = e.response
+          ? e.response.data.error
+          : e.message + ', more details in the console'
 
-      console.log(error)
-      dispatch(setError(error))
-    })
-    .finally(() => {
-      dispatch(setAppStatusAC('succeeded'))
-    })
-}
+        console.log(error)
+        dispatch(setError(error))
+      })
+      .finally(() => {
+        dispatch(setAppStatusAC('succeeded'))
+      })
+  }
 
 //types
-type LoginActionsType =
-  | ReturnType<typeof setError>
-  | ReturnType<typeof setLoading>
-  | ReturnType<typeof setSuccess>
-  | ReturnType<typeof setUserAC>
-  | ReturnType<typeof setAppStatusAC>
-
 export type LoginStatusType = {
   error: string
   loading: boolean
