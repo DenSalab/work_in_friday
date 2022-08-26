@@ -43,7 +43,7 @@ export const passwordRecoveryTC = (email: string) => (dispatch: Dispatch<AuthAct
     .then(() => {
       dispatch(recoveryRequestStatusAC('succeeded'))
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(recoveryRequestStatusAC('failed'))
       dispatch(setServerErrorAC(error.response.statusText))
     })
@@ -58,11 +58,11 @@ export const setNewPasswordTC =
     dispatch(newPasswordRequestStatusAC('loading'))
     authAPI
       .setNewPassword(password, resetPasswordToken)
-      .then(res => {
+      .then((res) => {
         console.log(res)
         dispatch(newPasswordRequestStatusAC('succeeded'))
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(recoveryRequestStatusAC('failed'))
         dispatch(setServerErrorAC(error.response.statusText))
       })

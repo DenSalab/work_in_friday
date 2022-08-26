@@ -17,10 +17,10 @@ import { useAppDispatch } from './hooks/hooks'
 function App() {
   const dispatch = useAppDispatch()
   // const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
-  const serverError = useSelector<AppRootStateType, string>(state => state.auth.serverError)
-  const loginStatus = useSelector<AppRootStateType, LoginStatusType>(state => state.login)
+  // const serverError = useSelector<AppRootStateType, string>((state) => state.auth.serverError)
+  const loginStatus = useSelector<AppRootStateType, LoginStatusType>((state) => state.login)
   const navigate = useNavigate()
-  const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+  const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
 
   useEffect(() => {
     if (loginStatus.success) {

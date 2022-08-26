@@ -1,104 +1,39 @@
-.container{
-  max-width: 413px;
-  min-height: 60vh;
-  margin: 25px auto;
-  padding: 33px;
-
-  background: #ffffff;
-  border-radius: 2px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
-}
-.profile_block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-
-  width: 100%;
-  height: 437px;
-}
-
-.header {
-  max-height: 27px;
-
-  font-family: Montserrat, sans-serif;
-  font-size: 26px;
-  font-weight: 600;
-  font-style: normal;
-  line-height: 32px;
-  color: #000000;
-  text-align: center;
-
-  min: 240px;
-}
-
 .avatar {
     width: 96px;
     height: 96px;
+    margin: 0 auto;
 
-    background: red;
+    border: 2px solid #61dafb;
+    border-radius: 5px;
 }
+
+.avatar img{
+    height: 100%;
+
+    border-radius: 5px;
+}
+
 .symbols{
-    width: 15px;
+    width: 20px;
+    margin-right: 8px;
 
     filter: invert(100%);
 }
 
-.email {
-    top: 49.31%;
-    right: 43.75%;
-    bottom: 47.36%;
-    left: 43.83%;
-
+.info{
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
 
-    font-family: Montserrat, sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 24px;
-    color: #000000;
-
-    opacity: 0.5;
+    min-height: 80px;
+    margin: 20px;
 }
-
-.button {
-    top: 408px;
-    left: 577px;
-
+.mainButton{
     display: flex;
+    align-content: center;
     align-items: center;
     justify-content: center;
 
-    min-width: 127px;
-    min-height: 36px;
-
-    background: #FCFCFC;
-    border-radius: 30px;
-    box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.button:hover {
-    background-color: rgba(109, 109, 109, 0.25);
-}
-
-.title {
-    top: 416px;
-    left: 620px;
-
-    width: 64px;
-    height: 20px;
-
-    font-family: Montserrat, sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    font-style: normal;
-    line-height: 20px;
-    color: #ffffff;
-    text-align: center;
-    text-transform: none;
-    letter-spacing: 0.01em;
-
-    opacity: 0.8;
+    width: 100%;
+    margin: 0 auto;
 }

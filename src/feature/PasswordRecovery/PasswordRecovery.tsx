@@ -1,5 +1,5 @@
 import React from 'react'
-import s from './PasswordRecovery.module.css'
+import mainStyles from '../main-styles/Container.module.css'
 import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import { Link, Navigate } from 'react-router-dom'
@@ -19,13 +19,13 @@ type FormikErrorType = {
 export const PasswordRecovery = () => {
   const dispatch = useAppDispatch()
   const recoveryRequestStatus = useSelector<AppRootStateType, RecoveryRequestStatusType>(
-    state => state.passwordRecovery.recoveryRequestStatus
+    (state) => state.passwordRecovery.recoveryRequestStatus
   )
   const formik = useFormik({
     initialValues: {
       email: '',
     },
-    validate: values => {
+    validate: (values) => {
       const errors: FormikErrorType = {}
       if (!values.email) {
         errors.email = 'Required'
@@ -34,7 +34,7 @@ export const PasswordRecovery = () => {
       }
       return errors
     },
-    onSubmit: values => {
+    onSubmit: (values) => {
       console.log(values.email)
       dispatch(passwordRecoveryTC(values.email))
     },
@@ -43,30 +43,30 @@ export const PasswordRecovery = () => {
   if (recoveryRequestStatus === 'succeeded') return <Navigate to={'/test'} />
 
   return (
-    <div className={s.passwordRecovery}>
+    <div className={mainStyles.container}>
       <form onSubmit={formik.handleSubmit}>
-        <div>
-          <div className={s.formName}>Forgot your password?</div>
-          <div className={s.inputsBox}>
-            <div className={s.inputWrapper}>
-              <span>Email</span>
-              <SuperInputText {...formik.getFieldProps('email')} error={formik.errors.email} />
-            </div>
-            <div className={s.text}>
-              Enter your email address and we will send you further instructions
-            </div>
-          </div>
-          <div className={s.buttonWrapper}>
-            <SuperButton width100pr={true} type={'submit'}>
-              Send Instructions
-            </SuperButton>
-          </div>
-          <div className={s.text}>Did you remember your password?</div>
-          <div className={s.link_to_login}>
-            <Link to={'/login'}>Try logging in</Link>
-          </div>
+        <h2>Forgot your password?</h2>
+
+        <label htmlFor="email">Email</label>
+        <SuperInputText
+          id={'email'}
+          {...formik.getFieldProps('email')}
+          error={formik.errors.email}
+        />
+
+        <p>Enter your email address and we will send you further instructions</p>
+
+        <SuperButton className={mainStyles.mainButton} type={'submit'}>
+          Send Instructions
+        </SuperButton>
+
+        <div className={mainStyles.header}>
+          <span>Did you remember your password?</span>
+          <Link to="/login">Try logging in</Link>
           <div>
-            {recoveryRequestStatus==='failed'? 'Произошла ошибка сервера, пожалуйта повторите поздже': ''}
+            {recoveryRequestStatus === 'failed'
+              ? 'Произошла ошибка сервера, пожалуйта повторите поздже'
+              : ''}
           </div>
         </div>
       </form>

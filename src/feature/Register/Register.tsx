@@ -1,5 +1,5 @@
 import React from 'react'
-import s from './Register.module.css'
+import mainStyles from '../main-styles/Container.module.css'
 import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import { Link } from 'react-router-dom'
@@ -18,14 +18,14 @@ export type FormikErrorType = {
 
 export const Register = () => {
   const dispatch = useAppDispatch()
-  const isRegistered = useSelector<AppRootStateType, boolean>(state => state.auth.isRegistered)
+  const isRegistered = useSelector<AppRootStateType, boolean>((state) => state.auth.isRegistered)
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
       confirmPassword: '',
     },
-    validate: values => {
+    validate: (values) => {
       const errors: FormikErrorType = {}
       if (!values.email) {
         errors.email = 'Required'
@@ -40,7 +40,7 @@ export const Register = () => {
         errors.confirmPassword = "Passwords don't match"
       return errors
     },
-    onSubmit: values => {
+    onSubmit: (values) => {
       alert(JSON.stringify(values))
       const data = { email: values.email, password: values.password }
       dispatch(registerTC(data))
@@ -50,41 +50,43 @@ export const Register = () => {
   if (isRegistered) return <Navigate to={'/login'} />
 
   return (
-    <div className={s.register}>
+    <div className={mainStyles.container}>
       <form onSubmit={formik.handleSubmit}>
-        <div>
-          <div className={s.formName}>Sign Up</div>
-          <div className={s.inputsBox}>
-            <div className={s.inputWrapper}>
-              <span>Email</span>
-              <SuperInputText {...formik.getFieldProps('email')} error={formik.errors.email} />
-            </div>
-            <div className={s.inputWrapper}>
-              <span>Password</span>
-              <SuperInputText
-                type="password"
-                {...formik.getFieldProps('password')}
-                error={formik.errors.password}
-              />
-            </div>
-            <div className={s.inputWrapper}>
-              <span>Confirm password</span>
-              <SuperInputText
-                type="password"
-                {...formik.getFieldProps('confirmPassword')}
-                error={formik.errors.confirmPassword}
-              />
-            </div>
-          </div>
-          <div className={s.buttonWrapper}>
-            <SuperButton width100pr={true} type={'submit'}>
-              Sign Up
-            </SuperButton>
-          </div>
-          <div className={s.text_if_login}>Already have an account?</div>
-          <div className={s.link_to_login}>
-            <Link to={'/login'}>Sign In</Link>
-          </div>
+        <h2>Sign Up</h2>
+
+        <label htmlFor="email">Email</label>
+        <SuperInputText
+          id={'email'}
+          {...formik.getFieldProps('email')}
+          error={formik.errors.email}
+          placeholder={'enter your email'}
+        />
+
+        <label htmlFor="password">Password</label>
+        <SuperInputText
+          id={'password'}
+          type="password"
+          {...formik.getFieldProps('password')}
+          error={formik.errors.password}
+          placeholder={'enter password'}
+        />
+
+        <label htmlFor="confirm">Confirm password</label>
+        <SuperInputText
+          id={'confirm'}
+          type="password"
+          {...formik.getFieldProps('confirmPassword')}
+          error={formik.errors.confirmPassword}
+          placeholder={'confirm password'}
+        />
+
+        <SuperButton className={mainStyles.mainButton} type={'submit'}>
+          Sign Up
+        </SuperButton>
+
+        <div className={mainStyles.header}>
+          <span>Already have an account?</span>
+          <Link to="/login">Sign In</Link>
         </div>
       </form>
     </div>

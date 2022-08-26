@@ -44,15 +44,17 @@ export const loginTC = (values: LoginRequestDataType) => (dispatch: Dispatch<Log
   dispatch(setAppStatusAC('loading'))
   authAPI
     .login(values)
-    .then(res => {
+    .then((res) => {
       // диспатчим юзера в стейт профайла:
       // dispatch(setUser(res.data)) setUser нужно сделать на странице профайла
       console.log('login success')
       dispatch(setSuccess(true))
       dispatch(setUserAC(res.data))
     })
-    .catch(e => {
-      const error = e.response.data ? e.response.data.error : e.message + ', more details in the console'
+    .catch((e) => {
+      const error = e.response.data
+        ? e.response.data.error
+        : e.message + ', more details in the console'
 
       console.log(error)
       dispatch(setError(error))
