@@ -39,27 +39,27 @@ export const updateUserAC = (updateUser: UserDataType) =>
   } as const)
 
 // get - потому, что получаем его с сервера
-export const getUserTC = (): AppThunk => (dispatch) => {
+export const getUserTC = (): AppThunk => dispatch => {
   authAPI
     .getUser()
-    .then((res) => {
+    .then(res => {
       dispatch(setUserAC(res.data))
     })
-    .catch((err) => {
+    .catch(err => {
       dispatch(setAppErrorAC(err.response.data.error))
       console.log(err.response.data.error)
     })
 }
 export const updateUserTC =
   (user: UserDataType): AppThunk =>
-  (dispatch) => {
+  dispatch => {
     authAPI
       .updateUser(user.name, user.avatar)
-      .then((res) => {
+      .then(res => {
         dispatch(updateUserAC(res.data.updatedUser))
         console.log(res.data.updatedUser)
       })
-      .catch((err) => {
+      .catch(err => {
         dispatch(setAppErrorAC(err.response.data.error))
         console.log(err.response.data.error)
       })

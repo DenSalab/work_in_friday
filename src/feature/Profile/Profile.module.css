@@ -7,7 +7,6 @@
   background: #ffffff;
   border-radius: 2px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
-
 }
 .profile_block {
   display: flex;
@@ -34,72 +33,72 @@
 }
 
 .avatar {
-  width: 96px;
-  height: 96px;
+    width: 96px;
+    height: 96px;
 
-  background: red;
+    background: red;
 }
-.symbols {
-  width: 15px;
+.symbols{
+    width: 15px;
 
-  filter: invert(100%);
+    filter: invert(100%);
 }
 
 .email {
-  top: 49.31%;
-  right: 43.75%;
-  bottom: 47.36%;
-  left: 43.83%;
+    top: 49.31%;
+    right: 43.75%;
+    bottom: 47.36%;
+    left: 43.83%;
 
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 
-  font-family: Montserrat, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  font-style: normal;
-  line-height: 24px;
-  color: #000000;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 24px;
+    color: #000000;
 
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 .button {
-  top: 408px;
-  left: 577px;
+    top: 408px;
+    left: 577px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  min-width: 127px;
-  min-height: 36px;
+    min-width: 127px;
+    min-height: 36px;
 
-  background: #fcfcfc;
-  border-radius: 30px;
-  box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: #FCFCFC;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .button:hover {
-  background-color: rgba(109, 109, 109, 0.25);
+    background-color: rgba(109, 109, 109, 0.25);
 }
 
 .title {
-  top: 416px;
-  left: 620px;
+    top: 416px;
+    left: 620px;
 
-  width: 64px;
-  height: 20px;
+    width: 64px;
+    height: 20px;
 
-  font-family: Montserrat, sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  font-style: normal;
-  line-height: 20px;
-  color: #ffffff;
-  text-align: center;
-  text-transform: none;
-  letter-spacing: 0.01em;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 20px;
+    color: #ffffff;
+    text-align: center;
+    text-transform: none;
+    letter-spacing: 0.01em;
 
-  opacity: 0.8;
+    opacity: 0.8;
 }

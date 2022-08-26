@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'
 import { AppRootStateType } from '../../main/bll/store'
 import { Navigate } from 'react-router-dom'
 
-type FormikErrorType = {
+export type FormikErrorType = {
   email?: string
   password?: string
   confirmPassword?: string
@@ -18,14 +18,14 @@ type FormikErrorType = {
 
 export const Register = () => {
   const dispatch = useAppDispatch()
-  const isRegistered = useSelector<AppRootStateType, boolean>((state) => state.auth.isRegistered)
+  const isRegistered = useSelector<AppRootStateType, boolean>(state => state.auth.isRegistered)
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
       confirmPassword: '',
     },
-    validate: (values) => {
+    validate: values => {
       const errors: FormikErrorType = {}
       if (!values.email) {
         errors.email = 'Required'
@@ -40,14 +40,14 @@ export const Register = () => {
         errors.confirmPassword = "Passwords don't match"
       return errors
     },
-    onSubmit: (values) => {
+    onSubmit: values => {
       alert(JSON.stringify(values))
       const data = { email: values.email, password: values.password }
       dispatch(registerTC(data))
     },
   })
 
-  if (isRegistered) return <Navigate to={'work_in_friday/login'} />
+  if (isRegistered) return <Navigate to={'/login'} />
 
   return (
     <div className={s.register}>
@@ -83,7 +83,7 @@ export const Register = () => {
           </div>
           <div className={s.text_if_login}>Already have an account?</div>
           <div className={s.link_to_login}>
-            <Link to={'work_in_friday/login'}>Sign In</Link>
+            <Link to={'/login'}>Sign In</Link>
           </div>
         </div>
       </form>
