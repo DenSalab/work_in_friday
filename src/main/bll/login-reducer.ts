@@ -1,4 +1,5 @@
 import { authAPI, LoginRequestDataType } from '../dal/api'
+
 import { setAppStatusAC } from './app-reducer'
 import { setUserAC } from './profile-reducer'
 import { ActionsType, AppThunk } from './store'
@@ -8,13 +9,13 @@ enum login {
   SET_LOADING = 'SET_LOADING',
   SET_SUCCESS = 'SET_SUCCESS',
 }
-const initialState: LoginStatusType = {
+const initialState = {
   error: '',
   loading: false,
   success: false,
 }
 
-export const loginReducer = (state = initialState, action: ActionsType) => {
+export const loginReducer = (state = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
     case login.SET_ERROR: {
       return { error: action.error, loading: false, success: false }
@@ -64,8 +65,4 @@ export const loginTC =
 
 //types
 
-export type LoginStatusType = {
-  error: string
-  loading: boolean
-  success: boolean
-}
+type InitialStateType = typeof initialState

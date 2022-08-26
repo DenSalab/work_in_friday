@@ -1,5 +1,3 @@
-import { ThunkAction } from 'redux-thunk'
-
 import { authAPI, UserDataType } from '../dal/api'
 
 import { setAppErrorAC, setAppStatusAC } from './app-reducer'
