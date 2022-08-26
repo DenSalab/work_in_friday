@@ -3,16 +3,21 @@ import { getPasswordRecoveryRequestData } from './utils/getPasswordRecoveryReque
 
 const instance = axios.create({
   // baseURL: 'http://localhost:7542/2.0/',
-  baseURL: ' https://neko-back.herokuapp.com/2.0',
+  // baseURL: ' https://neko-back.herokuapp.com/2.0',
+  baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
   withCredentials: true,
 })
 
 // api
 export const authAPI = {
   getUser() {
+    console.log('getUser')
     return instance.post<UserDataType>(`/auth/me`, {})
   },
   login(loginData: LoginRequestDataType) {
+    console.log(
+      `login: "email: ${loginData.email}, password: ${loginData.password}, rememberMe: ${loginData.rememberMe}`
+    )
     return instance.post<UserDataType>('auth/login', loginData)
   },
   logout() {

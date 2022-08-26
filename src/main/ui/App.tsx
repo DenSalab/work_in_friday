@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import { Page404 } from '../../feature/Page404/Page404'
 import { Register } from '../../feature/Register/Register'
 import { useSelector } from 'react-redux'
@@ -13,17 +13,25 @@ import { PasswordRecovery } from '../../feature/PasswordRecovery/PasswordRecover
 import { CheckEmail } from '../../feature/CheckEmail/CheckEmail'
 import { Preloader } from './common/Preloader/Preloader'
 import { SetNewPassword } from '../../feature/SetNewPassword/SetNewPassword'
+import { LoginStatusType } from '../bll/login-reducer'
 
 function App() {
   const dispatch = useAppDispatch()
-  const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
+  // const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
   const serverError = useSelector<AppRootStateType, string>((state) => state.auth.serverError)
-  const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
-  useEffect(() => {
-    dispatch(initializeAppTC())
-  }, [])
+  const loginStatus = useSelector<AppRootStateType, LoginStatusType>((state) => state.login)
+  const navigate = useNavigate()
 
-  if (!isInitialized) {
+  useEffect(() => {
+    if (loginStatus.success) {
+      dispatch(initializeAppTC())
+      navigate('/profile')
+    } else {
+      navigate('/login')
+    }
+  }, [loginStatus.success])
+
+  if (loginStatus.loading) {
     return (
       <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
         <div>ОЖИДАЕМ ИДЕТ СОЕДИНЕНИЕ С СЕРВЕРОМ</div>
@@ -38,7 +46,7 @@ function App() {
       <Link to={'/register'}>register</Link>
       <Link to={'/profile'}>profile</Link>
       <Link to={'/404'}>error404</Link>
-      <Link to={'/password_recovery'}>password_recovery</Link>
+      <Link to={'/forgot'}>password_recovery</Link>
       <Link to={'/set_new_password'}>new_password</Link>
       <Link to={'/test'}>test</Link>
       <br />
@@ -48,8 +56,8 @@ function App() {
         <Route path={'/register'} element={<Register />} />
         <Route path={'/profile'} element={<Profile />} />
         <Route path={'/404'} element={<Page404 />} />
-        <Route path={'/password_recovery'} element={<PasswordRecovery />} />
-        <Route path={'/set_new_password'} element={<SetNewPassword />} />
+        <Route path={'/forgot'} element={<PasswordRecovery />} />
+        <Route path={'/set-new-password/:token'} element={<SetNewPassword />} />
         <Route path={'/test'} element={<CheckEmail />} />
       </Routes>
       {serverError ? (
