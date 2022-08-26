@@ -65,6 +65,9 @@ export const PasswordRecovery = () => {
           <div className={s.link_to_login}>
             <Link to={'/login'}>Try logging in</Link>
           </div>
+          <div>
+            {recoveryRequestStatus==='failed'? 'Произошла ошибка сервера, пожалуйта повторите поздже': ''}
+          </div>
         </div>
       </form>
     </div>

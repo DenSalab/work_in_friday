@@ -28,7 +28,7 @@ export const Header = () => {
         <Link to={'/404'} className={s.linkItem}>
           error404
         </Link>
-        <Link to={'/password_recovery'} className={s.linkItem}>
+        <Link to={'/forgot'} className={s.linkItem}>
           password_recovery
         </Link>
         <Link to={'/set_new_password'} className={s.linkItem}>

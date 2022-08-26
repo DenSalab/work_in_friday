@@ -40,8 +40,7 @@ export const passwordRecoveryTC = (email: string) => (dispatch: Dispatch<AuthAct
   dispatch(recoveryRequestStatusAC('loading'))
   authAPI
     .passwordRecovery(email)
-    .then(res => {
-      console.log(res)
+    .then(() => {
       dispatch(recoveryRequestStatusAC('succeeded'))
     })
     .catch(error => {
