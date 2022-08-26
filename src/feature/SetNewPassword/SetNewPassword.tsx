@@ -1,19 +1,22 @@
 import React from 'react'
-import { Navigate, useParams } from 'react-router-dom'
-import s from './SetNewPassword.module.css'
-import { useAppDispatch } from '../../main/ui/hooks/hooks'
-import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../../main/bll/store'
+
 import { useFormik } from 'formik'
+import { useSelector } from 'react-redux'
+import { Navigate, useParams } from 'react-router-dom'
+
 import { registerTC } from '../../main/bll/auth-reducer'
-import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
-import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import {
   newPasswordRequestStatusAC,
   RecoveryRequestStatusType,
   setNewPasswordTC,
 } from '../../main/bll/passwordRecovery-reducer'
+import { AppRootStateType } from '../../main/bll/store'
+import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
+import SuperInputText from '../../main/ui/common/SuperInputText/SuperInputText'
+import { useAppDispatch } from '../../main/ui/hooks/hooks'
 import { FormikErrorType } from '../Register/Register'
+
+import s from './SetNewPassword.module.css'
 
 export const SetNewPassword = () => {
   const params = useParams()
@@ -29,12 +32,14 @@ export const SetNewPassword = () => {
     },
     validate: values => {
       const errors: FormikErrorType = {}
+
       if (!values.password) {
         errors.password = 'Required'
       } else if (values.password.length <= 2)
         errors.password = 'Invalid password. Passord should be longer then 2 simvols!'
       if (values.password !== values.confirmPassword)
         errors.confirmPassword = "Passwords don't match"
+
       return errors
     },
     onSubmit: values => {
@@ -44,13 +49,14 @@ export const SetNewPassword = () => {
 
   if (newPasswordRequestStatus === 'succeeded') {
     dispatch(newPasswordRequestStatusAC('idle'))
+
     return <Navigate to={'/login'} />
   }
 
   return (
     <div className={s.setPassword}>
       <form onSubmit={formik.handleSubmit}>
-        <div className={s.form}>
+        <div>
           <div className={s.formName}>Create new password</div>
           <div className={s.inputsBox}>
             <div className={s.inputWrapper}>

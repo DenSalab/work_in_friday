@@ -1,16 +1,19 @@
 import React from 'react'
-import s from './Profile.module.css'
-import { updateUserTC } from '../../main/bll/profile-reducer'
+
 import { useDispatch, useSelector } from 'react-redux'
+
+import { logoutTC, updateUserTC } from '../../main/bll/profile-reducer'
 import { AppRootStateType } from '../../main/bll/store'
-import { EditableSpan } from '../../main/ui/common/EditableSpan/EditableSpan'
 import { UserDataType } from '../../main/dal/api'
-import { ProfileAvatar } from './Avatar/ProfileAvatar'
+import { EditableSpan } from '../../main/ui/common/EditableSpan/EditableSpan'
 import SuperButton from '../../main/ui/common/SuperButton/SuperButton'
 import logout from '../../main/ui/images/logout_FILL0_wght400_GRAD0_opsz48.png'
 
+import { ProfileAvatar } from './Avatar/ProfileAvatar'
+import s from './Profile.module.css'
+
 export const Profile = () => {
-  const user = useSelector<AppRootStateType, UserDataType>((state) => state.profile.user)
+  const user = useSelector<AppRootStateType, UserDataType>(state => state.profile.user)
   // const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn)
   const dispatch: any = useDispatch()
 
@@ -27,13 +30,7 @@ export const Profile = () => {
           onChange={name => dispatch(updateUserTC({ ...user, name: name }))}
         />
         <div className={s.email}>{user.email}</div>
-        <SuperButton
-          onClick={() =>
-            dispatch(() => {
-              // тут был logoutTC()
-            })
-          }
-        >
+        <SuperButton onClick={() => dispatch(logoutTC())}>
           <img src={logout} className={s.symbols} alt="logout" />
           <span className={s.title}>Log out</span>
         </SuperButton>

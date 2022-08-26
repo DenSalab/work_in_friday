@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import { getPasswordRecoveryRequestData } from './utils/getPasswordRecoveryRequestData'
 
 const instance = axios.create({
@@ -12,22 +13,25 @@ const instance = axios.create({
 export const authAPI = {
   getUser() {
     console.log('getUser')
+
     return instance.post<UserDataType>(`/auth/me`, {})
   },
   login(loginData: LoginRequestDataType) {
     console.log(
       `login: "email: ${loginData.email}, password: ${loginData.password}, rememberMe: ${loginData.rememberMe}`
     )
+
     return instance.post<UserDataType>('auth/login', loginData)
   },
   logout() {
-    return instance.delete<LogoutResponseType>('auth/me')
+    return instance.delete<LogoutResponseType>('auth/me', {})
   },
   register(data: RegisterRequestType) {
     return instance.post<RegisterResponseType>('auth/register', data)
   },
   passwordRecovery(email: string) {
     const data: PasswordRecoveryRequestType = getPasswordRecoveryRequestData(email)
+
     return instance.post<PasswordRecoveryResponseType>('auth/forgot', data)
   },
   setNewPassword(password: string, resetPasswordToken: string) {

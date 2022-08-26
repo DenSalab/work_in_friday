@@ -1,19 +1,24 @@
 import React, { useEffect } from 'react'
+
 import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../bll/store'
-import { initializeAppTC } from '../bll/app-reducer'
-import { useAppDispatch } from './hooks/hooks'
-import s from './App.module.css'
-import { Preloader } from './common/Preloader/Preloader'
+import { useNavigate } from 'react-router-dom'
+
+import { Footer } from '../../feature/Footer/Footer'
 import { Header } from '../../feature/Header/Header'
 import { Pages } from '../../feature/Pages/Pages'
-import { Footer } from '../../feature/Footer/Footer'
+import { initializeAppTC } from '../bll/app-reducer'
+import { LoginStatusType } from '../bll/login-reducer'
+import { AppRootStateType } from '../bll/store'
+
+import s from './App.module.css'
+import { Preloader } from './common/Preloader/Preloader'
+import { useAppDispatch } from './hooks/hooks'
 
 function App() {
   const dispatch = useAppDispatch()
   // const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
-  const serverError = useSelector<AppRootStateType, string>((state) => state.auth.serverError)
-  const loginStatus = useSelector<AppRootStateType, LoginStatusType>((state) => state.login)
+  const serverError = useSelector<AppRootStateType, string>(state => state.auth.serverError)
+  const loginStatus = useSelector<AppRootStateType, LoginStatusType>(state => state.login)
   const navigate = useNavigate()
 
   useEffect(() => {

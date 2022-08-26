@@ -1,7 +1,11 @@
-import { AppRootStateType } from './store'
 import { ThunkAction } from 'redux-thunk'
-import { setAppErrorAC, SetAppErrorActionType } from './app-reducer'
+
 import { authAPI, UserDataType } from '../dal/api'
+
+import { setAppErrorAC, SetAppErrorActionType } from './app-reducer'
+import { setIsLoggedInAC } from './auth-reducer'
+import { setSuccess } from './login-reducer'
+import { AppRootStateType } from './store'
 
 const SET_USER = 'profile/SET_USER'
 const UPDATE_USER = 'profile/UPDATE_USER'
@@ -19,6 +23,7 @@ export const profileReducer = (
       return { ...state, user: action.user }
     case UPDATE_USER:
       console.log(state)
+
       return { ...state, user: action.updateUser }
     default:
       return state
@@ -64,7 +69,19 @@ export const updateUserTC =
         console.log(err.response.data.error)
       })
   }
-
+export const logoutTC = (): AppThunk => dispatch => {
+  authAPI
+    .logout()
+    .then(() => {
+      console.log('Logout')
+      // dispatch(clearUserData())
+      dispatch(setIsLoggedInAC(false))
+      dispatch(setSuccess(false))
+    })
+    .catch(e => {
+      console.log(e.response.data)
+    })
+}
 type initialStateType = {
   user: UserDataType
 }
@@ -72,4 +89,6 @@ type ActionsType =
   | ReturnType<typeof updateUserAC>
   | ReturnType<typeof setUserAC>
   | SetAppErrorActionType
+  | ReturnType<typeof setIsLoggedInAC>
+  | ReturnType<typeof setSuccess>
 type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>
