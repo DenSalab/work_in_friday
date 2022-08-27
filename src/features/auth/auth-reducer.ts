@@ -37,18 +37,16 @@ export const setServerErrorAC = (error: string) =>
 // thunks
 export const registerTC =
   (data: RegisterRequestType): AppThunk =>
-  (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    authAPI
-      .register(data)
-      .then(() => {
-        dispatch(setIsRegisteredAC(true))
-        dispatch(setServerErrorAC(''))
-      })
-      .catch((error) => {
-        dispatch(setServerErrorAC(error.response.statusText))
-      })
-      .finally(() => {
-        dispatch(setAppStatusAC('succeeded'))
-      })
+  async (dispatch) => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      await authAPI.register(data)
+      dispatch(setIsRegisteredAC(true))
+      dispatch(setServerErrorAC(''))
+    } catch (e: any) {
+      // need to fix any
+      dispatch(setServerErrorAC(e.response.statusText))
+    } finally {
+      dispatch(setAppStatusAC('succeeded'))
+    }
   }

@@ -1,17 +1,15 @@
 import React from 'react'
-
 import { useFormik } from 'formik'
 import { Navigate, useParams } from 'react-router-dom'
-
-import {
-  newPasswordRequestStatusAC,
-  setNewPasswordTC,
-} from '../PasswordRecovery/passwordRecovery-reducer'
 import SuperButton from '../../../../common/components/SuperButton/SuperButton'
 import SuperInputText from '../../../../common/components/SuperInputText/SuperInputText'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
 import mainStyles from '../../../../common/styles/Container.module.css'
-import { FormikErrorType } from '../Register/Register'
+import { FormikErrorType } from '../../Register/Register'
+import {
+  newPasswordRequestStatusAC,
+  setNewPasswordTC,
+} from '../PasswordRecovery/passwordRecovery-reducer'
 
 export const SetNewPassword = () => {
   const params = useParams()
@@ -47,7 +45,7 @@ export const SetNewPassword = () => {
   if (newPasswordRequestStatus === 'succeeded') {
     dispatch(newPasswordRequestStatusAC('idle'))
 
-    return <Navigate to={'/login'} />
+    return <Navigate to={'/Login'} />
   }
 
   return (

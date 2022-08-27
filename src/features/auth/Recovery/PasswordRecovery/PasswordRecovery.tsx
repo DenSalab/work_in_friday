@@ -1,13 +1,11 @@
 import React from 'react'
-
 import { useFormik } from 'formik'
 import { Link, Navigate } from 'react-router-dom'
-
-import { passwordRecoveryTC } from './passwordRecovery-reducer'
 import SuperButton from '../../../../common/components/SuperButton/SuperButton'
 import SuperInputText from '../../../../common/components/SuperInputText/SuperInputText'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
 import mainStyles from '../../../../common/styles/Container.module.css'
+import { passwordRecoveryTC } from './passwordRecovery-reducer'
 
 type FormikErrorType = {
   email?: string
@@ -61,7 +59,7 @@ export const PasswordRecovery = () => {
 
           <p>Did you remember your password?</p>
           <div className={mainStyles.header}>
-            <Link to={'/login'}>Try logging in</Link>
+            <Link to={'/Login'}>Try logging in</Link>
           </div>
         </div>
       </form>

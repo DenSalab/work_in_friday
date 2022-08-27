@@ -1,5 +1,4 @@
 import { authAPI } from '../../../../api/api'
-
 import { setAppStatusAC } from '../../../../app/app-reducer'
 import { setServerErrorAC } from '../../auth-reducer'
 import { ActionsType, AppThunk } from '../../../../app/store'

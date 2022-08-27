@@ -1,10 +1,10 @@
 import React from 'react'
 import { logoutTC, updateUserTC } from './profile-reducer'
-import { EditableSpan } from '../../../../common/components/EditableSpan/EditableSpan'
-import SuperButton from '../../../../common/components/SuperButton/SuperButton'
-import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
-import logout from '../../../../common/images/logout_FILL0_wght400_GRAD0_opsz48.png'
-import mainStyles from '../../../../common/styles/Container.module.css'
+import { EditableSpan } from '../../../common/components/EditableSpan/EditableSpan'
+import SuperButton from '../../../common/components/SuperButton/SuperButton'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
+import logout from '../../../common/images/logout_FILL0_wght400_GRAD0_opsz48.png'
+import mainStyles from '../../../common/styles/Container.module.css'
 
 import s from './Profile.module.css'
 

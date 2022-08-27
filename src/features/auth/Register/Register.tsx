@@ -3,12 +3,12 @@ import React from 'react'
 import { useFormik } from 'formik'
 import { Link, Navigate } from 'react-router-dom'
 
-import { registerTC } from '../../auth-reducer'
-import SuperButton from '../../../../common/components/SuperButton/SuperButton'
-import SuperInputText from '../../../../common/components/SuperInputText/SuperInputText'
-import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
+import { registerTC } from '../auth-reducer'
+import SuperButton from '../../../common/components/SuperButton/SuperButton'
+import SuperInputText from '../../../common/components/SuperInputText/SuperInputText'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 
-import mainStyles from '../../../../common/styles/Container.module.css'
+import mainStyles from '../../../common/styles/Container.module.css'
 
 export type FormikErrorType = {
   email?: string
@@ -52,7 +52,7 @@ export const Register = () => {
     },
   })
 
-  if (isRegistered) return <Navigate to={'/login'} />
+  if (isRegistered) return <Navigate to={'/Login'} />
 
   return (
     <div className={mainStyles.container}>

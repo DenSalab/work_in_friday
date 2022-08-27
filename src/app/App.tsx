@@ -21,18 +21,18 @@ function App() {
     console.log('initialize App')
     dispatch(initializeAppTC())
     if (loginStatus.success) {
-      navigate('/profile')
+      navigate('/Profile')
     } else {
-      navigate('/login')
+      navigate('/Login')
     }
   }, [])
 
   useEffect(() => {
     console.log('init')
     if (loginStatus.success) {
-      navigate('/profile')
+      navigate('/Profile')
     } else {
-      navigate('/login')
+      navigate('/Login')
     }
   }, [loginStatus.success])
 

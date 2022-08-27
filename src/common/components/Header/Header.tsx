@@ -8,13 +8,13 @@ export const Header = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
-        <Link to={'/login'} className={s.linkItem}>
+        <Link to={'/Login'} className={s.linkItem}>
           Log In
         </Link>
-        <Link to={'/register'} className={s.linkItem}>
+        <Link to={'/Register'} className={s.linkItem}>
           Registration
         </Link>
-        <Link to={'/profile'} className={s.linkItem}>
+        <Link to={'/Profile'} className={s.linkItem}>
           Profile
         </Link>
         <Link to={'/404'} className={s.linkItem}>

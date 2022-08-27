@@ -5,7 +5,6 @@ import {
   applyMiddleware,
 } from 'redux'
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
-
 import {
   appReducer,
   SetAppErrorActionType,
@@ -24,18 +23,14 @@ import {
   setError,
   setLoading,
   setSuccess,
-} from '../features/auth/login/login-reducer'
+} from '../features/auth/Login/login-reducer'
+import { profileReducer, setUserAC, updateUserAC } from '../features/auth/Profile/profile-reducer'
 import {
   newPasswordRequestStatusAC,
   passwordRecoveryReducer,
   recoveryRequestStatusAC,
   setRecoveryEmailAC,
-} from '../features/auth/register/PasswordRecovery/passwordRecovery-reducer'
-import {
-  profileReducer,
-  setUserAC,
-  updateUserAC,
-} from '../features/auth/profile/Profile/profile-reducer'
+} from '../features/auth/Recovery/PasswordRecovery/passwordRecovery-reducer'
 
 const rootReducer = combineReducers({
   login: loginReducer,

@@ -1,13 +1,11 @@
 import React from 'react'
-
 import { Navigate } from 'react-router-dom'
-
-import { recoveryRequestStatusAC } from '../PasswordRecovery/passwordRecovery-reducer'
 import SuperButton from '../../../../common/components/SuperButton/SuperButton'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
 
 import s from './CheckEmail.module.css'
 import icon from './emailIcon.png'
+import { recoveryRequestStatusAC } from '../PasswordRecovery/passwordRecovery-reducer'
 
 export const CheckEmail = () => {
   const dispatch = useAppDispatch()
@@ -20,7 +18,7 @@ export const CheckEmail = () => {
     dispatch(recoveryRequestStatusAC('idle'))
   }
 
-  if (recoveryRequestStatus === 'idle') return <Navigate to={'/login'} />
+  if (recoveryRequestStatus === 'idle') return <Navigate to={'/Login'} />
 
   return (
     <div className={s.checkEmail}>

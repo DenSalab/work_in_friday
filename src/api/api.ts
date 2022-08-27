@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { getPasswordRecoveryRequestData } from './utils/getPasswordRecoveryRequestData'
+import { getPasswordRecoveryRequestData } from '../common/utils/getPasswordRecoveryRequestData'
 
 const instance = axios.create({
   // baseURL: 'http://localhost:7542/2.0/',
