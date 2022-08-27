@@ -1,0 +1,61 @@
+.inputBox {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 4px;
+}
+
+.superInput {
+  margin-bottom: 20px;
+  padding: 5px 0;
+
+  font: inherit;
+  color: #434e5b;
+
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  outline: 0;
+}
+
+.superInput:focus {
+  border-bottom: 2px solid #318ce7;
+}
+.superInput:hover {
+  border-bottom: 2px solid rgba(49, 140, 231, 0.5);
+}
+
+.errorInput,
+.errorInput:hover,
+.errorInput:focus {
+  border-bottom: 2px solid red;
+}
+
+.error {
+  margin-top: -21px;
+
+  color: red;
+}
+
+.eye,
+.eyeSlash {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  width: 20px;
+  height: 20px;
+
+  opacity: 0.5;
+  background: url('svg/eye-solid.svg') 0 0 no-repeat;
+}
+.eyeSlash {
+  background: url('svg/eye-slash-solid.svg') 0 0 no-repeat;
+}
+.eye:hover,
+.eyeSlash:hover {
+  cursor: pointer;
+
+  opacity: 0.7;
+}
