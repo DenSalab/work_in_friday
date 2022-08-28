@@ -19,8 +19,8 @@ export const Pages = () => {
         <Route path={'/login'} element={<Login />} />
         <Route path={'/register'} element={<Register />} />
         <Route path={'/profile'} element={<Profile />} />
-        <Route path={'/set_new_password'} element={<SetNewPassword />} />
         <Route path={'/forgot'} element={<PasswordRecovery />} />
+        <Route path={'/set_new_password/:token'} element={<SetNewPassword />} />
         <Route path={'/test'} element={<CheckEmail />} />
         <Route path={'/404'} element={<Page404 />} />
       </Routes>

@@ -20,9 +20,7 @@ import {
 } from '../features/auth/Login/login-reducer'
 import { profileReducer, setUserAC } from '../features/auth/Profile/profile-reducer'
 import {
-  newPasswordRequestStatusAC,
   passwordRecoveryReducer,
-  recoveryRequestStatusAC,
   setRecoveryEmailAC,
 } from '../features/auth/Recovery/PasswordRecovery/passwordRecovery-reducer'
 
@@ -60,8 +58,7 @@ export type ActionsType =
   | ReturnType<typeof setAppStatusAC>
   | ReturnType<typeof setIsLoggedInAC>
   | ReturnType<typeof setRecoveryEmailAC>
-  | ReturnType<typeof recoveryRequestStatusAC>
-  | ReturnType<typeof newPasswordRequestStatusAC>
+
 export type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>
 
 export default store
