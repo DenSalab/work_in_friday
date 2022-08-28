@@ -14,7 +14,7 @@ type FormikErrorType = {
 export const PasswordRecovery = () => {
   const dispatch = useAppDispatch()
   const recoveryRequestStatus = useAppSelector(
-    state => state.passwordRecovery.recoveryRequestStatus
+    (state) => state.app.status
   )
   const formik = useFormik({
     initialValues: {

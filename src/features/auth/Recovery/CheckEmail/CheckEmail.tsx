@@ -5,20 +5,21 @@ import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
 
 import s from './CheckEmail.module.css'
 import icon from './emailIcon.png'
-import { recoveryRequestStatusAC } from '../PasswordRecovery/passwordRecovery-reducer'
+// import { recoveryRequestStatusAC } from '../PasswordRecovery/passwordRecovery-reducer'
 
 export const CheckEmail = () => {
   const dispatch = useAppDispatch()
-  const recoveryEmail = useAppSelector(state => state.passwordRecovery.recoveryEmail)
-  const recoveryRequestStatus = useAppSelector(
-    state => state.passwordRecovery.recoveryRequestStatus
-  )
+  const recoveryEmail = useAppSelector((state) => state.passwordRecovery.recoveryEmail)
+  // const recoveryRequestStatus = useAppSelector(
+  //   (state) => state.passwordRecovery.recoveryRequestStatus
+  // )
 
   const onClickHandler = () => {
-    dispatch(recoveryRequestStatusAC('idle'))
+    alert('dddddddddddddddddd')
+    // dispatch(recoveryRequestStatusAC('idle'))
   }
 
-  if (recoveryRequestStatus === 'idle') return <Navigate to={'/Login'} />
+  // if (recoveryRequestStatus === 'idle') return <Navigate to={'/Login'} />
 
   return (
     <div className={s.checkEmail}>

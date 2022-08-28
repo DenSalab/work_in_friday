@@ -7,16 +7,16 @@ import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
 import mainStyles from '../../../../common/styles/Container.module.css'
 import { FormikErrorType } from '../../Register/Register'
 import {
-  newPasswordRequestStatusAC,
   setNewPasswordTC,
 } from '../PasswordRecovery/passwordRecovery-reducer'
+import {setAppStatusAC} from '../../../../app/app-reducer';
 
 export const SetNewPassword = () => {
   const params = useParams()
   const resetPasswordToken = params.token
   const dispatch = useAppDispatch()
   const newPasswordRequestStatus = useAppSelector(
-    state => state.passwordRecovery.newPasswordRequestStatus
+    state => state.app.status
   )
   const formik = useFormik({
     initialValues: {
@@ -43,7 +43,7 @@ export const SetNewPassword = () => {
   })
 
   if (newPasswordRequestStatus === 'succeeded') {
-    dispatch(newPasswordRequestStatusAC('idle'))
+    dispatch(setAppStatusAC('idle'))
 
     return <Navigate to={'/Login'} />
   }

@@ -5,8 +5,6 @@ import { ActionsType, AppThunk } from '../../../../app/store'
 
 const initialState = {
   recoveryEmail: '',
-  recoveryRequestStatus: 'idle' as RecoveryRequestStatusType,
-  newPasswordRequestStatus: 'idle' as RecoveryRequestStatusType,
 }
 
 export const passwordRecoveryReducer = (
@@ -16,10 +14,6 @@ export const passwordRecoveryReducer = (
   switch (action.type) {
     case 'recovery/SET-RECOVERY-EMAIL':
       return { ...state, recoveryEmail: action.email }
-    case 'recovery/SET-RECOVERY-REQUEST-STATUS':
-      return { ...state, recoveryRequestStatus: action.status }
-    case 'recovery/NEW-PASSWORD-RECOVERY-REQUEST-STATUS':
-      return { ...state, newPasswordRequestStatus: action.status }
     default:
       return state
   }
@@ -27,10 +21,6 @@ export const passwordRecoveryReducer = (
 // actions
 export const setRecoveryEmailAC = (email: string) =>
   ({ type: 'recovery/SET-RECOVERY-EMAIL', email } as const)
-export const recoveryRequestStatusAC = (status: RecoveryRequestStatusType) =>
-  ({ type: 'recovery/SET-RECOVERY-REQUEST-STATUS', status } as const)
-export const newPasswordRequestStatusAC = (status: RecoveryRequestStatusType) =>
-  ({ type: 'recovery/NEW-PASSWORD-RECOVERY-REQUEST-STATUS', status } as const)
 
 // thunks
 export const passwordRecoveryTC =
@@ -38,15 +28,14 @@ export const passwordRecoveryTC =
   dispatch => {
     dispatch(setAppStatusAC('loading'))
     dispatch(setRecoveryEmailAC(email))
-    dispatch(recoveryRequestStatusAC('loading'))
+
     authAPI
       .passwordRecovery(email)
       .then(res => {
         console.log(res)
-        dispatch(recoveryRequestStatusAC('succeeded'))
+
       })
       .catch(error => {
-        dispatch(recoveryRequestStatusAC('failed'))
         dispatch(setServerErrorAC(error.response.statusText))
       })
       .finally(() => {
@@ -58,15 +47,13 @@ export const setNewPasswordTC =
   (password: string, resetPasswordToken: string): AppThunk =>
   dispatch => {
     dispatch(setAppStatusAC('loading'))
-    dispatch(newPasswordRequestStatusAC('loading'))
+
     authAPI
       .setNewPassword(password, resetPasswordToken)
       .then(res => {
         console.log(res)
-        dispatch(newPasswordRequestStatusAC('succeeded'))
       })
       .catch(error => {
-        dispatch(recoveryRequestStatusAC('failed'))
         dispatch(setServerErrorAC(error.response.statusText))
       })
       .finally(() => {
@@ -76,4 +63,3 @@ export const setNewPasswordTC =
 
 // types
 type InitialStateType = typeof initialState
-export type RecoveryRequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
