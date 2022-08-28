@@ -11,8 +11,8 @@ import s from './App.module.css'
 
 function App() {
   const dispatch = useAppDispatch()
-  const status = useAppSelector(state => state.app.status)
-  const isInitialized = useAppSelector(state => state.app.isInitialized)
+  const status = useAppSelector((state) => state.app.status)
+  const isInitialized = useAppSelector((state) => state.app.isInitialized)
 
   useEffect(() => {
     dispatch(initializeAppTC())

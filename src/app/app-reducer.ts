@@ -40,7 +40,7 @@ export const setAppErrorAC = (error: string | null) => ({ type: 'app/SET-ERROR',
 export const setAppInitializedAC = (value: boolean) =>
   ({ type: 'app/SET-IS-INITIALIZED', value } as const)
 
-export const initializeAppTC = (): AppThunk => async dispatch => {
+export const initializeAppTC = (): AppThunk => async (dispatch) => {
   dispatch(setAppStatusAC('loading'))
   try {
     const res = await authAPI.getUser()

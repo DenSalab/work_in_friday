@@ -12,8 +12,8 @@ import s from './Login.module.css'
 
 export const Login = () => {
   const dispatch = useAppDispatch()
-  const status = useAppSelector(state => state.login)
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const status = useAppSelector((state) => state.login)
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
   const formik = useFormik({
     initialValues: {
@@ -21,7 +21,7 @@ export const Login = () => {
       password: '1qazxcvBG',
       rememberMe: false,
     },
-    onSubmit: values => {
+    onSubmit: (values) => {
       dispatch(loginTC(values))
     },
   })
