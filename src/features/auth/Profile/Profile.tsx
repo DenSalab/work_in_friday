@@ -15,6 +15,9 @@ export const Profile = () => {
   const user = useAppSelector(state => state.profile.user)
   const dispatch = useAppDispatch()
   const logOutHandler = () => dispatch(logoutTC())
+  const onChangeNameHandler = (name: string) => {
+    dispatch(updateUserTC({ ...user, name: name }))
+  }
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
   if (!isLoggedIn) {
@@ -30,10 +33,7 @@ export const Profile = () => {
       </div>
 
       <div className={s.info}>
-        <EditableSpan
-          title={user.name}
-          onChange={name => dispatch(updateUserTC({ ...user, name: name }))}
-        />
+        <EditableSpan title={user.name} onChange={onChangeNameHandler} />
         <span>{user.email}</span>
       </div>
 
