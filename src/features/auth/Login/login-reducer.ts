@@ -48,11 +48,11 @@ export const loginTC =
       dispatch(setIsLoggedInAC(true))
       dispatch(setUserAC(res.data))
     } catch (e) {
-      const error = e as Error | AxiosError<{ error: string }>
+      //const error = e as Error | AxiosError<{ error: string }>
 
-      serverErrorHandler(error as AxiosError | Error, dispatch)
+      serverErrorHandler(e as AxiosError | Error, dispatch)
     } finally {
-      dispatch(setAppStatusAC('succeeded'))
+      dispatch(setAppStatusAC('idle'))
     }
   }
 

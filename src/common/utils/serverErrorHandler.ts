@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios'
+
+import { setAppErrorAC } from '../../app/app-reducer'
 import { AppDispatchType } from '../../app/store'
-import { setError } from '../../features/auth/Login/login-reducer'
 
 export const serverErrorHandler = (
   error: Error | AxiosError<{ error: string }>,
@@ -10,9 +11,10 @@ export const serverErrorHandler = (
 
   if (axios.isAxiosError(err)) {
     const error = err.response?.data ? err.response.data.error : err.message
+
     console.log(error)
-    dispatch(setError(error))
+    dispatch(setAppErrorAC(error))
   } else {
-    dispatch(setError('more details in the console'))
+    dispatch(setAppErrorAC('more details in the console'))
   }
 }

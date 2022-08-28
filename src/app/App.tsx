@@ -13,6 +13,7 @@ function App() {
   const dispatch = useAppDispatch()
   const status = useAppSelector(state => state.app.status)
   const isInitialized = useAppSelector(state => state.app.isInitialized)
+  const appError = useAppSelector(state => state.app.error)
 
   useEffect(() => {
     dispatch(initializeAppTC())
@@ -38,6 +39,7 @@ function App() {
       <Header />
       {status === 'loading' && <Preloader />}
       <Pages />
+      {appError}
       <Footer />
     </div>
   )

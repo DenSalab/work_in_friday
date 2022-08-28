@@ -1,6 +1,9 @@
+import { AxiosError } from 'axios'
+
 import { authAPI, UserDataType } from '../../../api/api'
 import { setAppErrorAC, setAppStatusAC } from '../../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../../app/store'
+import { serverErrorHandler } from '../../../common/utils/serverErrorHandler'
 import { setIsLoggedInAC } from '../auth-reducer'
 import { setSuccess } from '../Login/login-reducer'
 
@@ -27,14 +30,7 @@ export const setUserAC = (user: UserDataType) =>
     user,
   } as const)
 
-/*export const updateUserAC = (updateUser: UserDataType) =>
-  ({
-    type: 'profile/UPDATE_USER',
-    updateUser,
-  } as const)*/
-
 // thunks creators
-
 export const updateUserTC =
   (user: UserDataType): AppThunk =>
   async dispatch => {
@@ -44,25 +40,24 @@ export const updateUserTC =
 
       dispatch(setUserAC(res.data.updatedUser))
       console.log(res.data.updatedUser)
-    } catch (e: any) {
-      //need to fix any
-      dispatch(setAppErrorAC(e.response.data.error))
+    } catch (e) {
+      serverErrorHandler(e as AxiosError | Error, dispatch)
+      //dispatch(setAppErrorAC(e.response.data.error))
     } finally {
-      dispatch(setAppStatusAC('succeeded'))
+      dispatch(setAppStatusAC('idle'))
     }
   }
 
 export const logoutTC = (): AppThunk => async dispatch => {
+  dispatch(setAppStatusAC('loading'))
   try {
-    dispatch(setAppStatusAC('loading'))
     await authAPI.logout()
-
     dispatch(setIsLoggedInAC(false))
     dispatch(setSuccess(false)) ///???????
-  } catch (e: any) {
-    //need to fix any
+  } catch (e) {
+    serverErrorHandler(e as AxiosError | Error, dispatch)
   } finally {
-    dispatch(setAppStatusAC('succeeded'))
+    dispatch(setAppStatusAC('idle'))
   }
 }
 

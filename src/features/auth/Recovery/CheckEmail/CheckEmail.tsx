@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { Navigate } from 'react-router-dom'
+
 import SuperButton from '../../../../common/components/SuperButton/SuperButton'
 import { useAppSelector } from '../../../../common/hooks/hooks'
 
@@ -7,8 +9,7 @@ import s from './CheckEmail.module.css'
 import icon from './emailIcon.png'
 
 export const CheckEmail = () => {
-
-  const recoveryEmail = useAppSelector((state) => state.passwordRecovery.recoveryEmail)
+  const recoveryEmail = useAppSelector(state => state.passwordRecovery.recoveryEmail)
 
   const onClickHandler = () => {
     return <Navigate to={'/login'} />

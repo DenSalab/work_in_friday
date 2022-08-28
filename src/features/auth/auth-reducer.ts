@@ -1,6 +1,9 @@
+import { AxiosError } from 'axios'
+
 import { authAPI, RegisterRequestType } from '../../api/api'
 import { setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../app/store'
+import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
 
 const initialState = {
   isLoggedIn: false,
@@ -43,10 +46,10 @@ export const registerTC =
       await authAPI.register(data)
       dispatch(setIsRegisteredAC(true))
       dispatch(setServerErrorAC(''))
-    } catch (e: any) {
-      // need to fix any
-      dispatch(setServerErrorAC(e.response.statusText))
+    } catch (e) {
+      serverErrorHandler(e as AxiosError | Error, dispatch)
+      //dispatch(setServerErrorAC(e.response.statusText))
     } finally {
-      dispatch(setAppStatusAC('succeeded'))
+      dispatch(setAppStatusAC('idle'))
     }
   }

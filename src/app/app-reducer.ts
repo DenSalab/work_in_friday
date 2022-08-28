@@ -1,4 +1,7 @@
+import { AxiosError } from 'axios'
+
 import { authAPI } from '../api/api'
+import { serverErrorHandler } from '../common/utils/serverErrorHandler'
 import { setIsLoggedInAC, setServerErrorAC } from '../features/auth/auth-reducer'
 import { setUserAC } from '../features/auth/Profile/profile-reducer'
 
@@ -7,7 +10,7 @@ import { ActionsType, AppThunk } from './store'
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
-  status: 'succeeded' as RequestStatusType,
+  status: 'idle' as RequestStatusType,
   error: null,
   isInitialized: false,
 }
@@ -44,13 +47,15 @@ export const initializeAppTC = (): AppThunk => async dispatch => {
   dispatch(setAppStatusAC('loading'))
   try {
     const res = await authAPI.getUser()
-    dispatch(setAppStatusAC('succeeded'))
+
+    // dispatch(setAppStatusAC('succeeded'))
     console.log(res.data)
     dispatch(setIsLoggedInAC(true))
     dispatch(setUserAC(res.data))
-  } catch (e: any) {
-    dispatch(setServerErrorAC(e.response.statusText))
-    dispatch(setAppStatusAC('failed'))
+  } catch (e) {
+    serverErrorHandler(e as AxiosError | Error, dispatch)
+    // dispatch(setServerErrorAC(e.response.statusText))
+    //dispatch(setAppStatusAC('failed'))
   } finally {
     dispatch(setAppInitializedAC(true))
     dispatch(setAppStatusAC('idle'))

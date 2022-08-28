@@ -1,7 +1,10 @@
+import { AxiosError } from 'axios'
+
 import { authAPI } from '../../../../api/api'
 import { setAppStatusAC } from '../../../../app/app-reducer'
-import { setServerErrorAC } from '../../auth-reducer'
 import { ActionsType, AppThunk } from '../../../../app/store'
+import { serverErrorHandler } from '../../../../common/utils/serverErrorHandler'
+import { setServerErrorAC } from '../../auth-reducer'
 
 const initialState = {
   recoveryEmail: '',
@@ -33,13 +36,13 @@ export const passwordRecoveryTC =
       .passwordRecovery(email)
       .then(res => {
         console.log(res)
-
       })
       .catch(error => {
-        dispatch(setServerErrorAC(error.response.statusText))
+        //dispatch(setServerErrorAC(error.response.statusText))
+        serverErrorHandler(error as AxiosError | Error, dispatch)
       })
       .finally(() => {
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppStatusAC('idle'))
       })
   }
 
@@ -54,10 +57,11 @@ export const setNewPasswordTC =
         console.log(res)
       })
       .catch(error => {
-        dispatch(setServerErrorAC(error.response.statusText))
+        //dispatch(setServerErrorAC(error.response.statusText))
+        serverErrorHandler(error as AxiosError | Error, dispatch)
       })
       .finally(() => {
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppStatusAC('idle'))
       })
   }
 
