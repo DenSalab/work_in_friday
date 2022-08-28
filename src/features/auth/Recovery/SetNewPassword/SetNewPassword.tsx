@@ -16,7 +16,7 @@ export const SetNewPassword = () => {
   const resetPasswordToken = params.token
   const dispatch = useAppDispatch()
   const newPasswordRequestStatus = useAppSelector(
-    (state) => state.passwordRecovery.newPasswordRequestStatus
+    state => state.passwordRecovery.newPasswordRequestStatus
   )
   const formik = useFormik({
     initialValues: {
@@ -24,7 +24,7 @@ export const SetNewPassword = () => {
       confirmPassword: '',
     },
 
-    validate: (values) => {
+    validate: values => {
       const errors: FormikErrorType = {}
 
       if (!values.password) {
@@ -37,7 +37,7 @@ export const SetNewPassword = () => {
       return errors
     },
 
-    onSubmit: (values) => {
+    onSubmit: values => {
       if (resetPasswordToken) dispatch(setNewPasswordTC(values.password, resetPasswordToken))
     },
   })

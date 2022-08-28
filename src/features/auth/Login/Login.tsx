@@ -1,18 +1,19 @@
 import { useFormik } from 'formik'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
-import { loginTC } from './login-reducer'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import SuperCheckbox from '../../../common/components/SuperCheckbox/SuperCheckbox'
 import SuperInputText from '../../../common/components/SuperInputText/SuperInputText'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import mainStyles from '../../../common/styles/Container.module.css'
 
+import { loginTC } from './login-reducer'
 import s from './Login.module.css'
 
 export const Login = () => {
   const dispatch = useAppDispatch()
-  const status = useAppSelector((state) => state.login)
+  const status = useAppSelector(state => state.login)
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
   const formik = useFormik({
     initialValues: {
@@ -20,10 +21,14 @@ export const Login = () => {
       password: '1qazxcvBG',
       rememberMe: false,
     },
-    onSubmit: (values) => {
+    onSubmit: values => {
       dispatch(loginTC(values))
     },
   })
+
+  if (isLoggedIn) {
+    return <Navigate to={'/profile'} />
+  }
 
   return (
     <div className={mainStyles.container}>

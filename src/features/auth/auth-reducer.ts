@@ -1,15 +1,22 @@
 import { authAPI, RegisterRequestType } from '../../api/api'
-
 import { setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../app/store'
 
 const initialState = {
-  isLoggedIn: true,
+  isLoggedIn: false,
   isRegistered: false,
   serverError: '',
 }
 
 type InitialStateType = typeof initialState
+
+// actions
+export const setIsLoggedInAC = (value: boolean) =>
+  ({ type: 'auth/SET-IS-LOGGED-IN', value } as const)
+export const setIsRegisteredAC = (value: boolean) =>
+  ({ type: 'auth/SET-IS-REGISTERED', value } as const)
+export const setServerErrorAC = (error: string) =>
+  ({ type: 'auth/SET-SERVER-ERROR', error } as const)
 
 export const authReducer = (
   state: InitialStateType = initialState,
@@ -26,18 +33,11 @@ export const authReducer = (
       return state
   }
 }
-// actions
-export const setIsLoggedInAC = (value: boolean) =>
-  ({ type: 'auth/SET-IS-LOGGED-IN', value } as const)
-export const setIsRegisteredAC = (value: boolean) =>
-  ({ type: 'auth/SET-IS-REGISTERED', value } as const)
-export const setServerErrorAC = (error: string) =>
-  ({ type: 'auth/SET-SERVER-ERROR', error } as const)
 
 // thunks
 export const registerTC =
   (data: RegisterRequestType): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     try {
       dispatch(setAppStatusAC('loading'))
       await authAPI.register(data)

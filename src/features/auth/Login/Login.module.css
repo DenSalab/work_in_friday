@@ -1,29 +1,29 @@
 .remember {
-    display: flex;
+  display: flex;
 }
 
 .remember label {
-    user-select: none;
+  user-select: none;
 
-    opacity: 1;
+  opacity: 1;
 }
 
 .forgotPass {
-    display: block;
+  display: block;
 
-    margin: 15px 0 15px auto;
+  margin: 15px 0 15px auto;
 
-    font-size: 14px;
-    font-weight: 500;
-    color: #42a5f5;
-    text-align: right;
-    text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #42a5f5;
+  text-align: right;
+  text-decoration: none;
 }
 
 .forgotPass:hover {
-    cursor: pointer;
+  cursor: pointer;
 
-    text-decoration: underline;
+  text-decoration: underline;
 
-    background: none;
+  background: none;
 }

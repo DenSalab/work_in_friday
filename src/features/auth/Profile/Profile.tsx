@@ -1,17 +1,25 @@
 import React from 'react'
-import { logoutTC, updateUserTC } from './profile-reducer'
+
+import { Navigate } from 'react-router-dom'
+
 import { EditableSpan } from '../../../common/components/EditableSpan/EditableSpan'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import logout from '../../../common/images/logout_FILL0_wght400_GRAD0_opsz48.png'
 import mainStyles from '../../../common/styles/Container.module.css'
 
+import { logoutTC, updateUserTC } from './profile-reducer'
 import s from './Profile.module.css'
 
 export const Profile = () => {
-  const user = useAppSelector((state) => state.profile.user)
+  const user = useAppSelector(state => state.profile.user)
   const dispatch = useAppDispatch()
   const logOutHandler = () => dispatch(logoutTC())
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+
+  if (!isLoggedIn) {
+    return <Navigate to={'/login'} />
+  }
 
   return (
     <div className={mainStyles.container}>
@@ -24,7 +32,7 @@ export const Profile = () => {
       <div className={s.info}>
         <EditableSpan
           title={user.name}
-          onChange={(name) => dispatch(updateUserTC({ ...user, name: name }))}
+          onChange={name => dispatch(updateUserTC({ ...user, name: name }))}
         />
         <span>{user.email}</span>
       </div>

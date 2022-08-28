@@ -9,9 +9,9 @@ import { recoveryRequestStatusAC } from '../PasswordRecovery/passwordRecovery-re
 
 export const CheckEmail = () => {
   const dispatch = useAppDispatch()
-  const recoveryEmail = useAppSelector((state) => state.passwordRecovery.recoveryEmail)
+  const recoveryEmail = useAppSelector(state => state.passwordRecovery.recoveryEmail)
   const recoveryRequestStatus = useAppSelector(
-    (state) => state.passwordRecovery.recoveryRequestStatus
+    state => state.passwordRecovery.recoveryRequestStatus
   )
 
   const onClickHandler = () => {

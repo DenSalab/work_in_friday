@@ -35,17 +35,17 @@ export const newPasswordRequestStatusAC = (status: RecoveryRequestStatusType) =>
 // thunks
 export const passwordRecoveryTC =
   (email: string): AppThunk =>
-  (dispatch) => {
+  dispatch => {
     dispatch(setAppStatusAC('loading'))
     dispatch(setRecoveryEmailAC(email))
     dispatch(recoveryRequestStatusAC('loading'))
     authAPI
       .passwordRecovery(email)
-      .then((res) => {
+      .then(res => {
         console.log(res)
         dispatch(recoveryRequestStatusAC('succeeded'))
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(recoveryRequestStatusAC('failed'))
         dispatch(setServerErrorAC(error.response.statusText))
       })
@@ -56,16 +56,16 @@ export const passwordRecoveryTC =
 
 export const setNewPasswordTC =
   (password: string, resetPasswordToken: string): AppThunk =>
-  (dispatch) => {
+  dispatch => {
     dispatch(setAppStatusAC('loading'))
     dispatch(newPasswordRequestStatusAC('loading'))
     authAPI
       .setNewPassword(password, resetPasswordToken)
-      .then((res) => {
+      .then(res => {
         console.log(res)
         dispatch(newPasswordRequestStatusAC('succeeded'))
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(recoveryRequestStatusAC('failed'))
         dispatch(setServerErrorAC(error.response.statusText))
       })

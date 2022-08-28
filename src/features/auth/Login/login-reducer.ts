@@ -1,9 +1,11 @@
+import { AxiosError } from 'axios'
+
 import { authAPI, LoginRequestDataType } from '../../../api/api'
 import { setAppStatusAC } from '../../../app/app-reducer'
-import { setUserAC } from '../Profile/profile-reducer'
 import { ActionsType, AppThunk } from '../../../app/store'
-import { AxiosError } from 'axios'
 import { serverErrorHandler } from '../../../common/utils/serverErrorHandler'
+import { setIsLoggedInAC } from '../auth-reducer'
+import { setUserAC } from '../Profile/profile-reducer'
 
 const initialState = {
   error: '',
@@ -38,18 +40,22 @@ export const setError = (error: string) => ({ type: 'Login.SET_ERROR', error } a
 // thunk creators
 export const loginTC =
   (values: LoginRequestDataType): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
+    //dispatch(setLoading(true))
+    dispatch(setAppStatusAC('loading'))
     try {
-      dispatch(setLoading(true))
-      dispatch(setAppStatusAC('loading'))
       const res = await authAPI.login(values)
-      dispatch(setSuccess(true))
+
+      dispatch(setIsLoggedInAC(true))
       dispatch(setUserAC(res.data))
+      // dispatch(setSuccess(true)) ///??????
     } catch (e) {
       const error = e as Error | AxiosError<{ error: string }>
+
       serverErrorHandler(error as AxiosError | Error, dispatch)
     } finally {
       dispatch(setAppStatusAC('succeeded'))
+      //  dispatch(setLoading(false))
     }
   }
 

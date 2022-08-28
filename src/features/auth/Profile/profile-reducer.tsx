@@ -1,8 +1,8 @@
 import { authAPI, UserDataType } from '../../../api/api'
 import { setAppErrorAC, setAppStatusAC } from '../../../app/app-reducer'
+import { ActionsType, AppThunk } from '../../../app/store'
 import { setIsLoggedInAC } from '../auth-reducer'
 import { setSuccess } from '../Login/login-reducer'
-import { ActionsType, AppThunk } from '../../../app/store'
 
 const initialState = {
   user: {} as UserDataType,
@@ -15,8 +15,6 @@ export const profileReducer = (
   switch (action.type) {
     case 'profile/SET_USER':
       return { ...state, user: action.user }
-    case 'profile/UPDATE_USER':
-      return { ...state, user: action.updateUser }
     default:
       return state
   }
@@ -28,34 +26,23 @@ export const setUserAC = (user: UserDataType) =>
     type: 'profile/SET_USER',
     user,
   } as const)
-export const updateUserAC = (updateUser: UserDataType) =>
+
+/*export const updateUserAC = (updateUser: UserDataType) =>
   ({
     type: 'profile/UPDATE_USER',
     updateUser,
-  } as const)
+  } as const)*/
 
 // thunks creators
-export const getUserTC = (): AppThunk => async (dispatch) => {
-  try {
-    dispatch(setAppStatusAC('loading'))
-    const res = await authAPI.getUser()
-    dispatch(setUserAC(res.data))
-  } catch (e: any) {
-    // need to fix any
-    dispatch(setAppErrorAC(e.response.data.error))
-    console.log(e.response.data.error)
-  } finally {
-    dispatch(setAppStatusAC('succeeded'))
-  }
-}
 
 export const updateUserTC =
   (user: UserDataType): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
+    dispatch(setAppStatusAC('loading'))
     try {
-      dispatch(setAppStatusAC('loading'))
       const res = await authAPI.updateUser(user.name, user.avatar)
-      dispatch(updateUserAC(res.data.updatedUser))
+
+      dispatch(setUserAC(res.data.updatedUser))
       console.log(res.data.updatedUser)
     } catch (e: any) {
       //need to fix any
@@ -65,12 +52,13 @@ export const updateUserTC =
     }
   }
 
-export const logoutTC = (): AppThunk => async (dispatch) => {
+export const logoutTC = (): AppThunk => async dispatch => {
   try {
     dispatch(setAppStatusAC('loading'))
-    const res = authAPI.logout()
+    await authAPI.logout()
+
     dispatch(setIsLoggedInAC(false))
-    dispatch(setSuccess(false))
+    dispatch(setSuccess(false)) ///???????
   } catch (e: any) {
     //need to fix any
   } finally {

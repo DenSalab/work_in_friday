@@ -1,23 +1,24 @@
 import React from 'react'
 
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 
-import { CheckEmail } from '../../../features/auth/Recovery/CheckEmail/CheckEmail'
-import s from '../Header/Header.module.css'
 import { Login } from '../../../features/auth/Login/Login'
-import { Page404 } from '../Page404/Page404'
-import { PasswordRecovery } from '../../../features/auth/Recovery/PasswordRecovery/PasswordRecovery'
 import { Profile } from '../../../features/auth/Profile/Profile'
-import { Register } from '../../../features/auth/Register/Register'
+import { CheckEmail } from '../../../features/auth/Recovery/CheckEmail/CheckEmail'
+import { PasswordRecovery } from '../../../features/auth/Recovery/PasswordRecovery/PasswordRecovery'
 import { SetNewPassword } from '../../../features/auth/Recovery/SetNewPassword/SetNewPassword'
+import { Register } from '../../../features/auth/Register/Register'
+import s from '../Header/Header.module.css'
+import { Page404 } from '../Page404/Page404'
 
 export const Pages = () => {
   return (
     <div className={s.componentContainer}>
       <Routes>
-        <Route path={'/Login'} element={<Login />} />
-        <Route path={'/Register'} element={<Register />} />
-        <Route path={'/Profile'} element={<Profile />} />
+        <Route path={'/'} element={<Navigate to={'/login'} />} />
+        <Route path={'/login'} element={<Login />} />
+        <Route path={'/register'} element={<Register />} />
+        <Route path={'/profile'} element={<Profile />} />
         <Route path={'/404'} element={<Page404 />} />
         <Route path={'/forgot'} element={<PasswordRecovery />} />
         <Route path={'/set_new_password'} element={<SetNewPassword />} />

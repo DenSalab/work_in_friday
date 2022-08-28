@@ -18,7 +18,7 @@ export type FormikErrorType = {
 
 export const Register = () => {
   const dispatch = useAppDispatch()
-  const isRegistered = useAppSelector((state) => state.auth.isRegistered)
+  const isRegistered = useAppSelector(state => state.auth.isRegistered)
 
   const formik = useFormik({
     initialValues: {
@@ -27,7 +27,7 @@ export const Register = () => {
       confirmPassword: '',
     },
 
-    validate: (values) => {
+    validate: values => {
       const errors: FormikErrorType = {}
 
       if (!values.email) {
@@ -44,7 +44,7 @@ export const Register = () => {
 
       return errors
     },
-    onSubmit: (values) => {
+    onSubmit: values => {
       alert(JSON.stringify(values))
       const data = { email: values.email, password: values.password }
 
