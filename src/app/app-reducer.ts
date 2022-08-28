@@ -15,6 +15,7 @@ const initialState = {
 type InitialStateType = {
   status: RequestStatusType
   error: string | null
+
   isInitialized: boolean
 }
 
