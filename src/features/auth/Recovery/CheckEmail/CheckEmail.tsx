@@ -1,25 +1,18 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 import SuperButton from '../../../../common/components/SuperButton/SuperButton'
-import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
+import { useAppSelector } from '../../../../common/hooks/hooks'
 
 import s from './CheckEmail.module.css'
 import icon from './emailIcon.png'
-// import { recoveryRequestStatusAC } from '../PasswordRecovery/passwordRecovery-reducer'
 
 export const CheckEmail = () => {
-  const dispatch = useAppDispatch()
+
   const recoveryEmail = useAppSelector((state) => state.passwordRecovery.recoveryEmail)
-  // const recoveryRequestStatus = useAppSelector(
-  //   (state) => state.passwordRecovery.recoveryRequestStatus
-  // )
 
   const onClickHandler = () => {
-    alert('dddddddddddddddddd')
-    // dispatch(recoveryRequestStatusAC('idle'))
+    return <Navigate to={'/login'} />
   }
-
-  // if (recoveryRequestStatus === 'idle') return <Navigate to={'/Login'} />
 
   return (
     <div className={s.checkEmail}>

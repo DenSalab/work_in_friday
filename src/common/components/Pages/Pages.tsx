@@ -21,7 +21,7 @@ export const Pages = () => {
         <Route path={'/profile'} element={<Profile />} />
         <Route path={'/404'} element={<Page404 />} />
         <Route path={'/forgot'} element={<PasswordRecovery />} />
-        <Route path={'/set_new_password'} element={<SetNewPassword />} />
+        <Route path={'/set_new_password/:token'} element={<SetNewPassword />} />
         <Route path={'/test'} element={<CheckEmail />} />
       </Routes>
     </div>

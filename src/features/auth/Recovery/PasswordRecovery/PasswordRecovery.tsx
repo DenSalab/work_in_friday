@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useFormik } from 'formik'
 import { Link, Navigate } from 'react-router-dom'
 import SuperButton from '../../../../common/components/SuperButton/SuperButton'
@@ -6,6 +6,7 @@ import SuperInputText from '../../../../common/components/SuperInputText/SuperIn
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
 import mainStyles from '../../../../common/styles/Container.module.css'
 import { passwordRecoveryTC } from './passwordRecovery-reducer'
+import {initializeAppTC, setAppInitializedAC, setAppStatusAC} from '../../../../app/app-reducer';
 
 type FormikErrorType = {
   email?: string
