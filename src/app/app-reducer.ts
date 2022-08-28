@@ -1,7 +1,6 @@
 import { authAPI } from '../api/api'
 import { setIsLoggedInAC, setServerErrorAC } from '../features/auth/auth-reducer'
 import { setUserAC } from '../features/auth/Profile/profile-reducer'
-
 import { ActionsType, AppThunk } from './store'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -40,7 +39,7 @@ export const setAppErrorAC = (error: string | null) => ({ type: 'app/SET-ERROR',
 export const setAppInitializedAC = (value: boolean) =>
   ({ type: 'app/SET-IS-INITIALIZED', value } as const)
 
-export const initializeAppTC = (): AppThunk => async dispatch => {
+export const initializeAppTC = (): AppThunk => async (dispatch) => {
   dispatch(setAppStatusAC('loading'))
   try {
     const res = await authAPI.getUser()

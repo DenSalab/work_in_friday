@@ -7,7 +7,6 @@ import s from './CheckEmail.module.css'
 import icon from './emailIcon.png'
 
 export const CheckEmail = () => {
-
   const recoveryEmail = useAppSelector((state) => state.passwordRecovery.recoveryEmail)
 
   const onClickHandler = () => {

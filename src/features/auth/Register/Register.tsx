@@ -18,7 +18,7 @@ export type FormikErrorType = {
 
 export const Register = () => {
   const dispatch = useAppDispatch()
-  const isRegistered = useAppSelector(state => state.auth.isRegistered)
+  const isRegistered = useAppSelector((state) => state.auth.isRegistered)
 
   const formik = useFormik({
     initialValues: {
@@ -27,7 +27,7 @@ export const Register = () => {
       confirmPassword: '',
     },
 
-    validate: values => {
+    validate: (values) => {
       const errors: FormikErrorType = {}
 
       if (!values.email) {
@@ -44,7 +44,7 @@ export const Register = () => {
 
       return errors
     },
-    onSubmit: values => {
+    onSubmit: (values) => {
       alert(JSON.stringify(values))
       const data = { email: values.email, password: values.password }
 
@@ -58,7 +58,6 @@ export const Register = () => {
     <div className={mainStyles.container}>
       <form onSubmit={formik.handleSubmit}>
         <h2>Sign Up</h2>
-
         <label htmlFor="email">Email</label>
         <SuperInputText
           id={'email'}
@@ -66,7 +65,6 @@ export const Register = () => {
           error={formik.errors.email}
           placeholder={'enter your email'}
         />
-
         <label htmlFor="password">Password</label>
         <SuperInputText
           id={'password'}
@@ -75,7 +73,6 @@ export const Register = () => {
           error={formik.errors.password}
           placeholder={'enter password'}
         />
-
         <label htmlFor="confirm">Confirm password</label>
         <SuperInputText
           id={'confirm'}
@@ -84,11 +81,9 @@ export const Register = () => {
           error={formik.errors.confirmPassword}
           placeholder={'confirm password'}
         />
-
         <SuperButton className={mainStyles.mainButton} type={'submit'}>
           Sign Up
         </SuperButton>
-
         <div className={mainStyles.header}>
           <span>Already have an account?</span>
           <Link to="/login">Sign In</Link>

@@ -37,7 +37,7 @@ export const setUserAC = (user: UserDataType) =>
 
 export const updateUserTC =
   (user: UserDataType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await authAPI.updateUser(user.name, user.avatar)
@@ -52,7 +52,7 @@ export const updateUserTC =
     }
   }
 
-export const logoutTC = (): AppThunk => async dispatch => {
+export const logoutTC = (): AppThunk => async (dispatch) => {
   try {
     dispatch(setAppStatusAC('loading'))
     await authAPI.logout()

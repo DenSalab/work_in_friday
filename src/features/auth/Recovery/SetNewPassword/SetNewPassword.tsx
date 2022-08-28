@@ -6,24 +6,20 @@ import SuperInputText from '../../../../common/components/SuperInputText/SuperIn
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
 import mainStyles from '../../../../common/styles/Container.module.css'
 import { FormikErrorType } from '../../Register/Register'
-import {
-  setNewPasswordTC,
-} from '../PasswordRecovery/passwordRecovery-reducer'
-import {setAppStatusAC} from '../../../../app/app-reducer';
+import { setNewPasswordTC } from '../PasswordRecovery/passwordRecovery-reducer'
+import { setAppStatusAC } from '../../../../app/app-reducer'
 
 export const SetNewPassword = () => {
   const params = useParams()
   const resetPasswordToken = params.token
   const dispatch = useAppDispatch()
-  const newPasswordRequestStatus = useAppSelector(
-    state => state.app.status
-  )
+  const newPasswordRequestStatus = useAppSelector((state) => state.app.status)
   const formik = useFormik({
     initialValues: {
       password: '',
     },
 
-    validate: values => {
+    validate: (values) => {
       const errors: FormikErrorType = {}
 
       if (!values.password) {
@@ -34,8 +30,7 @@ export const SetNewPassword = () => {
       return errors
     },
 
-    onSubmit: values => {
-      alert(resetPasswordToken);
+    onSubmit: (values) => {
       if (resetPasswordToken) dispatch(setNewPasswordTC(values.password, resetPasswordToken))
     },
   })
@@ -48,13 +43,10 @@ export const SetNewPassword = () => {
 
   return (
     <div className={mainStyles.container}>
-
       <form onSubmit={formik.handleSubmit}>
-
         <h2>Create new password</h2>
 
         <label htmlFor="password">Password</label>
-
         <SuperInputText
           id={'password'}
           type="password"
@@ -67,9 +59,7 @@ export const SetNewPassword = () => {
         <SuperButton className={mainStyles.mainButton} type={'submit'}>
           Create new password
         </SuperButton>
-
       </form>
-
     </div>
   )
 }

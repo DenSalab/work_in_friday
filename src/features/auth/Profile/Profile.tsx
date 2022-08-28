@@ -12,10 +12,10 @@ import { logoutTC, updateUserTC } from './profile-reducer'
 import s from './Profile.module.css'
 
 export const Profile = () => {
-  const user = useAppSelector(state => state.profile.user)
+  const user = useAppSelector((state) => state.profile.user)
   const dispatch = useAppDispatch()
   const logOutHandler = () => dispatch(logoutTC())
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
   if (!isLoggedIn) {
     return <Navigate to={'/login'} />
@@ -32,7 +32,7 @@ export const Profile = () => {
       <div className={s.info}>
         <EditableSpan
           title={user.name}
-          onChange={name => dispatch(updateUserTC({ ...user, name: name }))}
+          onChange={(name) => dispatch(updateUserTC({ ...user, name: name }))}
         />
         <span>{user.email}</span>
       </div>

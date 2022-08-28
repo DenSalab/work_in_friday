@@ -37,7 +37,7 @@ export const authReducer = (
 // thunks
 export const registerTC =
   (data: RegisterRequestType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     try {
       dispatch(setAppStatusAC('loading'))
       await authAPI.register(data)
