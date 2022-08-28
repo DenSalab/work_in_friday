@@ -41,21 +41,18 @@ export const setError = (error: string) => ({ type: 'Login.SET_ERROR', error } a
 export const loginTC =
   (values: LoginRequestDataType): AppThunk =>
   async dispatch => {
-    //dispatch(setLoading(true))
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await authAPI.login(values)
 
       dispatch(setIsLoggedInAC(true))
       dispatch(setUserAC(res.data))
-      // dispatch(setSuccess(true)) ///??????
     } catch (e) {
       const error = e as Error | AxiosError<{ error: string }>
 
       serverErrorHandler(error as AxiosError | Error, dispatch)
     } finally {
       dispatch(setAppStatusAC('succeeded'))
-      //  dispatch(setLoading(false))
     }
   }
 
