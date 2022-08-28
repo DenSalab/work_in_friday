@@ -5,13 +5,7 @@ import {
   applyMiddleware,
 } from 'redux'
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
-import {
-  appReducer,
-  SetAppErrorActionType,
-  SetAppInitializedActionType,
-  setAppStatusAC,
-  SetAppStatusActionType,
-} from './app-reducer'
+
 import {
   authReducer,
   setIsLoggedInAC,
@@ -24,13 +18,21 @@ import {
   setLoading,
   setSuccess,
 } from '../features/auth/Login/login-reducer'
-import { profileReducer, setUserAC, updateUserAC } from '../features/auth/Profile/profile-reducer'
+import { profileReducer, setUserAC } from '../features/auth/Profile/profile-reducer'
 import {
   newPasswordRequestStatusAC,
   passwordRecoveryReducer,
   recoveryRequestStatusAC,
   setRecoveryEmailAC,
 } from '../features/auth/Recovery/PasswordRecovery/passwordRecovery-reducer'
+
+import {
+  appReducer,
+  SetAppErrorActionType,
+  SetAppInitializedActionType,
+  setAppStatusAC,
+  SetAppStatusActionType,
+} from './app-reducer'
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -45,7 +47,6 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction>
 
 export type ActionsType =
-  | ReturnType<typeof updateUserAC>
   | SetAppErrorActionType
   | ReturnType<typeof setIsLoggedInAC>
   | SetAppStatusActionType

@@ -1,6 +1,8 @@
 import React, { useState, ChangeEvent } from 'react'
-import style from './EditableSpan.module.css'
+
 import pen from '../../images/edit_FILL0_wght400_GRAD0_opsz48.png'
+
+import style from './EditableSpan.module.css'
 
 type EditableSpanPropsSpan = {
   title: string
@@ -21,7 +23,8 @@ export const EditableSpan = React.memo((props: EditableSpanPropsSpan) => {
   const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value)
   }
-  return editMode && !props.disabled ? ( // if ===true
+
+  return editMode && !props.disabled ? (
     <input autoFocus={true} onBlur={onBlurInput} value={title} onChange={onChangeTitleHandler} />
   ) : (
     <span onDoubleClick={editSpanHandler} className={style.name}>
