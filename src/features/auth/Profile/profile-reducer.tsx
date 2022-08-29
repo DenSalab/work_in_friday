@@ -1,4 +1,4 @@
-import { authAPI, UserDataType } from '../../../api/api'
+import { authAPI, UserDataType } from '../../../api/authAPI'
 import { setAppErrorAC, setAppStatusAC } from '../../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../../app/store'
 import { setIsLoggedInAC } from '../auth-reducer'
@@ -37,7 +37,7 @@ export const setUserAC = (user: UserDataType) =>
 
 export const updateUserTC =
   (user: UserDataType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await authAPI.updateUser(user.name, user.avatar)
@@ -52,7 +52,7 @@ export const updateUserTC =
     }
   }
 
-export const logoutTC = (): AppThunk => async dispatch => {
+export const logoutTC = (): AppThunk => async (dispatch) => {
   try {
     dispatch(setAppStatusAC('loading'))
     await authAPI.logout()

@@ -1,4 +1,4 @@
-import { authAPI } from '../api/api'
+import { authAPI } from '../api/authAPI'
 import { setIsLoggedInAC, setServerErrorAC } from '../features/auth/auth-reducer'
 import { setUserAC } from '../features/auth/Profile/profile-reducer'
 

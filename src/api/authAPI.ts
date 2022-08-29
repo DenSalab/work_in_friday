@@ -1,25 +1,11 @@
-import axios from 'axios'
-
 import { getPasswordRecoveryRequestData } from '../common/utils/getPasswordRecoveryRequestData'
+import { instance } from './instance'
 
-const instance = axios.create({
-  // baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
-  baseURL: process.env.REACT_APP_BACK_URL || 'https://neko-back.herokuapp.com/2.0',
-  withCredentials: true,
-})
-
-// api
 export const authAPI = {
   getUser() {
-    console.log('getUser')
-
     return instance.post<UserDataType>(`/auth/me`, {})
   },
   login(loginData: LoginRequestDataType) {
-    console.log(
-      `login: "email: ${loginData.email}, password: ${loginData.password}, rememberMe: ${loginData.rememberMe}`
-    )
-
     return instance.post<UserDataType>('auth/login', loginData)
   },
   logout() {
@@ -30,7 +16,6 @@ export const authAPI = {
   },
   passwordRecovery(email: string) {
     const data: PasswordRecoveryRequestType = getPasswordRecoveryRequestData(email)
-
     return instance.post<PasswordRecoveryResponseType>('auth/forgot', data)
   },
   setNewPassword(password: string, resetPasswordToken: string) {

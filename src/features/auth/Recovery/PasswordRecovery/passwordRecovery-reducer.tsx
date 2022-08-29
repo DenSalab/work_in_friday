@@ -1,4 +1,4 @@
-import { authAPI } from '../../../../api/api'
+import { authAPI } from '../../../../api/authAPI'
 import { setAppStatusAC } from '../../../../app/app-reducer'
 import { setServerErrorAC } from '../../auth-reducer'
 import { ActionsType, AppThunk } from '../../../../app/store'
@@ -25,17 +25,16 @@ export const setRecoveryEmailAC = (email: string) =>
 // thunks
 export const passwordRecoveryTC =
   (email: string): AppThunk =>
-  dispatch => {
+  (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     dispatch(setRecoveryEmailAC(email))
 
     authAPI
       .passwordRecovery(email)
-      .then(res => {
+      .then((res) => {
         console.log(res)
-
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(setServerErrorAC(error.response.statusText))
       })
       .finally(() => {
@@ -45,15 +44,15 @@ export const passwordRecoveryTC =
 
 export const setNewPasswordTC =
   (password: string, resetPasswordToken: string): AppThunk =>
-  dispatch => {
+  (dispatch) => {
     dispatch(setAppStatusAC('loading'))
 
     authAPI
       .setNewPassword(password, resetPasswordToken)
-      .then(res => {
+      .then((res) => {
         console.log(res)
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(setServerErrorAC(error.response.statusText))
       })
       .finally(() => {
