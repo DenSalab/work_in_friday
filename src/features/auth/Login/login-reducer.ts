@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
 
-import { authAPI, LoginRequestDataType } from '../../../api/api'
-import { setAppErrorAC, setAppStatusAC } from '../../../app/app-reducer'
+import { authAPI, LoginRequestDataType } from '../../../api/authAPI'
+import { setAppStatusAC, setAppErrorAC } from '../../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../../app/store'
 import { serverErrorHandler } from '../../../common/utils/serverErrorHandler'
 import { setIsLoggedInAC } from '../auth-reducer'

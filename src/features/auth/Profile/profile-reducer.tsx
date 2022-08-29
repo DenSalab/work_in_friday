@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 
-import { authAPI, UserDataType } from '../../../api/api'
+import { authAPI, UserDataType } from '../../../api/authAPI'
 import { setAppErrorAC, setAppStatusAC } from '../../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../../app/store'
 import { serverErrorHandler } from '../../../common/utils/serverErrorHandler'
