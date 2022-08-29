@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
 
 import { authAPI, RegisterRequestType } from '../../api/api'
-import { setAppStatusAC } from '../../app/app-reducer'
+import { setAppErrorAC, setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../app/store'
 import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
 
@@ -41,14 +41,14 @@ export const authReducer = (
 export const registerTC =
   (data: RegisterRequestType): AppThunk =>
   async dispatch => {
+    dispatch(setAppStatusAC('loading'))
+    dispatch(setAppErrorAC(null))
     try {
-      dispatch(setAppStatusAC('loading'))
       await authAPI.register(data)
       dispatch(setIsRegisteredAC(true))
       dispatch(setServerErrorAC(''))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
-      //dispatch(setServerErrorAC(e.response.statusText))
     }
   }

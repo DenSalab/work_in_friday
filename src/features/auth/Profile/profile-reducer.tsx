@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
 
 import { authAPI, UserDataType } from '../../../api/api'
-import { setAppStatusAC } from '../../../app/app-reducer'
+import { setAppErrorAC, setAppStatusAC } from '../../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../../app/store'
 import { serverErrorHandler } from '../../../common/utils/serverErrorHandler'
 import { setIsLoggedInAC } from '../auth-reducer'
@@ -34,6 +34,7 @@ export const setUserAC = (user: UserDataType) =>
 export const updateUserTC =
   (user: UserDataType): AppThunk =>
   async dispatch => {
+    dispatch(setAppErrorAC(null))
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await authAPI.updateUser(user.name, user.avatar)
@@ -43,11 +44,11 @@ export const updateUserTC =
       console.log(res.data.updatedUser)
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
-      //dispatch(setAppErrorAC(e.response.data.error))
     }
   }
 
 export const logoutTC = (): AppThunk => async dispatch => {
+  dispatch(setAppErrorAC(null))
   dispatch(setAppStatusAC('loading'))
   try {
     await authAPI.logout()

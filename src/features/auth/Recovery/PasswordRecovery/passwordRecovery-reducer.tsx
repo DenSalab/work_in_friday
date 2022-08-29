@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
 
 import { authAPI } from '../../../../api/api'
-import { setAppStatusAC } from '../../../../app/app-reducer'
+import { setAppErrorAC, setAppStatusAC } from '../../../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../../../app/store'
 import { serverErrorHandler } from '../../../../common/utils/serverErrorHandler'
 
@@ -28,6 +28,7 @@ export const setRecoveryEmailAC = (email: string) =>
 export const passwordRecoveryTC =
   (email: string): AppThunk =>
   dispatch => {
+    dispatch(setAppErrorAC(null))
     dispatch(setAppStatusAC('loading'))
     dispatch(setRecoveryEmailAC(email))
 
@@ -47,6 +48,7 @@ export const setNewPasswordTC =
   (password: string, resetPasswordToken: string): AppThunk =>
   dispatch => {
     dispatch(setAppStatusAC('loading'))
+    dispatch(setAppErrorAC(null))
 
     authAPI
       .setNewPassword(password, resetPasswordToken)
@@ -55,7 +57,6 @@ export const setNewPasswordTC =
         dispatch(setAppStatusAC('succeeded'))
       })
       .catch(error => {
-        //dispatch(setServerErrorAC(error.response.statusText))
         serverErrorHandler(error as AxiosError | Error, dispatch)
       })
   }

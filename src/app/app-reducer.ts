@@ -44,22 +44,20 @@ export const setAppErrorAC = (error: string | null) => ({ type: 'app/SET-ERROR',
 export const setAppInitializedAC = (value: boolean) =>
   ({ type: 'app/SET-IS-INITIALIZED', value } as const)
 
-export const initializeAppTC = (): AppThunk => async (dispatch) => {
+export const initializeAppTC = (): AppThunk => async dispatch => {
   dispatch(setAppStatusAC('loading'))
+  dispatch(setAppErrorAC(null))
   try {
     const res = await authAPI.getUser()
 
-    // dispatch(setAppStatusAC('succeeded'))
     console.log(res.data)
     dispatch(setIsLoggedInAC(true))
     dispatch(setUserAC(res.data))
+    dispatch(setAppStatusAC('succeeded'))
   } catch (e) {
     serverErrorHandler(e as AxiosError | Error, dispatch)
-    // dispatch(setServerErrorAC(e.response.statusText))
-    //dispatch(setAppStatusAC('failed'))
   } finally {
     dispatch(setAppInitializedAC(true))
-    dispatch(setAppStatusAC('idle'))
   }
 }
 
