@@ -29,19 +29,24 @@ export type CardQueryType = {
 }
 
 export type CardsResponseType = {
-  card: CardType[]
+  cards: CardType[]
 }
 
 export type CardType = {
+  _id: string
   cardsPack_id: string
-  question?: string //"no question" если не отправить будет таким
-  answer?: string //"no answer" // если не отправить будет таким
-  grade?: number // 0..5, не обязателен
-  shots?: number // не обязателен
-  answerImg?: string //'url or base 64' // не обязателен
-  questionImg?: string //'url or base 64' // не обязателен
-  questionVideo?: string //'url or base 64' // не обязателен
-  answerVideo?: string //'url or base 64' // не обязателен
+  user_id: string
+  answer: string
+  question: string
+  grade: number
+  shots: number
+  comments: string
+  type: string
+  rating: number
+  more_id: string
+  created: string
+  updated: string
+  __v: number
 }
 
 export type UpdateType = {

@@ -1,10 +1,9 @@
-import { authAPI } from '../../../../api/authAPI'
-import { setServerErrorAC } from '../../auth-reducer'
 import { AxiosError } from 'axios'
+
+import { authAPI } from '../../../../api/authAPI'
 import { setAppErrorAC, setAppStatusAC } from '../../../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../../../app/store'
 import { serverErrorHandler } from '../../../../common/utils/serverErrorHandler'
-import { setAppErrorAC, setAppStatusAC } from '../../../../app/app-reducer'
 
 const initialState = {
   recoveryEmail: '',
