@@ -39,7 +39,7 @@ function App() {
       <Header />
       {status === 'loading' && <Preloader />}
       <Pages />
-      {appError}
+      {appError && appError}
       <Footer />
     </div>
   )

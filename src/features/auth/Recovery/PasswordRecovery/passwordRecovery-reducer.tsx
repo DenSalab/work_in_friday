@@ -4,7 +4,6 @@ import { authAPI } from '../../../../api/api'
 import { setAppStatusAC } from '../../../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../../../app/store'
 import { serverErrorHandler } from '../../../../common/utils/serverErrorHandler'
-import { setServerErrorAC } from '../../auth-reducer'
 
 const initialState = {
   recoveryEmail: '',
@@ -36,13 +35,11 @@ export const passwordRecoveryTC =
       .passwordRecovery(email)
       .then(res => {
         console.log(res)
+        dispatch(setAppStatusAC('succeeded'))
       })
       .catch(error => {
         //dispatch(setServerErrorAC(error.response.statusText))
         serverErrorHandler(error as AxiosError | Error, dispatch)
-      })
-      .finally(() => {
-        dispatch(setAppStatusAC('idle'))
       })
   }
 
@@ -55,13 +52,11 @@ export const setNewPasswordTC =
       .setNewPassword(password, resetPasswordToken)
       .then(res => {
         console.log(res)
+        dispatch(setAppStatusAC('succeeded'))
       })
       .catch(error => {
         //dispatch(setServerErrorAC(error.response.statusText))
         serverErrorHandler(error as AxiosError | Error, dispatch)
-      })
-      .finally(() => {
-        dispatch(setAppStatusAC('idle'))
       })
   }
 

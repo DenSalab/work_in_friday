@@ -46,10 +46,9 @@ export const registerTC =
       await authAPI.register(data)
       dispatch(setIsRegisteredAC(true))
       dispatch(setServerErrorAC(''))
+      dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
       //dispatch(setServerErrorAC(e.response.statusText))
-    } finally {
-      dispatch(setAppStatusAC('idle'))
     }
   }

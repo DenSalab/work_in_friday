@@ -45,14 +45,13 @@ export const loginTC =
     try {
       const res = await authAPI.login(values)
 
+      dispatch(setAppStatusAC('succeeded'))
       dispatch(setIsLoggedInAC(true))
       dispatch(setUserAC(res.data))
     } catch (e) {
       //const error = e as Error | AxiosError<{ error: string }>
 
       serverErrorHandler(e as AxiosError | Error, dispatch)
-    } finally {
-      dispatch(setAppStatusAC('idle'))
     }
   }
 

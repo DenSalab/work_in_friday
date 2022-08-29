@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 
-import { setAppErrorAC } from '../../app/app-reducer'
+import { setAppErrorAC, setAppStatusAC } from '../../app/app-reducer'
 import { AppDispatchType } from '../../app/store'
 
 export const serverErrorHandler = (
@@ -17,4 +17,5 @@ export const serverErrorHandler = (
   } else {
     dispatch(setAppErrorAC('more details in the console'))
   }
+  dispatch(setAppStatusAC('failed'))
 }
