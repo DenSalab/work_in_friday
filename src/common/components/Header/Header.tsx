@@ -23,7 +23,7 @@ export const Header = () => {
         <Link to={'/forgot'} className={s.linkItem}>
           Recovery Password
         </Link>
-        <Link to={'/set_new_password'} className={s.linkItem}>
+        <Link to={'/set_new_password/aaaa-bbbb-cccc-dddd'} className={s.linkItem}>
           New Password
         </Link>
         <Link to={'/test'} className={s.linkItem}>
