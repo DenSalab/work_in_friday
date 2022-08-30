@@ -29,6 +29,9 @@ export const Header = () => {
         <Link to={'/test'} className={s.linkItem}>
           Test
         </Link>
+        <Link to={'/packs_list'} className={s.linkItem}>
+          Packs List
+        </Link>
         <br />
       </div>
     </div>

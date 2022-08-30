@@ -40,7 +40,7 @@ export const authReducer = (
 // thunks
 export const registerTC =
   (data: RegisterRequestType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     dispatch(setAppErrorAC(null))
     try {

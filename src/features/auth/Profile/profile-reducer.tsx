@@ -1,5 +1,4 @@
 import { AxiosError } from 'axios'
-
 import { authAPI, UserDataType } from '../../../api/api'
 import { setAppErrorAC, setAppStatusAC } from '../../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../../app/store'
@@ -33,7 +32,7 @@ export const setUserAC = (user: UserDataType) =>
 // thunks creators
 export const updateUserTC =
   (user: UserDataType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppErrorAC(null))
     dispatch(setAppStatusAC('loading'))
     try {
