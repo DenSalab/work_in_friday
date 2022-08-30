@@ -32,9 +32,9 @@ export const cardsReducer = (state = initialState, action: ActionsType): Initial
 // action creators
 export const setCardsAC = (data: GetCardsResponseType) =>
   ({ type: 'cards/SET_CARDS', data } as const)
-export const setPageAC = (page: number) => ({ type: 'cards/SET_PAGE', page } as const)
+export const setPageAC = (page: number) => ({ type: 'cards/SET_PAGE', page } as const) // need to delete, use query params
 export const setPageCountAC = (pageCount: number) =>
-  ({ type: 'cards/SET_PAGE_COUNT', pageCount } as const)
+  ({ type: 'cards/SET_PAGE_COUNT', pageCount } as const) // need to delete, use query params in getCardsTC
 
 // thunk creators
 export const getCardsTC =
