@@ -1,14 +1,16 @@
 import React from 'react'
+
 import { Route, Routes, Navigate } from 'react-router-dom'
+
 import { Login } from '../../../features/auth/Login/Login'
 import { Profile } from '../../../features/auth/Profile/Profile'
 import { CheckEmail } from '../../../features/auth/Recovery/CheckEmail/CheckEmail'
 import { PasswordRecovery } from '../../../features/auth/Recovery/PasswordRecovery/PasswordRecovery'
 import { SetNewPassword } from '../../../features/auth/Recovery/SetNewPassword/SetNewPassword'
 import { Register } from '../../../features/auth/Register/Register'
+import { PacksList } from '../../../features/packs/PacksList/PacksList'
 import s from '../Header/Header.module.css'
 import { Page404 } from '../Page404/Page404'
-import { PacksList } from '../../../features/cards/PacksList/PacksList'
 
 export const Pages = () => {
   return (
