@@ -56,8 +56,9 @@ export type CardPackType = {
   cardsCount: number
   type: string
   rating: number
-  created: Date
-  updated: Date
+  created: string
+  updated: string
   more_id: string
   __v: number
+  deckCover?: string | null
 }

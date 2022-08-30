@@ -1,7 +1,6 @@
-import { AxiosError } from 'axios'
-
-import { setAppErrorAC, setAppStatusAC } from '../../app/app-reducer'
 import { authAPI, RegisterRequestType } from '../../api/authAPI'
+import { AxiosError } from 'axios'
+import { setAppErrorAC, setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../app/store'
 import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
 
