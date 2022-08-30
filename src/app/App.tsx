@@ -9,9 +9,9 @@ import s from './App.module.css'
 
 function App() {
   const dispatch = useAppDispatch()
-  const status = useAppSelector(state => state.app.status)
-  const isInitialized = useAppSelector(state => state.app.isInitialized)
-  const appError = useAppSelector(state => state.app.error)
+  const status = useAppSelector((state) => state.app.status)
+  const isInitialized = useAppSelector((state) => state.app.isInitialized)
+  const appError = useAppSelector((state) => state.app.error)
 
   useEffect(() => {
     dispatch(initializeAppTC())

@@ -12,13 +12,13 @@ import { logoutTC, updateUserTC } from './profile-reducer'
 import s from './Profile.module.css'
 
 export const Profile = () => {
-  const user = useAppSelector(state => state.profile.user)
+  const user = useAppSelector((state) => state.profile.user)
   const dispatch = useAppDispatch()
   const logOutHandler = () => dispatch(logoutTC())
   const onChangeNameHandler = (name: string) => {
     dispatch(updateUserTC({ ...user, name: name }))
   }
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
   if (!isLoggedIn) {
     return <Navigate to={'/login'} />

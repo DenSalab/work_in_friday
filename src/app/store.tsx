@@ -32,12 +32,16 @@ import {
   SetAppStatusActionType,
 } from './app-reducer'
 import {
-  packsReducer, setCardPacks, setMaxCardsCount, setMinCardsCount,
-  setOnlyMyPacks, setPacksTotalCount,
+  packsReducer,
+  setCardPacks,
+  setMaxCardsCount,
+  setMinCardsCount,
+  setOnlyMyPacks,
+  setPacksTotalCount,
   setPage,
   setPageCount,
-  setSearchedPackName
-} from '../features/auth/Login/packs-reducer';
+  setSearchedPackName,
+} from '../features/cards/PacksList/packs-reducer'
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -45,7 +49,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   profile: profileReducer,
   passwordRecovery: passwordRecoveryReducer,
-  packs:packsReducer,
+  packs: packsReducer,
 })
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
