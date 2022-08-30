@@ -31,6 +31,13 @@ import {
   setAppStatusAC,
   SetAppStatusActionType,
 } from './app-reducer'
+import {
+  packsReducer, setCardPacks, setMaxCardsCount, setMinCardsCount,
+  setOnlyMyPacks, setPacksTotalCount,
+  setPage,
+  setPageCount,
+  setSearchedPackName
+} from '../features/auth/Login/packs-reducer';
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -38,6 +45,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   profile: profileReducer,
   passwordRecovery: passwordRecoveryReducer,
+  packs:packsReducer,
 })
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
@@ -58,6 +66,14 @@ export type ActionsType =
   | ReturnType<typeof setAppStatusAC>
   | ReturnType<typeof setIsLoggedInAC>
   | ReturnType<typeof setRecoveryEmailAC>
+  | ReturnType<typeof setSearchedPackName>
+  | ReturnType<typeof setOnlyMyPacks>
+  | ReturnType<typeof setPage>
+  | ReturnType<typeof setPageCount>
+  | ReturnType<typeof setPacksTotalCount>
+  | ReturnType<typeof setMinCardsCount>
+  | ReturnType<typeof setMaxCardsCount>
+  | ReturnType<typeof setCardPacks>
 
 export type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>
 
