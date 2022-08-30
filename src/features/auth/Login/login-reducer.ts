@@ -40,7 +40,7 @@ export const setError = (error: string) => ({ type: 'Login.SET_ERROR', error } a
 // thunk creators
 export const loginTC =
   (values: LoginRequestDataType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     dispatch(setAppErrorAC(null))
     try {
