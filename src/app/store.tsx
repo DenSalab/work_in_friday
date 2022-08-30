@@ -28,7 +28,6 @@ import {
   setCardsAC,
   setPageAC,
   setPageCountAC,
-  setSearchedAnswerAC,
 } from '../features/cards/cards-reducer'
 import {
   packsReducer,
@@ -87,7 +86,6 @@ export type ActionsType =
   | ReturnType<typeof setMaxCardsCount>
   | ReturnType<typeof setCardPacks>
   | ReturnType<typeof setCardsAC>
-  | ReturnType<typeof setSearchedAnswerAC>
   | ReturnType<typeof setPageAC>
   | ReturnType<typeof setPageCountAC>
 

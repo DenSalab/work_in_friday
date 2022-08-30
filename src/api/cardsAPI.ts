@@ -17,7 +17,7 @@ export const cardsAPI = {
 
 // types
 export type CardQueryType = {
-  cardsPack_id: string
+  cardsPack_id: string | undefined
 
   cardAnswer?: string
   cardQuestion?: string
