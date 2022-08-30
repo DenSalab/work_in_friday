@@ -1,10 +1,10 @@
 import { AxiosError } from 'axios'
 
-import { setAppStatusAC } from '../../../app/app-reducer'
-import { ActionsType, AppThunk } from '../../../app/store'
-import { serverErrorHandler } from '../../../common/utils/serverErrorHandler'
-import { setServerErrorAC } from '../auth-reducer'
-
+import { packAPI } from '../../api/packAPI'
+import { setAppStatusAC } from '../../app/app-reducer'
+import { ActionsType, AppThunk } from '../../app/store'
+import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
+import { setServerErrorAC } from '../auth/auth-reducer'
 
 const initialState = {
   searchedPackName: '' as string,
@@ -54,69 +54,75 @@ export const packsReducer = (
 }
 
 // action creators
-export const setSearchedPackName = (value: string) => ({ type: 'packs/SET_SEARCHED_PACK_NAME', value } as const)
-export const setOnlyMyPacks = (value: boolean) => ({ type: 'packs/SET_ONLY_MY_PACKS', value } as const)
+export const setSearchedPackName = (value: string) =>
+  ({ type: 'packs/SET_SEARCHED_PACK_NAME', value } as const)
+export const setOnlyMyPacks = (value: boolean) =>
+  ({ type: 'packs/SET_ONLY_MY_PACKS', value } as const)
 export const setPage = (value: number) => ({ type: 'packs/SET_PAGE', value } as const)
 export const setPageCount = (value: number) => ({ type: 'packs/SET_PAGE_COUNT', value } as const)
-export const setPacksTotalCount = (value: number) => ({ type: 'packs/SET_PACKS_TOTAL_COUNT', value } as const)
-export const setMinCardsCount = (value: number) => ({ type: 'packs/SET_MIN_CARDS_COUNT', value } as const)
-export const setMaxCardsCount = (value: number) => ({ type: 'packs/SET_MAX_CARDS_COUNT', value } as const)
-export const setCardPacks = (cardPacks: Array<CardPackType>) => ({ type: 'packs/SET__CARD_PACKS', cardPacks } as const)
-
+export const setPacksTotalCount = (value: number) =>
+  ({ type: 'packs/SET_PACKS_TOTAL_COUNT', value } as const)
+export const setMinCardsCount = (value: number) =>
+  ({ type: 'packs/SET_MIN_CARDS_COUNT', value } as const)
+export const setMaxCardsCount = (value: number) =>
+  ({ type: 'packs/SET_MAX_CARDS_COUNT', value } as const)
+export const setCardPacks = (cardPacks: Array<CardPackType>) =>
+  ({ type: 'packs/SET__CARD_PACKS', cardPacks } as const)
 
 // thunk creators
 export const getCardsPackTC =
-    (data: CardsPackQueryType): AppThunk =>
-        async dispatch => {
-          dispatch(setAppStatusAC('loading'))
-          try {
-            const res = await packAPI.getCardsPack(data)
-            dispatch(setCardPacks(res.cardPacks))
-            dispatch(setServerErrorAC(''))
-            dispatch(setAppStatusAC('succeeded'))
-          } catch (e) {
-            serverErrorHandler(e as AxiosError | Error, dispatch)
-          }
-        }
+  (data: CardsPackQueryType): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+      const res = await packAPI.getCardsPack(data)
+
+      dispatch(setCardPacks(res.cardPacks))
+      dispatch(setServerErrorAC(''))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      serverErrorHandler(e as AxiosError | Error, dispatch)
+    }
+  }
 
 export const createCardsPackTC =
-    (data: CreatePackType): AppThunk =>
-        async dispatch => {
-          dispatch(setAppStatusAC('loading'))
-          try {
-            await packAPI.createCardsPack(data)
-            dispatch(setServerErrorAC(''))
-            dispatch(setAppStatusAC('succeeded'))
-          } catch (e) {
-            serverErrorHandler(e as AxiosError | Error, dispatch)
-          }
-        }
+  (data: CreatePackType): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+      await packAPI.createCardsPack(data)
+      dispatch(setServerErrorAC(''))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      serverErrorHandler(e as AxiosError | Error, dispatch)
+    }
+  }
 
 export const deleteCardsPackTC =
-    (id: string): AppThunk =>
-        async dispatch => {
-          dispatch(setAppStatusAC('loading'))
-          try {
-            await packAPI.deleteCardsPack(id)
-            dispatch(setServerErrorAC(''))
-            dispatch(setAppStatusAC('succeeded'))
-          } catch (e) {
-            serverErrorHandler(e as AxiosError | Error, dispatch)
-          }
-        }
+  (id: string): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+      await packAPI.deleteCardsPack(id)
+      dispatch(setServerErrorAC(''))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      serverErrorHandler(e as AxiosError | Error, dispatch)
+    }
+  }
 
 export const updateCardsPackTC =
-    (cardsPack: CardPackType): AppThunk =>
-        async dispatch => {
-          dispatch(setAppStatusAC('loading'))
-          try {
-            await packAPI.updateCardsPack(cardsPack)
-            dispatch(setServerErrorAC(''))
-            dispatch(setAppStatusAC('succeeded'))
-          } catch (e) {
-            serverErrorHandler(e as AxiosError | Error, dispatch)
-          }
-        }
+  (cardsPack: CardPackType): AppThunk =>
+  async dispatch => {
+    dispatch(setAppStatusAC('loading'))
+    try {
+      await packAPI.updateCardsPack(cardsPack)
+      dispatch(setServerErrorAC(''))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      serverErrorHandler(e as AxiosError | Error, dispatch)
+    }
+  }
 
 //types
 type InitialStateType = typeof initialState
