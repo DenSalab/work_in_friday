@@ -23,7 +23,7 @@ export type CardsPackQueryType = {
   sortPacks?: number
   page?: number
   pageCount?: number
-  user_id?: number
+  user_id?: string | null
 }
 
 export type CreatePackType = {
@@ -36,7 +36,7 @@ export type CreatePackType = {
 export type CardsPackDomainType = {
   cardPacks: CardPackType[]
   page: number
-  pageCount: number // количество элементов на странице
+  pageCount: number // количество элементов на странице по умолчанию 4
   cardPacksTotalCount: number // количество колод
   minCardsCount: number
   maxCardsCount: number

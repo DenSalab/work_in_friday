@@ -1,10 +1,10 @@
 import { AxiosError } from 'axios'
 
-import { packAPI } from '../../api/packAPI'
-import { setAppStatusAC } from '../../app/app-reducer'
-import { ActionsType, AppThunk } from '../../app/store'
-import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
-import { setServerErrorAC } from '../auth/auth-reducer'
+import { setAppStatusAC } from '../../../app/app-reducer'
+import { ActionsType, AppThunk } from '../../../app/store'
+import { serverErrorHandler } from '../../../common/utils/serverErrorHandler'
+import { setServerErrorAC } from '../../auth/auth-reducer'
+import { CardPackType, CardsPackQueryType, CreatePackType, packAPI } from '../../../api/packAPI'
 
 const initialState = {
   searchedPackName: '' as string,
@@ -15,6 +15,7 @@ const initialState = {
   minCardsCount: 0,
   maxCardsCount: 10,
   cardPacks: [] as CardPackType[],
+  cardPacksTotalCount: 0,
   // token: '',
   // tokenDeathTime: 0,
 }
@@ -25,6 +26,7 @@ export const packsReducer = (
 ): InitialStateType => {
   switch (action.type) {
     case 'packs/SET_SEARCHED_PACK_NAME': {
+      console.log(action.value)
       return { ...state, searchedPackName: action.value }
     }
     case 'packs/SET_ONLY_MY_PACKS': {
@@ -72,12 +74,13 @@ export const setCardPacks = (cardPacks: Array<CardPackType>) =>
 // thunk creators
 export const getCardsPackTC =
   (data: CardsPackQueryType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await packAPI.getCardsPack(data)
-
-      dispatch(setCardPacks(res.cardPacks))
+      dispatch(setCardPacks(res.data.cardPacks))
+      dispatch(setPacksTotalCount(res.data.cardPacksTotalCount))
+      console.log(res.data)
       dispatch(setServerErrorAC(''))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
@@ -87,7 +90,7 @@ export const getCardsPackTC =
 
 export const createCardsPackTC =
   (data: CreatePackType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       await packAPI.createCardsPack(data)
@@ -100,7 +103,7 @@ export const createCardsPackTC =
 
 export const deleteCardsPackTC =
   (id: string): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       await packAPI.deleteCardsPack(id)
@@ -113,7 +116,7 @@ export const deleteCardsPackTC =
 
 export const updateCardsPackTC =
   (cardsPack: CardPackType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       await packAPI.updateCardsPack(cardsPack)
@@ -126,50 +129,3 @@ export const updateCardsPackTC =
 
 //types
 type InitialStateType = typeof initialState
-
-// request types
-export type CardsPackQueryType = {
-  packName?: string
-  min?: number
-  max?: number
-  sortPacks?: number
-  page?: number
-  pageCount?: number
-  user_id?: number
-}
-
-export type CreatePackType = {
-  name: string // если не отправить будет no Name
-  deckCover?: string // url or base64
-  private: boolean // если не отправить будет false
-}
-
-// response type
-export type CardsPackDomainType = {
-  cardPacks: CardPackType[]
-  page: number
-  pageCount: number // количество элементов на странице
-  cardPacksTotalCount: number // количество колод
-  minCardsCount: number
-  maxCardsCount: number
-  token: string
-  tokenDeathTime: number
-}
-
-export type CardPackType = {
-  _id: string
-  user_id: string
-  user_name: string
-  private: false
-  name: string
-  path: string
-  grade: number
-  shots: number
-  cardsCount: number
-  type: string
-  rating: number
-  created: Date
-  updated: Date
-  more_id: string
-  __v: number
-}

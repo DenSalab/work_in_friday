@@ -29,6 +29,14 @@ import {
   setPageAC,
   setPageCountAC,
 } from '../features/cards/cards-reducer'
+
+import {
+  appReducer,
+  SetAppErrorActionType,
+  SetAppInitializedActionType,
+  setAppStatusAC,
+  SetAppStatusActionType,
+} from './app-reducer'
 import {
   packsReducer,
   setCardPacks,
@@ -39,15 +47,7 @@ import {
   setPage,
   setPageCount,
   setSearchedPackName,
-} from '../features/packs/packs-reducer'
-
-import {
-  appReducer,
-  SetAppErrorActionType,
-  SetAppInitializedActionType,
-  setAppStatusAC,
-  SetAppStatusActionType,
-} from './app-reducer'
+} from '../features/packs/PacksList/packs-reducer'
 
 const rootReducer = combineReducers({
   login: loginReducer,

@@ -39,7 +39,7 @@ export const setPageCountAC = (pageCount: number) =>
 // thunk creators
 export const getCardsTC =
   (data: CardQueryType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await cardsAPI.getCard(data)
@@ -53,7 +53,7 @@ export const getCardsTC =
 
 export const createCardTC =
   (card: CreatedCardType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await cardsAPI.createCard(card)
@@ -67,7 +67,7 @@ export const createCardTC =
 
 export const deleteCardTC =
   (id: string): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await cardsAPI.deleteCard(id)
@@ -81,7 +81,7 @@ export const deleteCardTC =
 
 export const updateCardTC =
   (card: UpdatedCardType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await cardsAPI.updateCard(card)

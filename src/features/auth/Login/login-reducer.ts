@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios'
-
 import { authAPI, LoginRequestDataType } from '../../../api/authAPI'
-import { setAppStatusAC, setAppErrorAC } from '../../../app/app-reducer'
+import { setAppErrorAC, setAppStatusAC } from '../../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../../app/store'
 import { serverErrorHandler } from '../../../common/utils/serverErrorHandler'
 import { setIsLoggedInAC } from '../auth-reducer'
@@ -40,7 +39,7 @@ export const setError = (error: string) => ({ type: 'Login.SET_ERROR', error } a
 // thunk creators
 export const loginTC =
   (values: LoginRequestDataType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     dispatch(setAppErrorAC(null))
     try {
