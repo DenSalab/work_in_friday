@@ -25,7 +25,6 @@ import {
 } from '../features/auth/Recovery/PasswordRecovery/passwordRecovery-reducer'
 import {
   cardsReducer,
-  searchCardsAC,
   setCardsAC,
   setPageAC,
   setPageCountAC,

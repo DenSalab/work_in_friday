@@ -3,10 +3,10 @@ import { AxiosError } from 'axios'
 import {
   CardQueryType,
   cardsAPI,
-  CardsDomainType,
+  GetCardsResponseType,
   CardType,
-  CreateCardType,
-  UpdateCardType,
+  CreatedCardType,
+  UpdatedCardType,
 } from '../../api/cardsAPI'
 import { setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppThunk } from '../../app/store'
@@ -49,7 +49,8 @@ export const cardsReducer = (state = initialState, action: ActionsType): Initial
 }
 
 // action creators
-export const setCardsAC = (data: CardsDomainType) => ({ type: 'cards/SET_CARDS', data } as const)
+export const setCardsAC = (data: GetCardsResponseType) =>
+  ({ type: 'cards/SET_CARDS', data } as const)
 export const setSearchedAnswerAC = (name: string) =>
   ({ type: 'cards/SET_SEARCHED_CARD_ANSWER', name } as const)
 export const setPageAC = (page: number) => ({ type: 'cards/SET_PAGE', page } as const)
@@ -72,7 +73,7 @@ export const getCardsTC =
   }
 
 export const createCardTC =
-  (card: CreateCardType): AppThunk =>
+  (card: CreatedCardType): AppThunk =>
   async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
@@ -100,7 +101,7 @@ export const deleteCardTC =
   }
 
 export const updateCardTC =
-  (card: UpdateCardType): AppThunk =>
+  (card: UpdatedCardType): AppThunk =>
   async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {

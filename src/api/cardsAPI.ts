@@ -2,16 +2,16 @@ import { instance } from './instance'
 
 export const cardsAPI = {
   getCard(values: CardQueryType) {
-    return instance.get<CardsDomainType>('cards/card', { params: values })
+    return instance.get<GetCardsResponseType>('cards/card', { params: values })
   },
-  createCard(card: CreateCardType) {
-    return instance.post('cards/card', { card })
+  createCard(card: CreatedCardType) {
+    return instance.post<CreateCardResponseType>('cards/card', { card })
   },
   deleteCard(id: string) {
-    return instance.delete<DeletedCardResponseType>('cards/card', { params: id })
+    return instance.delete<DeleteCardResponseType>('cards/card', { params: id })
   },
-  updateCard(card: UpdateCardType) {
-    return instance.put<UpdatedCardResponseType>('cards/card', { card })
+  updateCard(card: UpdatedCardType) {
+    return instance.put<UpdateCardResponseType>('cards/card', { card })
   },
 }
 
@@ -45,7 +45,7 @@ export type CardType = {
   __v: number
 }
 
-export type CardsDomainType = {
+export type GetCardsResponseType = {
   cards: CardType[]
   packUserId: string
   packName: string
@@ -62,11 +62,7 @@ export type CardsDomainType = {
   tokenDeathTime: number
 }
 
-export type CardsStateType = {
-  cards: CardType[]
-}
-
-export type CreateCardType = {
+export type CreatedCardType = {
   card: {
     cardsPack_id: string
     question?: string
@@ -79,42 +75,18 @@ export type CreateCardType = {
     answerVideo?: string
   }
 }
-export type DeletedCardResponseType = {
-  deletedCard: {
-    _id: string
-    cardsPack_id: string
-    user_id: string
-    answer: string
-    question: string
-    grade: number
-    shots: number
-    comments: string
-    type: string
-    rating: number
-    more_id: string
-    created: string
-    updated: string
-    __v: number
-  }
+export type CreateCardResponseType = {
+  newCard: CardType
   token: string
   tokenDeathTime: number
 }
-export type UpdatedCardResponseType = {
-  updatedCard: {
-    _id: string
-    cardsPack_id: string
-    user_id: string
-    answer: string
-    question: string
-    grade: number
-    shots: number
-    comments: string
-    type: string
-    rating: number
-    more_id: string
-    created: string
-    updated: string
-    __v: number
+export type DeleteCardResponseType = {
+  deletedCard: CardType
+  token: string
+  tokenDeathTime: number
+}
+export type UpdateCardResponseType = {
+  updatedCard: CardType & {
     answerImg: string
     answerVideo: string
     questionImg: string
@@ -124,7 +96,7 @@ export type UpdatedCardResponseType = {
   tokenDeathTime: number
 }
 
-export type UpdateCardType = {
+export type UpdatedCardType = {
   card: {
     _id: string
     question?: string
