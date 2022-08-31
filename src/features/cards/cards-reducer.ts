@@ -1,14 +1,6 @@
 import { AxiosError } from 'axios'
 
-import {
-  CardQueryType,
-  cardsAPI,
-  GetCardsResponseType,
-  CreatedCardType,
-  UpdatedCardType,
-  CardType,
-  CardsStateType,
-} from '../../api/cardsAPI'
+import { cardsAPI, CreatedCardType, UpdatedCardType, CardsStateType } from '../../api/cardsAPI'
 import { setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppRootStateType, AppThunk } from '../../app/store'
 import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
@@ -80,8 +72,8 @@ export const createCardTC =
     try {
       const res = await cardsAPI.createCard(card)
 
-      dispatch(setAppStatusAC('succeeded'))
       getCardsTC()
+      dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
     }

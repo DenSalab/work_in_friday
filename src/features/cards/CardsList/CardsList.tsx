@@ -4,7 +4,13 @@ import { CardType } from '../../../api/cardsAPI'
 import Paginator from '../../../common/components/Pagination/Paginator'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import { getCardsTC, setCardsListPageAC, setPageCountAC } from '../cards-reducer'
+import {
+  createCardTC,
+  deleteCardTC,
+  getCardsTC,
+  setCardsListPageAC,
+  setPageCountAC,
+} from '../cards-reducer'
 
 import s from './CardsList.module.css'
 import delete_img from './images/delete.png'
@@ -15,9 +21,8 @@ import teacher_img from './images/teacher.png'
 export const CardsList = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
-  const cards = useAppSelector(state => state.cards.cards)
 
-  //const searchedPackName: string = useAppSelector(state => state.packs.searchedPackName)
+  const cards = useAppSelector(state => state.cards.cards)
   const pageCount: number = useAppSelector(state => state.cards.pageCount)
   const cardsTotalCount: number = useAppSelector(state => state.cards.cardsTotalCount)
   const page: number = useAppSelector(state => state.cards.page)
@@ -28,12 +33,21 @@ export const CardsList = () => {
   const onPageCount = (page: number) => {
     dispatch(setPageCountAC(page))
   }
+  const addNewCard = () => {
+    dispatch(
+      createCardTC({
+        cardsPack_id: '630e436131b6d940e375e1b3',
+        question: 'hardcode1 question',
+        answer: 'hardcode1 answer',
+      })
+    )
+  }
 
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(getCardsTC())
     }
-  }, [page, pageCount])
+  }, [page, pageCount, cardsTotalCount])
 
   const tableRender = (e: CardType) => {
     const onClickTeacher = () => {}
@@ -62,7 +76,7 @@ export const CardsList = () => {
         <SuperButton onClick={() => alert('click')}>
           Клацни сюда, чтобы обновить (пока нет debounce)
         </SuperButton>
-        <SuperButton onClick={() => alert('add new card')}>Add new card</SuperButton>
+        <SuperButton onClick={addNewCard}>Add new card</SuperButton>
       </div>
 
       <div className={s.control}>
