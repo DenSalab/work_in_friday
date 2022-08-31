@@ -13,7 +13,7 @@ const initialState = {
   pageCount: 8, // количество элементов на странице
   packsTotalCount: 0, // количество колод
   minCardsCount: 0,
-  maxCardsCount: 10,
+  maxCardsCount: 100,
   cardPacks: [] as CardPackType[],
   cardPacksTotalCount: 0,
   // token: '',
@@ -21,9 +21,9 @@ const initialState = {
 }
 
 export const packsReducer = (
-  state: InitialStateType = initialState,
+  state: PackStateType = initialState,
   action: ActionsType
-): InitialStateType => {
+): PackStateType => {
   switch (action.type) {
     case 'packs/SET_SEARCHED_PACK_NAME': {
       console.log(action.value)
@@ -39,7 +39,7 @@ export const packsReducer = (
       return { ...state, pageCount: action.value }
     }
     case 'packs/SET_PACKS_TOTAL_COUNT': {
-      return { ...state, packsTotalCount: action.value }
+      return { ...state, cardPacksTotalCount: action.value }
     }
     case 'packs/SET_MIN_CARDS_COUNT': {
       return { ...state, minCardsCount: action.value }
@@ -80,7 +80,6 @@ export const getCardsPackTC =
       const res = await packAPI.getCardsPack(data)
       dispatch(setCardPacks(res.data.cardPacks))
       dispatch(setPacksTotalCount(res.data.cardPacksTotalCount))
-      console.log(res.data)
       dispatch(setServerErrorAC(''))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
@@ -128,4 +127,4 @@ export const updateCardsPackTC =
   }
 
 //types
-type InitialStateType = typeof initialState
+export type PackStateType = typeof initialState
