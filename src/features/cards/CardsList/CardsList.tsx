@@ -104,9 +104,9 @@ export const CardsList = () => {
 
       <div className={s.footer}>
         <Paginator
-          totalUsersCount={22}
+          totalUsersCount={cardsTotalCount}
           currentPage={page}
-          pageSize={cardsTotalCount}
+          pageSize={pageCount}
           onPageChange={onChangePage}
         />
         <div className={s.pageCount}>
