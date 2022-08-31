@@ -4,13 +4,7 @@ import { CardType } from '../../../api/cardsAPI'
 import Paginator from '../../../common/components/Pagination/Paginator'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import {
-  createCardTC,
-  deleteCardTC,
-  getCardsTC,
-  setCardsListPageAC,
-  setPageCountAC,
-} from '../cards-reducer'
+import { createCardTC, getCardsTC, setCardsListPageAC, setPageCountAC } from '../cards-reducer'
 
 import s from './CardsList.module.css'
 import delete_img from './images/delete.png'
