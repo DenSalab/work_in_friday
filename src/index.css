@@ -11,3 +11,18 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+body {
+  overflow-y: scroll;
+}
+
+
+body::-webkit-scrollbar {
+  width: 6px;
+}
+body::-webkit-scrollbar-thumb {
+  background: #254f9c;
+}
+body:hover::-webkit-scrollbar-thumb {
+  background: #fff;
+}

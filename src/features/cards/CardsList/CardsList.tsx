@@ -14,12 +14,12 @@ import teacher_img from './images/teacher.png'
 
 export const CardsList = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
+  const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
 
-  const cards = useAppSelector(state => state.cards.cards)
-  const pageCount: number = useAppSelector(state => state.cards.pageCount)
-  const cardsTotalCount: number = useAppSelector(state => state.cards.cardsTotalCount)
-  const page: number = useAppSelector(state => state.cards.page)
+  const cards = useAppSelector((state) => state.cards.cards)
+  const pageCount: number = useAppSelector((state) => state.cards.pageCount)
+  const cardsTotalCount: number = useAppSelector((state) => state.cards.cardsTotalCount)
+  const page: number = useAppSelector((state) => state.cards.page)
 
   const onChangePage = (page: number) => {
     dispatch(setCardsListPageAC(page))
@@ -99,7 +99,7 @@ export const CardsList = () => {
           <div className={s.tb_grade}>Grade</div>
           <div className={s.tb_actions}>Actions</div>
         </div>
-        <div>{cards.map(e => tableRender(e))}</div>
+        <div>{cards.map((e) => tableRender(e))}</div>
       </div>
 
       <div className={s.footer}>
@@ -117,7 +117,7 @@ export const CardsList = () => {
             min={1}
             max={25}
             value={pageCount}
-            onChange={e => onPageCount(+e.currentTarget.value)}
+            onChange={(e) => onPageCount(+e.currentTarget.value)}
           />
           <span>cards per page</span>
         </div>

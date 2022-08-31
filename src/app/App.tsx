@@ -6,11 +6,10 @@ import { Preloader } from '../common/components/Preloader/Preloader'
 import { useAppDispatch, useAppSelector } from '../common/hooks/hooks'
 import { initializeAppTC, setAppInitializedAC } from './app-reducer'
 import s from './App.module.css'
-import { LinearPreloader } from '../common/components/LinearPreloader/LinearPreloader'
 
 function App() {
   const dispatch = useAppDispatch()
-  const status = useAppSelector((state) => state.app.status)
+  // const status = useAppSelector((state) => state.app.status)
   const isInitialized = useAppSelector((state) => state.app.isInitialized)
   const appError = useAppSelector((state) => state.app.error)
 
@@ -31,11 +30,10 @@ function App() {
     )
   }
 
-  console.log('___app rendered')
   return (
-    <div className={s.appWrapper}>
+    <div className={s.container}>
       <Header />
-      <LinearPreloader turnOn={status === 'loading'} />
+      {/*<LinearPreloader turnOn={status === 'loading'} />*/}
       <Pages />
       {appError && appError}
       <Footer />

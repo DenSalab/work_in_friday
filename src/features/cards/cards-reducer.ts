@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 
-import { cardsAPI, CreatedCardType, UpdatedCardType, CardsStateType } from '../../api/cardsAPI'
+import { cardsAPI, CardsStateType, CreatedCardType, UpdatedCardType } from '../../api/cardsAPI'
 import { setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppRootStateType, AppThunk } from '../../app/store'
 import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
@@ -67,7 +67,7 @@ export const getCardsTC = (): AppThunk => async (dispatch, getState: () => AppRo
 
 export const createCardTC =
   (card: CreatedCardType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await cardsAPI.createCard(card)
@@ -81,7 +81,7 @@ export const createCardTC =
 
 export const deleteCardTC =
   (id: string): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await cardsAPI.deleteCard(id)
@@ -95,7 +95,7 @@ export const deleteCardTC =
 
 export const updateCardTC =
   (card: UpdatedCardType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await cardsAPI.updateCard(card)
