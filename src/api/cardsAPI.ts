@@ -30,7 +30,7 @@ export type CardQueryType = {
 
 export type CardType = {
   _id: string
-  cardsPack_id?: string
+  cardsPack_id: string
   user_id: string
   answer: string
   question: string
@@ -44,6 +44,7 @@ export type CardType = {
   updated: string
   __v: number
 }
+export type CardsStateType = CardType[]
 
 export type GetCardsResponseType = {
   cards: CardType[]

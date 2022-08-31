@@ -26,17 +26,10 @@ import {
 import {
   cardsReducer,
   setCardsAC,
-  setPageAC,
+  setCardsListPageAC,
+  setCardsTotalCountAC,
   setPageCountAC,
 } from '../features/cards/cards-reducer'
-
-import {
-  appReducer,
-  SetAppErrorActionType,
-  SetAppInitializedActionType,
-  setAppStatusAC,
-  SetAppStatusActionType,
-} from './app-reducer'
 import {
   packsReducer,
   setCardPacks,
@@ -48,6 +41,14 @@ import {
   setPageCount,
   setSearchedPackName,
 } from '../features/packs/PacksList/packs-reducer'
+
+import {
+  appReducer,
+  SetAppErrorActionType,
+  SetAppInitializedActionType,
+  setAppStatusAC,
+  SetAppStatusActionType,
+} from './app-reducer'
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -86,7 +87,8 @@ export type ActionsType =
   | ReturnType<typeof setMaxCardsCount>
   | ReturnType<typeof setCardPacks>
   | ReturnType<typeof setCardsAC>
-  | ReturnType<typeof setPageAC>
+  | ReturnType<typeof setCardsTotalCountAC>
+  | ReturnType<typeof setCardsListPageAC>
   | ReturnType<typeof setPageCountAC>
 
 export type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>

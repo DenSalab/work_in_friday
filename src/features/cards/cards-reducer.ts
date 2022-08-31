@@ -6,23 +6,39 @@ import {
   GetCardsResponseType,
   CreatedCardType,
   UpdatedCardType,
+  CardType,
+  CardsStateType,
 } from '../../api/cardsAPI'
 import { setAppStatusAC } from '../../app/app-reducer'
-import { ActionsType, AppThunk } from '../../app/store'
+import { ActionsType, AppRootStateType, AppThunk } from '../../app/store'
 import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
 
-const initialState = {} as GetCardsResponseType
+const initialState = {
+  cards: [] as CardsStateType,
+  cardsPack_id: '630e436131b6d940e375e1b3',
+  cardAnswer: '',
+  cardQuestion: '',
+  min: 0,
+  max: 10,
+  sortCards: '0created',
+  page: 1,
+  pageCount: 5,
+  cardsTotalCount: 0,
+}
 
 export const cardsReducer = (state = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
     case 'cards/SET_CARDS': {
-      return { ...state, cards: action.data.cards }
+      return { ...state, cards: action.cards }
     }
-    case 'cards/SET_PAGE': {
+    case 'cards/SET_CARDS_LIST_PAGE': {
       return { ...state, page: action.page }
     }
+    case 'cards/SET_CARDS_TOTAL_COUNT': {
+      return { ...state, cardsTotalCount: action.count }
+    }
     case 'cards/SET_PAGE_COUNT': {
-      return { ...state, pageCount: action.pageCount }
+      return { ...state, pageCount: action.count }
     }
     default:
       return state
@@ -30,36 +46,42 @@ export const cardsReducer = (state = initialState, action: ActionsType): Initial
 }
 
 // action creators
-export const setCardsAC = (data: GetCardsResponseType) =>
-  ({ type: 'cards/SET_CARDS', data } as const)
-export const setPageAC = (page: number) => ({ type: 'cards/SET_PAGE', page } as const) // need to delete, use query params
-export const setPageCountAC = (pageCount: number) =>
-  ({ type: 'cards/SET_PAGE_COUNT', pageCount } as const) // need to delete, use query params in getCardsTC
+export const setCardsAC = (cards: CardsStateType) => ({ type: 'cards/SET_CARDS', cards } as const)
+export const setCardsListPageAC = (page: number) =>
+  ({ type: 'cards/SET_CARDS_LIST_PAGE', page } as const)
+export const setCardsTotalCountAC = (count: number) =>
+  ({ type: 'cards/SET_CARDS_TOTAL_COUNT', count } as const)
+export const setPageCountAC = (count: number) => ({ type: 'cards/SET_PAGE_COUNT', count } as const)
 
 // thunk creators
-export const getCardsTC =
-  (data: CardQueryType): AppThunk =>
-  async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    try {
-      const res = await cardsAPI.getCard(data)
+export const getCardsTC = (): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
+  const page = getState().cards.page
+  const pageCount = getState().cards.pageCount
+  const cardsPack_id = getState().cards.cardsPack_id
 
-      dispatch(setCardsAC(res.data))
-      dispatch(setAppStatusAC('succeeded'))
-    } catch (e) {
-      serverErrorHandler(e as AxiosError | Error, dispatch)
-    }
+  dispatch(setAppStatusAC('loading'))
+
+  try {
+    const res = await cardsAPI.getCard({ cardsPack_id, page, pageCount })
+
+    dispatch(setCardsAC(res.data.cards))
+    dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
+    dispatch(setPageCountAC(res.data.pageCount))
+    dispatch(setAppStatusAC('succeeded'))
+  } catch (e) {
+    serverErrorHandler(e as AxiosError | Error, dispatch)
   }
+}
 
 export const createCardTC =
   (card: CreatedCardType): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await cardsAPI.createCard(card)
 
       dispatch(setAppStatusAC('succeeded'))
-      getCardsTC({ cardsPack_id: res.data.newCard.cardsPack_id })
+      getCardsTC()
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
     }
@@ -67,13 +89,13 @@ export const createCardTC =
 
 export const deleteCardTC =
   (id: string): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await cardsAPI.deleteCard(id)
 
       dispatch(setAppStatusAC('succeeded'))
-      getCardsTC({ cardsPack_id: res.data.deletedCard.cardsPack_id })
+      getCardsTC()
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
     }
@@ -81,13 +103,13 @@ export const deleteCardTC =
 
 export const updateCardTC =
   (card: UpdatedCardType): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
       const res = await cardsAPI.updateCard(card)
 
       dispatch(setAppStatusAC('succeeded'))
-      getCardsTC({ cardsPack_id: res.data.updatedCard.cardsPack_id })
+      getCardsTC()
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
     }

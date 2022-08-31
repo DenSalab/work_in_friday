@@ -1,4 +1,5 @@
 import React from 'react'
+
 import s from './Paginator.module.css'
 
 type PaginatorPropsType = {
@@ -21,10 +22,12 @@ const Paginator: React.FC<PaginatorPropsType> = ({
 
   const buttons = (range: number, countButtons: number) => {
     let buttons = []
+
     for (let i = range; buttons.length < countButtons; i++) {
       buttons.push(i)
       if (i >= pages) return buttons
     }
+
     return buttons
   }
 

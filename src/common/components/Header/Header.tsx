@@ -32,6 +32,9 @@ export const Header = () => {
         <Link to={'/packs_list'} className={s.linkItem}>
           Packs List
         </Link>
+        <Link to={'/cards_list'} className={s.linkItem}>
+          Cards List
+        </Link>
         <br />
       </div>
     </div>
