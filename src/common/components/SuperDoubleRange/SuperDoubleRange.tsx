@@ -3,35 +3,38 @@ import s from './SuperRange.module.css'
 
 type SuperDoubleRangePropsType = {
   onChangeRange?: (values: [number, number]) => void
-  value?: [number, number]
+  value: [number, number]
+  range: [number, number]
   // min, max, step, disable, ...
 }
 
-const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({ onChangeRange, value }) => {
-  let minVal = value ? value[0] : 0
-  let maxVal = value ? value[1] : 100
+const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({ onChangeRange, value, range }) => {
+  let minVal = value[0]
+  let maxVal = value[1]
   if (minVal >= maxVal) minVal = maxVal
 
-  const range: any = useRef(null)
+  const ref: any = useRef(null)
 
   // Set width of the range to decrease from the left side
   useEffect(() => {
-    if (range.current) {
-      range.current.style.left = `${minVal + 1}%`
-      range.current.style.width = `${maxVal - minVal}%`
+    if (ref.current) {
+      ref.current.style.left = `${minVal + 1}%`
+      ref.current.style.width = `${maxVal - minVal}%`
     }
   }, [minVal, maxVal])
 
   // Set width of the range to decrease from the right side
   useEffect(() => {
-    if (range.current) {
-      range.current.style.width = `${maxVal - minVal}%`
+    if (ref.current) {
+      ref.current.style.width = `${maxVal - minVal}%`
     }
   }, [maxVal, minVal])
 
   return (
     <div className={s.container}>
       <input
+        min={range[0]}
+        max={range[1]}
         type="range"
         value={minVal}
         onChange={(event) => {
@@ -44,6 +47,8 @@ const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({ onChangeRange, 
       />
       <input
         type="range"
+        min={range[0]}
+        max={range[1]}
         value={maxVal}
         onChange={(event) => {
           const value = Math.max(Number(event.target.value), minVal + 1)
@@ -55,7 +60,7 @@ const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({ onChangeRange, 
       />
       <div className={s.slider}>
         <div className={s.sliderTrack} />
-        <div ref={range} className={s.sliderRange} />
+        <div ref={ref} className={s.sliderRange} />
       </div>
     </div>
   )

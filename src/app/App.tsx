@@ -6,6 +6,7 @@ import { Preloader } from '../common/components/Preloader/Preloader'
 import { useAppDispatch, useAppSelector } from '../common/hooks/hooks'
 import { initializeAppTC, setAppInitializedAC } from './app-reducer'
 import s from './App.module.css'
+import { LinearPreloader } from '../common/components/LinearPreloader/LinearPreloader'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -34,7 +35,7 @@ function App() {
   return (
     <div className={s.appWrapper}>
       <Header />
-      {status === 'loading' && <Preloader />}
+      <LinearPreloader turnOn={status === 'loading'} />
       <Pages />
       {appError && appError}
       <Footer />

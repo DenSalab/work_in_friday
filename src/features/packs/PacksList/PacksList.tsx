@@ -10,6 +10,7 @@ import Paginator from '../../../common/components/Pagination/Paginator'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import {
   getCardsPackTC,
+  PackStateType,
   setMaxCardsCount,
   setMinCardsCount,
   setOnlyMyPacks,
@@ -18,55 +19,52 @@ import {
   setSearchedPackName,
 } from './packs-reducer'
 import { ChangeEvent, useEffect } from 'react'
+import { useDebounce } from '../../../common/hooks/debounce'
 
 export const PacksList = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
-
   const user_id: string = useAppSelector((state) => state.profile.user._id)
-
-  const cardPacks: CardPackType[] = useAppSelector((state) => state.packs.cardPacks)
-  const searchedPackName: string = useAppSelector((state) => state.packs.searchedPackName)
-  const isOnlyMy: boolean = useAppSelector((state) => state.packs.onlyMyPacks)
-  const minCardsCount: number = useAppSelector((state) => state.packs.minCardsCount)
-  const maxCardsCount: number = useAppSelector((state) => state.packs.maxCardsCount)
-  const pageCount: number = useAppSelector((state) => state.packs.pageCount)
-  const packsTotalCount: number = useAppSelector((state) => state.packs.packsTotalCount)
-  const cardPacksTotalCount = useAppSelector((state) => state.packs.cardPacksTotalCount)
-  const page: number = useAppSelector((state) => state.packs.page)
+  const state: PackStateType = useAppSelector((state) => state.packs)
 
   // наимбольшее количество карточек
-  const maxRangeValue = cardPacks.map((e) => e.cardsCount).sort((a, b) => b - a)[0]
+  const maxRangeValue = state.cardPacks.map((e) => e.cardsCount).sort((a, b) => b - a)[0]
+  console.log('cards:', state.cardPacksTotalCount)
   const data: CardsPackQueryType = {
-    packName: searchedPackName,
-    pageCount: pageCount,
-    user_id: isOnlyMy ? user_id : null,
-    min: minCardsCount,
-    max: maxCardsCount,
-    page: page,
+    packName: state.searchedPackName,
+    pageCount: state.pageCount,
+    user_id: state.onlyMyPacks ? user_id : null,
+    min: state.minCardsCount,
+    max: state.maxCardsCount,
+    page: state.page,
   }
-
-  //temp code-----------------------------------------------------------------------
-  const клацХэндлерМазаФака = () => {
-    dispatch(getCardsPackTC(data))
-  }
-  //end-------------------------------------------------------------------------------
-
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(getCardsPackTC(data))
     }
   }, [])
 
-  const addNewPack = () => {
-    alert('Not now, maybe someday...')
-  }
+  const debouncedSearchTerm = useDebounce(state.searchedPackName, 500)
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      dispatch(getCardsPackTC(data))
+    }
+  }, [debouncedSearchTerm])
+
   const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchedPackName(e.currentTarget.value))
   }
-  const onKeyDownSearch = () => {}
-  const sortMy = () => dispatch(setOnlyMyPacks(true))
-  const sortAll = () => dispatch(setOnlyMyPacks(false))
+
+  const addNewPack = () => {
+    alert('Not now, maybe someday...')
+  }
+
+  const sortMyAllToggle = (value: boolean) => {
+    dispatch(setOnlyMyPacks(value))
+    if (state.onlyMyPacks !== value) {
+      dispatch(getCardsPackTC(data))
+    }
+  }
 
   const onChangeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setMinCardsCount(+e.currentTarget.value))
@@ -84,13 +82,16 @@ export const PacksList = () => {
     dispatch(setSearchedPackName(''))
     dispatch(setMinCardsCount(0))
     dispatch(setMaxCardsCount(maxRangeValue))
+    dispatch(getCardsPackTC(data))
   }
 
   const onChangePageCount = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setPageCount(+e.currentTarget.value))
+    dispatch(getCardsPackTC(data))
   }
   const onChangePage = (page: number) => {
     dispatch(setPage(page))
+    dispatch(getCardsPackTC(data))
   }
   const tableRender = (e: CardPackType) => {
     const onClickTeacher = () => {}
@@ -101,7 +102,7 @@ export const PacksList = () => {
       <div className={s.tb_main} key={e._id}>
         <div className={s.tb_name}>{e.name}</div>
         <div className={s.tb_cards}>{e.cardsCount}</div>
-        <div className={s.tb_last}>{e.updated}</div>
+        <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
         <div className={s.tb_createdBy}>{e.user_name}</div>
         <div className={s.tb_actions}>
           <img src={teacher_img} alt="teacher" onClick={onClickTeacher} />
@@ -115,9 +116,6 @@ export const PacksList = () => {
     <div className={s.wrapper}>
       <div className={s.header}>
         <h2>Packs list</h2>
-        <SuperButton onClick={клацХэндлерМазаФака}>
-          Клацни сюда, чтобы обновить (пока нет debounce)
-        </SuperButton>
         <SuperButton onClick={addNewPack}>Add new pack</SuperButton>
       </div>
 
@@ -128,9 +126,8 @@ export const PacksList = () => {
             id={'search'}
             placeholder={'Provide your text'}
             className={s.search}
-            value={searchedPackName}
+            value={state.searchedPackName}
             onChange={onChangeSearch}
-            onKeyDown={onKeyDownSearch}
           />
         </div>
 
@@ -138,20 +135,27 @@ export const PacksList = () => {
           <label htmlFor="my">Show packs cards</label>
           <button
             id={'my'}
-            className={`${s.btn_my} ${isOnlyMy ? s.btn_selected : ''}`}
-            onClick={sortMy}
+            className={`${s.btn_my} ${state.onlyMyPacks ? s.btn_selected : ''}`}
+            onClick={() => sortMyAllToggle(true)}
           >
             My
           </button>
-          <button className={`${s.btn_all} ${!isOnlyMy ? s.btn_selected : ''}`} onClick={sortAll}>
+          <button
+            className={`${s.btn_all} ${!state.onlyMyPacks ? s.btn_selected : ''}`}
+            onClick={() => sortMyAllToggle(false)}
+          >
             All
           </button>
         </div>
 
         <div className={s.switch}>
-          <input className={s.switch_min} value={minCardsCount} onChange={onChangeMinValue} />
-          <SuperDoubleRange value={[minCardsCount, maxCardsCount]} onChangeRange={onChangeRange} />
-          <input className={s.switch_max} value={maxCardsCount} onChange={onChangeMaxValue} />
+          <input className={s.switch_min} value={state.minCardsCount} onChange={onChangeMinValue} />
+          <SuperDoubleRange
+            value={[state.minCardsCount, state.maxCardsCount]}
+            onChangeRange={onChangeRange}
+            range={[0, maxRangeValue]}
+          />
+          <input className={s.switch_max} value={state.maxCardsCount} onChange={onChangeMaxValue} />
         </div>
 
         <div className={s.filter_remove}>
@@ -167,14 +171,15 @@ export const PacksList = () => {
           <div className={s.tb_createdBy}>Created by</div>
           <div className={s.tb_actions}>Actions</div>
         </div>
-        <div>{cardPacks.map((e) => tableRender(e))}</div>
+
+        <div>{state.cardPacks.map((e) => tableRender(e))}</div>
       </div>
 
       <div className={s.footer}>
         <Paginator
-          totalUsersCount={packsTotalCount}
-          currentPage={page}
-          pageSize={cardPacksTotalCount}
+          totalUsersCount={state.cardPacksTotalCount}
+          currentPage={state.page}
+          pageSize={state.pageCount}
           onPageChange={onChangePage}
         />
         <div className={s.pageCount}>
@@ -184,7 +189,7 @@ export const PacksList = () => {
             step={1}
             min={5}
             max={25}
-            value={pageCount}
+            value={state.pageCount}
             onChange={onChangePageCount}
           />
           <span>cards per page</span>
@@ -193,16 +198,3 @@ export const PacksList = () => {
     </div>
   )
 }
-
-/*
-debounce
-const doCityFilter = (query) => {
-  if (!query) return setFilteredCities([])
-
-  setTimeout(() => {
-    setFilteredCities(
-        citiesArray.filter((city) => city.toLowerCase().includes(query.toLowerCase()))
-    )
-  }, 500)
-}
- */
