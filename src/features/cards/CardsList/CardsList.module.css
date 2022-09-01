@@ -44,7 +44,7 @@
 }
 .tb_header, .tb_main{
     display: grid;
-    grid-template-columns: 3fr 1fr 4fr 2fr 100px;
+    grid-template-columns: 2fr 3fr 1fr 1fr 80px;
 
     padding: 10px 15px;
 }
@@ -55,7 +55,19 @@
     background-color: #EFEFEF;
 }
 .tb_question, .tb_answer, .tb_last, .tb_grade{
-    padding-left: 3px;
+    overflow: hidden;
+    display: -webkit-box;
+    display: box;
+
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    -ms-line-clamp: 1;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
 }
 
 .tb_actions{

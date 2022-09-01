@@ -1,16 +1,23 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
+
+import { Navigate } from 'react-router-dom'
 
 import { CardType } from '../../../api/cardsAPI'
 import Paginator from '../../../common/components/Pagination/Paginator'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import { createCardTC, getCardsTC, setCardsListPageAC, setPageCountAC } from '../cards-reducer'
+import delete_img from '../../packs/PacksList/images/delete.png'
+import edit_img from '../../packs/PacksList/images/edit.png'
+import teacher_img from '../../packs/PacksList/images/teacher.png'
+import {
+  createCardTC,
+  deleteCardTC,
+  getCardsTC,
+  setCardsListPageAC,
+  setPageCountAC,
+} from '../cards-reducer'
 
 import s from './CardsList.module.css'
-import delete_img from './images/delete.png'
-import edit_img from './images/edit.png'
-import filter_img from './images/filter.png'
-import teacher_img from './images/teacher.png'
 
 export const CardsList = () => {
   const dispatch = useAppDispatch()
@@ -24,35 +31,33 @@ export const CardsList = () => {
   const onChangePage = (page: number) => {
     dispatch(setCardsListPageAC(page))
   }
-  const onPageCount = (page: number) => {
+  const onSetPageCount = (page: number) => {
     dispatch(setPageCountAC(page))
   }
-  const addNewCard = () => {
+  const onAddNewCard = () => {
     dispatch(
       createCardTC({
         cardsPack_id: '630e436131b6d940e375e1b3',
-        question: 'hardcode1 question',
-        answer: 'hardcode1 answer',
+        question: 'new1',
+        answer: 'new1',
       })
     )
+    dispatch(getCardsTC())
   }
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(getCardsTC())
-    }
-  }, [page, pageCount, cardsTotalCount])
 
   const tableRender = (e: CardType) => {
     const onClickTeacher = () => {}
     const onClickEdit = () => {}
-    const onClickDelete = () => {}
+    const onClickDelete = () => {
+      dispatch(deleteCardTC(e._id))
+      dispatch(getCardsTC())
+    }
 
     return (
       <div className={s.tb_main} key={e._id}>
         <div className={s.tb_question}>{e.question}</div>
         <div className={s.tb_answer}>{e.answer}</div>
-        <div className={s.tb_last}>{e.updated}</div>
+        <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
         <div className={s.tb_grade}>{e.grade}</div>
         <div className={s.tb_actions}>
           <img src={teacher_img} alt="teacher" onClick={onClickTeacher} />
@@ -63,6 +68,14 @@ export const CardsList = () => {
     )
   }
 
+  useEffect(() => {
+    dispatch(getCardsTC())
+  }, [page, pageCount, cardsTotalCount])
+
+  if (!isLoggedIn) {
+    return <Navigate to={'/login'} />
+  }
+
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
@@ -70,7 +83,7 @@ export const CardsList = () => {
         <SuperButton onClick={() => alert('click')}>
           Клацни сюда, чтобы обновить (пока нет debounce)
         </SuperButton>
-        <SuperButton onClick={addNewCard}>Add new card</SuperButton>
+        <SuperButton onClick={onAddNewCard}>Add new card</SuperButton>
       </div>
 
       <div className={s.control}>
@@ -84,10 +97,6 @@ export const CardsList = () => {
             onChange={() => {}}
             onKeyDown={() => {}}
           />
-        </div>
-
-        <div className={s.filter_remove}>
-          <img src={filter_img} alt="swg" onClick={() => {}} />
         </div>
       </div>
 
@@ -117,7 +126,7 @@ export const CardsList = () => {
             min={1}
             max={25}
             value={pageCount}
-            onChange={e => onPageCount(+e.currentTarget.value)}
+            onChange={e => onSetPageCount(+e.currentTarget.value)}
           />
           <span>cards per page</span>
         </div>

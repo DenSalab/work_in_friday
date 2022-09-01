@@ -11,7 +11,7 @@ const initialState = {
   cardAnswer: '',
   cardQuestion: '',
   min: 0,
-  max: 10,
+  max: 5,
   sortCards: '0created',
   page: 1,
   pageCount: 5,
@@ -70,9 +70,9 @@ export const createCardTC =
   async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
-      const res = await cardsAPI.createCard(card)
+      await cardsAPI.createCard(card)
 
-      getCardsTC()
+      //getCardsTC()
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
@@ -84,10 +84,10 @@ export const deleteCardTC =
   async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
-      const res = await cardsAPI.deleteCard(id)
+      await cardsAPI.deleteCard(id)
 
+      // getCardsTC()
       dispatch(setAppStatusAC('succeeded'))
-      getCardsTC()
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
     }
@@ -98,10 +98,10 @@ export const updateCardTC =
   async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
-      const res = await cardsAPI.updateCard(card)
+      await cardsAPI.updateCard(card)
 
-      dispatch(setAppStatusAC('succeeded'))
       getCardsTC()
+      dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
     }
