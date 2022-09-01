@@ -3,7 +3,6 @@ import React, { ChangeEvent, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { CardType } from '../../../api/cardsAPI'
-import { setAppInitializedAC } from '../../../app/app-reducer'
 import Paginator from '../../../common/components/Pagination/Paginator'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useDebounce } from '../../../common/hooks/debounce'
@@ -11,7 +10,6 @@ import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import delete_img from '../../packs/PacksList/images/delete.png'
 import edit_img from '../../packs/PacksList/images/edit.png'
 import teacher_img from '../../packs/PacksList/images/teacher.png'
-import { getCardsPackTC, setSearchedPackName } from '../../packs/PacksList/packs-reducer'
 import {
   createCardTC,
   deleteCardTC,
@@ -54,7 +52,9 @@ export const CardsList = () => {
   }
 
   const tableRender = (e: CardType) => {
-    const onClickTeacher = () => {}
+    const onClickTeacher = () => {
+      alert('Learn!')
+    }
     const onClickEdit = () => {}
     const onClickDelete = () => {
       dispatch(deleteCardTC(e._id))
