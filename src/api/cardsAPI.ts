@@ -8,7 +8,7 @@ export const cardsAPI = {
     return instance.post<CreateCardResponseType>('cards/card', { card: card })
   },
   deleteCard(id: string) {
-    return instance.delete<DeleteCardResponseType>('cards/card', { params: id })
+    return instance.delete<DeleteCardResponseType>(`cards/card/?id=${id}`)
   },
   updateCard(card: UpdatedCardType) {
     return instance.put<UpdateCardResponseType>('cards/card', { card })

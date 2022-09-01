@@ -38,8 +38,8 @@ export const CardsList = () => {
     dispatch(
       createCardTC({
         cardsPack_id: '630e436131b6d940e375e1b3',
-        question: 'new1',
-        answer: 'new1',
+        question: '01 sept',
+        answer: 'autumn',
       })
     )
     dispatch(getCardsTC())
