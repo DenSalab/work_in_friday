@@ -1,7 +1,5 @@
 import React, { useState, ChangeEvent } from 'react'
-
 import pen from '../../images/edit_FILL0_wght400_GRAD0_opsz48.png'
-
 import style from './EditableSpan.module.css'
 
 type EditableSpanPropsSpan = {
@@ -25,9 +23,21 @@ export const EditableSpan = React.memo((props: EditableSpanPropsSpan) => {
   }
 
   return editMode && !props.disabled ? (
-    <input autoFocus={true} onBlur={onBlurInput} value={title} onChange={onChangeTitleHandler} />
+    <input
+      size={title.length}
+      autoFocus={true}
+      onBlur={onBlurInput}
+      value={title}
+      onChange={onChangeTitleHandler}
+      className={style.input}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          onBlurInput()
+        }
+      }}
+    />
   ) : (
-    <span onDoubleClick={editSpanHandler} className={style.name}>
+    <span onClick={editSpanHandler} className={style.name}>
       {props.title}
       <img src={pen} className={style.symbols} alt={'pen'} />
     </span>

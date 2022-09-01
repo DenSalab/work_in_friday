@@ -19,6 +19,11 @@ export const Header = () => {
     navigate('/login')
   }
 
+  const onClickLoginHandler = () => {
+    if (isLogin) {
+      setSelect(!select)
+    }
+  }
   const nav = (
     <div className={s.selector}>
       <Link to={'/login'} className={s.linkItem}>
@@ -48,19 +53,21 @@ export const Header = () => {
       <Link to={'/cards_list'} className={s.linkItem}>
         Cards List
       </Link>
+      <Link to={'/page_pack'} className={s.linkItem}>
+        Page pack
+      </Link>
       <button onClick={() => dispatch(logoutTC())}>Log Out</button>
     </div>
   )
 
-  const login = <SuperButton onClick={logInHandler}>Sign in</SuperButton>
   const user = (
-    <>
+    <div className={s.user} onClick={onClickLoginHandler}>
       <div className={s.user_name}>{userData.name}</div>
       <div className={s.user_photo}>
         <img src={userData.avatar} alt="avatar" />
       </div>
       {select ? nav : ''}
-    </>
+    </div>
   )
 
   return (
@@ -68,11 +75,9 @@ export const Header = () => {
       <LinearPreloader turnOn={loading} />
       <div className={s.container}>
         <div className={s.logo}>
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" onClick={() => navigate('/profile')} />
         </div>
-        <div className={s.user} onClick={() => setSelect(!select)}>
-          {isLogin ? user : login}
-        </div>
+        {isLogin ? user : <SuperButton onClick={logInHandler}>Sign in</SuperButton>}
       </div>
     </div>
   )

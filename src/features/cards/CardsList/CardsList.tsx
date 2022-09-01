@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
@@ -23,7 +23,7 @@ import s from './CardsList.module.css'
 
 export const CardsList = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
+  const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
 
   const cards = useAppSelector(state => state.cards.cards)
   const pageCount: number = useAppSelector(state => state.cards.pageCount)
@@ -76,11 +76,9 @@ export const CardsList = () => {
     )
   }
 
-  useDebounce(searchedQuestion, 500)
-
   useEffect(() => {
     dispatch(getCardsTC())
-  }, [page, pageCount, cardsTotalCount, searchedQuestion])
+  }, [page, pageCount, cardsTotalCount])
 
   if (!isLoggedIn) {
     return <Navigate to={'/login'} />
@@ -90,6 +88,9 @@ export const CardsList = () => {
     <div className={s.wrapper}>
       <div className={s.header}>
         <h2>Cards list</h2>
+        <SuperButton onClick={() => alert('click')}>
+          Клацни сюда, чтобы обновить (пока нет debounce)
+        </SuperButton>
         <SuperButton onClick={onAddNewCard}>Add new card</SuperButton>
       </div>
 
@@ -100,8 +101,9 @@ export const CardsList = () => {
             id={'search'}
             placeholder={'Provide your text'}
             className={s.search}
-            value={searchedQuestion}
-            onChange={onChangeSearch}
+            value={''}
+            onChange={() => {}}
+            onKeyDown={() => {}}
           />
         </div>
       </div>
