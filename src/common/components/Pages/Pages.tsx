@@ -1,7 +1,5 @@
 import React from 'react'
-
 import { Route, Routes, Navigate } from 'react-router-dom'
-
 import { Login } from '../../../features/auth/Login/Login'
 import { Profile } from '../../../features/auth/Profile/Profile'
 import { CheckEmail } from '../../../features/auth/Recovery/CheckEmail/CheckEmail'
@@ -10,12 +8,12 @@ import { SetNewPassword } from '../../../features/auth/Recovery/SetNewPassword/S
 import { Register } from '../../../features/auth/Register/Register'
 import { CardsList } from '../../../features/cards/CardsList/CardsList'
 import { PacksList } from '../../../features/packs/PacksList/PacksList'
-import s from '../Header/Header.module.css'
+import s from './Pages.module.css'
 import { Page404 } from '../Page404/Page404'
 
 export const Pages = () => {
   return (
-    <div className={s.componentContainer}>
+    <div className={s.container}>
       <Routes>
         <Route path={'/'} element={<Navigate to={'/login'} />} />
         <Route path={'/login'} element={<Login />} />
