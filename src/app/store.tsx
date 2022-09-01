@@ -40,7 +40,7 @@ import {
   setPage,
   setPageCount,
   setSearchedPackName,
-} from '../features/packs/PacksList/packs-reducer'
+} from '../features/packs/packs-reducer'
 
 import {
   appReducer,
