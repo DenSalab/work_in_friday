@@ -1,20 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
 import { CardType } from '../../../api/cardsAPI'
+import { setAppInitializedAC } from '../../../app/app-reducer'
 import Paginator from '../../../common/components/Pagination/Paginator'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
+import { useDebounce } from '../../../common/hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import delete_img from '../../packs/PacksList/images/delete.png'
 import edit_img from '../../packs/PacksList/images/edit.png'
 import teacher_img from '../../packs/PacksList/images/teacher.png'
+import { getCardsPackTC, setSearchedPackName } from '../../packs/PacksList/packs-reducer'
 import {
   createCardTC,
   deleteCardTC,
   getCardsTC,
   setCardsListPageAC,
   setPageCountAC,
+  setSearchedQuestionAC,
 } from '../cards-reducer'
 
 import s from './CardsList.module.css'
@@ -27,7 +31,11 @@ export const CardsList = () => {
   const pageCount: number = useAppSelector(state => state.cards.pageCount)
   const cardsTotalCount: number = useAppSelector(state => state.cards.cardsTotalCount)
   const page: number = useAppSelector(state => state.cards.page)
+  const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
 
+  const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchedQuestionAC(e.currentTarget.value))
+  }
   const onChangePage = (page: number) => {
     dispatch(setCardsListPageAC(page))
   }
@@ -68,9 +76,11 @@ export const CardsList = () => {
     )
   }
 
+  useDebounce(searchedQuestion, 500)
+
   useEffect(() => {
     dispatch(getCardsTC())
-  }, [page, pageCount, cardsTotalCount])
+  }, [page, pageCount, cardsTotalCount, searchedQuestion])
 
   if (!isLoggedIn) {
     return <Navigate to={'/login'} />
@@ -80,9 +90,6 @@ export const CardsList = () => {
     <div className={s.wrapper}>
       <div className={s.header}>
         <h2>Cards list</h2>
-        <SuperButton onClick={() => alert('click')}>
-          Клацни сюда, чтобы обновить (пока нет debounce)
-        </SuperButton>
         <SuperButton onClick={onAddNewCard}>Add new card</SuperButton>
       </div>
 
@@ -93,9 +100,8 @@ export const CardsList = () => {
             id={'search'}
             placeholder={'Provide your text'}
             className={s.search}
-            value={''}
-            onChange={() => {}}
-            onKeyDown={() => {}}
+            value={searchedQuestion}
+            onChange={onChangeSearch}
           />
         </div>
       </div>

@@ -32,6 +32,8 @@ export const cardsReducer = (state = initialState, action: ActionsType): Initial
     case 'cards/SET_PAGE_COUNT': {
       return { ...state, pageCount: action.count }
     }
+    case 'cards/SET_SEARCHED_QUESTION':
+      return { ...state, cardQuestion: action.cardQuestion }
     default:
       return state
   }
@@ -44,17 +46,20 @@ export const setCardsListPageAC = (page: number) =>
 export const setCardsTotalCountAC = (count: number) =>
   ({ type: 'cards/SET_CARDS_TOTAL_COUNT', count } as const)
 export const setPageCountAC = (count: number) => ({ type: 'cards/SET_PAGE_COUNT', count } as const)
+export const setSearchedQuestionAC = (cardQuestion: string) =>
+  ({ type: 'cards/SET_SEARCHED_QUESTION', cardQuestion } as const)
 
 // thunk creators
 export const getCardsTC = (): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
   const page = getState().cards.page
   const pageCount = getState().cards.pageCount
   const cardsPack_id = getState().cards.cardsPack_id
+  const cardQuestion = getState().cards.cardQuestion
 
   dispatch(setAppStatusAC('loading'))
 
   try {
-    const res = await cardsAPI.getCard({ cardsPack_id, page, pageCount })
+    const res = await cardsAPI.getCard({ cardsPack_id, page, pageCount, cardQuestion })
 
     dispatch(setCardsAC(res.data.cards))
     dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
@@ -67,12 +72,10 @@ export const getCardsTC = (): AppThunk => async (dispatch, getState: () => AppRo
 
 export const createCardTC =
   (card: CreatedCardType): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
       await cardsAPI.createCard(card)
-
-      //getCardsTC()
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
@@ -81,12 +84,11 @@ export const createCardTC =
 
 export const deleteCardTC =
   (id: string): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
       await cardsAPI.deleteCard(id)
 
-      // getCardsTC()
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
@@ -95,12 +97,11 @@ export const deleteCardTC =
 
 export const updateCardTC =
   (card: UpdatedCardType): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
       await cardsAPI.updateCard(card)
 
-      getCardsTC()
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)

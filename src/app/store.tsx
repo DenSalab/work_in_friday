@@ -29,6 +29,7 @@ import {
   setCardsListPageAC,
   setCardsTotalCountAC,
   setPageCountAC,
+  setSearchedQuestionAC,
 } from '../features/cards/cards-reducer'
 import {
   packsReducer,
@@ -90,6 +91,7 @@ export type ActionsType =
   | ReturnType<typeof setCardsTotalCountAC>
   | ReturnType<typeof setCardsListPageAC>
   | ReturnType<typeof setPageCountAC>
+  | ReturnType<typeof setSearchedQuestionAC>
 
 export type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>
 
