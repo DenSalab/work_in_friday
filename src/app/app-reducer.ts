@@ -1,7 +1,8 @@
-import { setIsLoggedInAC } from '../features/auth/auth-reducer'
 import { AxiosError } from 'axios'
-import { serverErrorHandler } from '../common/utils/serverErrorHandler'
+
 import { authAPI } from '../api/authAPI'
+import { serverErrorHandler } from '../common/utils/serverErrorHandler'
+import { setIsLoggedInAC } from '../features/auth/auth-reducer'
 import { setUserAC } from '../features/auth/Profile/profile-reducer'
 
 import { ActionsType, AppThunk } from './store'
@@ -43,16 +44,17 @@ export const setAppErrorAC = (error: string | null) => ({ type: 'app/SET-ERROR',
 export const setAppInitializedAC = (value: boolean) =>
   ({ type: 'app/SET-IS-INITIALIZED', value } as const)
 
-export const initializeAppTC = (): AppThunk => async (dispatch) => {
+export const initializeAppTC = (): AppThunk => async dispatch => {
   try {
     dispatch(setAppStatusAC('loading'))
     dispatch(setAppErrorAC(null))
     const res = await authAPI.getUser()
+
     dispatch(setIsLoggedInAC(true))
     dispatch(setUserAC(res.data))
     dispatch(setAppStatusAC('succeeded'))
   } catch (e) {
-    serverErrorHandler(e as AxiosError | Error, dispatch)
+    dispatch(setAppStatusAC('failed'))
   } finally {
     dispatch(setAppInitializedAC(true))
   }

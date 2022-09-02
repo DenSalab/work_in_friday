@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
@@ -31,8 +31,8 @@ export const CardsList = () => {
   const page: number = useAppSelector(state => state.cards.page)
   const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
 
-  const onChangeSearch = (e: string) => {
-    dispatch(setSearchedQuestionAC(e))
+  const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchedQuestionAC(e.currentTarget.value))
   }
   const onChangePage = (page: number) => {
     dispatch(setCardsListPageAC(page))
@@ -109,7 +109,7 @@ export const CardsList = () => {
             placeholder={'Provide your text'}
             className={s.search}
             value={searchedQuestion}
-            onChange={e => onChangeSearch(e.currentTarget.value)}
+            onChange={onChangeSearch}
           />
         </div>
       </div>
