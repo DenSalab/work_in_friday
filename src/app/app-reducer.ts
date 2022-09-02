@@ -1,6 +1,4 @@
 import { setIsLoggedInAC } from '../features/auth/auth-reducer'
-import { AxiosError } from 'axios'
-import { serverErrorHandler } from '../common/utils/serverErrorHandler'
 import { authAPI } from '../api/authAPI'
 import { setUserAC } from '../features/auth/Profile/profile-reducer'
 
@@ -52,7 +50,8 @@ export const initializeAppTC = (): AppThunk => async (dispatch) => {
     dispatch(setUserAC(res.data))
     dispatch(setAppStatusAC('succeeded'))
   } catch (e) {
-    serverErrorHandler(e as AxiosError | Error, dispatch)
+    // serverErrorHandler(e as AxiosError | Error, dispatch)
+    dispatch(setAppStatusAC('failed'))
   } finally {
     dispatch(setAppInitializedAC(true))
   }

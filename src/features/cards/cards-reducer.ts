@@ -75,7 +75,7 @@ export const getCardsTC = (): AppThunk => async (dispatch, getState: () => AppRo
 
 export const createCardTC =
   (card: CreatedCardType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       await cardsAPI.createCard(card)
@@ -87,7 +87,7 @@ export const createCardTC =
 
 export const deleteCardTC =
   (id: string): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     try {
       dispatch(setAppStatusAC('loading'))
       await cardsAPI.deleteCard(id)
@@ -99,7 +99,7 @@ export const deleteCardTC =
 
 export const updateCardTC =
   (card: UpdatedCardType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     try {
       dispatch(setAppStatusAC('loading'))
       await cardsAPI.updateCard(card)
