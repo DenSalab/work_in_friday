@@ -44,8 +44,8 @@ export const CardsList = () => {
     dispatch(
       createCardTC({
         cardsPack_id: '630e436131b6d940e375e1b3',
-        question: '01 sept',
-        answer: 'autumn',
+        question: 'hello',
+        answer: 'world',
       })
     )
     dispatch(getCardsTC())
@@ -53,9 +53,11 @@ export const CardsList = () => {
 
   const tableRender = (e: CardType) => {
     const onClickTeacher = () => {
-      alert('Learn!')
+      alert('Do you want to learn it?')
     }
-    const onClickEdit = () => {}
+    const onClickEdit = () => {
+      alert('You can edit this card')
+    }
     const onClickDelete = () => {
       dispatch(deleteCardTC(e._id))
       dispatch(getCardsTC())

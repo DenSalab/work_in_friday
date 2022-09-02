@@ -28,8 +28,6 @@ export const Profile = () => {
   return (
     <div className={mainStyles.container}>
       <h2>Personal Information</h2>
-      <Notification />
-
       <div className={s.avatar}>
         <img src={user.avatar} alt="avatar" />
       </div>
