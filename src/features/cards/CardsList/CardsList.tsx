@@ -31,8 +31,8 @@ export const CardsList = () => {
   const page: number = useAppSelector(state => state.cards.page)
   const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
 
-  const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchedQuestionAC(e.currentTarget.value))
+  const onChangeSearch = (e: string) => {
+    dispatch(setSearchedQuestionAC(e))
   }
   const onChangePage = (page: number) => {
     dispatch(setCardsListPageAC(page))
@@ -78,9 +78,11 @@ export const CardsList = () => {
     )
   }
 
+  useDebounce(searchedQuestion, 500)
+
   useEffect(() => {
     dispatch(getCardsTC())
-  }, [page, pageCount, cardsTotalCount])
+  }, [page, pageCount, cardsTotalCount, searchedQuestion])
 
   if (!isLoggedIn) {
     return <Navigate to={'/login'} />
@@ -100,9 +102,8 @@ export const CardsList = () => {
             id={'search'}
             placeholder={'Provide your text'}
             className={s.search}
-            value={''}
-            onChange={() => {}}
-            onKeyDown={() => {}}
+            value={searchedQuestion}
+            onChange={e => onChangeSearch(e.currentTarget.value)}
           />
         </div>
       </div>

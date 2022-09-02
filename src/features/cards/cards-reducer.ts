@@ -34,6 +34,8 @@ export const cardsReducer = (state = initialState, action: ActionsType): Initial
     }
     case 'cards/SET_SEARCHED_QUESTION':
       return { ...state, cardQuestion: action.cardQuestion }
+    case 'cards/SET_SORT_CARDS':
+      return { ...state, sortCards: action.value }
     default:
       return state
   }
@@ -48,6 +50,7 @@ export const setCardsTotalCountAC = (count: number) =>
 export const setPageCountAC = (count: number) => ({ type: 'cards/SET_PAGE_COUNT', count } as const)
 export const setSearchedQuestionAC = (cardQuestion: string) =>
   ({ type: 'cards/SET_SEARCHED_QUESTION', cardQuestion } as const)
+export const setSortCardsAC = (value: string) => ({ type: 'cards/SET_SORT_CARDS', value } as const)
 
 // thunk creators
 export const getCardsTC = (): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
