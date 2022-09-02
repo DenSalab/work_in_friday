@@ -23,13 +23,13 @@ import s from './CardsList.module.css'
 
 export const CardsList = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
+  const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
 
-  const cards = useAppSelector((state) => state.cards.cards)
-  const pageCount: number = useAppSelector((state) => state.cards.pageCount)
-  const cardsTotalCount: number = useAppSelector((state) => state.cards.cardsTotalCount)
-  const page: number = useAppSelector((state) => state.cards.page)
-  const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
+  const cards = useAppSelector(state => state.cards.cards)
+  const pageCount: number = useAppSelector(state => state.cards.pageCount)
+  const cardsTotalCount: number = useAppSelector(state => state.cards.cardsTotalCount)
+  const page: number = useAppSelector(state => state.cards.page)
+  const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
 
   const onChangeSearch = (e: string) => {
     dispatch(setSearchedQuestionAC(e))
@@ -43,7 +43,7 @@ export const CardsList = () => {
   const onAddNewCard = () => {
     dispatch(
       createCardTC({
-        cardsPack_id: '63121823496f1f035918e09b',
+        cardsPack_id: '63122273496f1f035918e09c',
         question: 'can I delete it?',
         answer: 'NOOOO',
       })
@@ -109,7 +109,7 @@ export const CardsList = () => {
             placeholder={'Provide your text'}
             className={s.search}
             value={searchedQuestion}
-            onChange={(e) => onChangeSearch(e.currentTarget.value)}
+            onChange={e => onChangeSearch(e.currentTarget.value)}
           />
         </div>
       </div>
@@ -122,7 +122,7 @@ export const CardsList = () => {
           <div className={s.tb_grade}>Grade</div>
           <div className={s.tb_actions}>Actions</div>
         </div>
-        <div>{cards.map((e) => tableRender(e))}</div>
+        <div>{cards.map(e => tableRender(e))}</div>
       </div>
 
       <div className={s.footer}>
@@ -140,7 +140,7 @@ export const CardsList = () => {
             min={1}
             max={25}
             value={pageCount}
-            onChange={(e) => onSetPageCount(+e.currentTarget.value)}
+            onChange={e => onSetPageCount(+e.currentTarget.value)}
           />
           <span>cards per page</span>
         </div>
