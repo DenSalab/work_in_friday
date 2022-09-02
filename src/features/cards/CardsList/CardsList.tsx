@@ -7,6 +7,9 @@ import Paginator from '../../../common/components/Pagination/Paginator'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useDebounce } from '../../../common/hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
+import { edit } from '../../../common/swg/edit'
+import { teacher } from '../../../common/swg/teacher'
+import { trash } from '../../../common/swg/trash'
 import {
   createCardTC,
   deleteCardTC,
@@ -17,9 +20,6 @@ import {
 } from '../cards-reducer'
 
 import s from './CardsList.module.css'
-import { teacher } from '../../../common/swg/teacher'
-import { edit } from '../../../common/swg/edit'
-import { trash } from '../../../common/swg/trash'
 
 export const CardsList = () => {
   const dispatch = useAppDispatch()
@@ -44,8 +44,8 @@ export const CardsList = () => {
     dispatch(
       createCardTC({
         cardsPack_id: '6311f94fdabae80004556d2d',
-        question: 'new?',
-        answer: 'oh no',
+        question: 'what s up?',
+        answer: 'nothing special',
       })
     )
     dispatch(getCardsTC())
