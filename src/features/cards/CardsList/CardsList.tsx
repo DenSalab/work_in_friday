@@ -43,9 +43,9 @@ export const CardsList = () => {
   const onAddNewCard = () => {
     dispatch(
       createCardTC({
-        cardsPack_id: '6311f94fdabae80004556d2d',
-        question: 'what s up?',
-        answer: 'nothing special',
+        cardsPack_id: '63121823496f1f035918e09b',
+        question: 'can I delete it?',
+        answer: 'NOOOO',
       })
     )
     dispatch(getCardsTC())

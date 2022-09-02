@@ -7,7 +7,7 @@ import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
 
 const initialState = {
   cards: [] as CardsStateType,
-  cardsPack_id: '6311f94fdabae80004556d2d',
+  cardsPack_id: '63121823496f1f035918e09b',
   cardAnswer: '',
   cardQuestion: '',
   min: 0,
@@ -75,7 +75,7 @@ export const getCardsTC = (): AppThunk => async (dispatch, getState: () => AppRo
 
 export const createCardTC =
   (card: CreatedCardType): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
       await cardsAPI.createCard(card)
@@ -87,7 +87,7 @@ export const createCardTC =
 
 export const deleteCardTC =
   (id: string): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     try {
       dispatch(setAppStatusAC('loading'))
       await cardsAPI.deleteCard(id)
@@ -99,7 +99,7 @@ export const deleteCardTC =
 
 export const updateCardTC =
   (card: UpdatedCardType): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     try {
       dispatch(setAppStatusAC('loading'))
       await cardsAPI.updateCard(card)
