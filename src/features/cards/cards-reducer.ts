@@ -7,7 +7,7 @@ import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
 
 const initialState = {
   cards: [] as CardsStateType,
-  cardsPack_id: '630e436131b6d940e375e1b3',
+  cardsPack_id: '6311f94fdabae80004556d2d',
   cardAnswer: '',
   cardQuestion: '',
   min: 0,

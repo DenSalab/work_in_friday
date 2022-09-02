@@ -1,9 +1,9 @@
 import { AxiosError } from 'axios'
 
-import { CardPackType, CardsPackQueryType, CreatePackType, packAPI } from '../../../api/packAPI'
-import { setAppStatusAC } from '../../../app/app-reducer'
-import { ActionsType, AppThunk } from '../../../app/store'
-import { serverErrorHandler } from '../../../common/utils/serverErrorHandler'
+import { CardPackType, CardsPackQueryType, CreatePackType, packAPI } from '../../api/packAPI'
+import { setAppStatusAC } from '../../app/app-reducer'
+import { ActionsType, AppThunk } from '../../app/store'
+import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
 
 const initialState = {
   searchedPackName: '' as string,

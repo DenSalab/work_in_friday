@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
@@ -23,7 +23,7 @@ import s from './CardsList.module.css'
 
 export const CardsList = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
+  const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
 
   const cards = useAppSelector(state => state.cards.cards)
   const pageCount: number = useAppSelector(state => state.cards.pageCount)
@@ -43,9 +43,9 @@ export const CardsList = () => {
   const onAddNewCard = () => {
     dispatch(
       createCardTC({
-        cardsPack_id: '630e436131b6d940e375e1b3',
-        question: 'hello',
-        answer: 'world',
+        cardsPack_id: '6311f94fdabae80004556d2d',
+        question: 'new?',
+        answer: 'oh no',
       })
     )
     dispatch(getCardsTC())
@@ -90,9 +90,6 @@ export const CardsList = () => {
     <div className={s.wrapper}>
       <div className={s.header}>
         <h2>Cards list</h2>
-        <SuperButton onClick={() => alert('click')}>
-          Клацни сюда, чтобы обновить (пока нет debounce)
-        </SuperButton>
         <SuperButton onClick={onAddNewCard}>Add new card</SuperButton>
       </div>
 
