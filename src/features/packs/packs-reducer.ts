@@ -102,7 +102,6 @@ export const createCardsPackTC =
     try {
       dispatch(setAppStatusAC('loading'))
       await packAPI.createCardsPack(data)
-      dispatch(setServerErrorAC(''))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
@@ -115,8 +114,8 @@ export const deleteCardsPackTC =
     try {
       dispatch(setAppStatusAC('loading'))
       await packAPI.deleteCardsPack(id)
-      dispatch(setServerErrorAC(''))
       dispatch(setAppStatusAC('succeeded'))
+      dispatch(getCardsPackTC())
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
     }
@@ -128,7 +127,6 @@ export const updateCardsPackTC =
     try {
       dispatch(setAppStatusAC('loading'))
       await packAPI.updateCardsPack(cardsPack)
-      dispatch(setServerErrorAC(''))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)

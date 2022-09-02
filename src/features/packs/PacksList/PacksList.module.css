@@ -55,24 +55,7 @@
     fill: #366EFF;
 }
 
-.footer{
-    display: flex;
-    justify-content: center;
-}
-.pageCount{
-    margin: 10px;
-    padding: 2px;
-}
-.pageCount span {
-    margin: 3px;
-}
-.pageCount input{
-    width: 40px;
 
-    font-size: 16px;
-
-    outline: none;
-}
 
 .selectPacks .buttons{
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1);

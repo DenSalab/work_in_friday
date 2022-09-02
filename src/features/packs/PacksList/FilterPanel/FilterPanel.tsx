@@ -9,7 +9,8 @@ import {
   setOnlyMyPacks,
   setSearchedPackName,
 } from '../../packs-reducer'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useEffect } from 'react'
+import { useDebounce } from '../../../../common/hooks/debounce'
 
 export const FilterPanel = () => {
   const dispatch = useAppDispatch()
@@ -38,6 +39,14 @@ export const FilterPanel = () => {
     dispatch(setMinCardsCount(min))
     dispatch(setMaxCardsCount(max))
   }
+
+  const debouncedMinCardsCount = useDebounce(state.minCardsCount, 500)
+  const debouncedMaxCardsCount = useDebounce(state.minCardsCount, 500)
+  useEffect(() => {
+    if (debouncedMinCardsCount && debouncedMaxCardsCount) {
+      dispatch(getCardsPackTC())
+    }
+  }, [state.minCardsCount, state.maxCardsCount])
 
   const filterRemote = () => {
     dispatch(setOnlyMyPacks(false))
@@ -84,7 +93,7 @@ export const FilterPanel = () => {
           <SuperDoubleRange
             value={[state.minCardsCount, state.maxCardsCount]}
             onChangeRange={onChangeRange}
-            range={[0, maxRangeValue]}
+            range={[0, 100]}
           />
           <input className={s.switch_max} value={state.maxCardsCount} onChange={onChangeMaxValue} />
         </div>

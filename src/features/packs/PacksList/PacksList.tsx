@@ -1,37 +1,20 @@
 import s from './PacksList.module.css'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
-import Paginator from '../../../common/components/Pagination/Paginator'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import {
-  createCardsPackTC,
-  getCardsPackTC,
-  PackStateType,
-  setPage,
-  setPageCount,
-} from '../packs-reducer'
-import { ChangeEvent, useEffect } from 'react'
+import { createCardsPackTC, getCardsPackTC, PackStateType } from '../packs-reducer'
+import { useEffect } from 'react'
 import { useDebounce } from '../../../common/hooks/debounce'
 import { PackListTable } from './PackListTable/PackListTable'
 import { FilterPanel } from './FilterPanel/FilterPanel'
+import { PackListFooter } from './PackListFooter/PackListFooter'
 
 export const PacksList = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
-  // const user_id: string = useAppSelector((state) => state.profile.user._id)
   const state: PackStateType = useAppSelector((state) => state.packs)
-
-  // const getCardsRequestData: CardsPackQueryType = {
-  //   packName: state.searchedPackName,
-  //   pageCount: state.pageCount,
-  //   user_id: state.onlyMyPacks ? user_id : null,
-  //   min: state.minCardsCount,
-  //   max: state.maxCardsCount,
-  //   page: state.page,
-  // }
 
   useEffect(() => {
     if (isLoggedIn) {
-      console.log(isLoggedIn)
       dispatch(getCardsPackTC())
     }
   }, [])
@@ -55,46 +38,15 @@ export const PacksList = () => {
     dispatch(getCardsPackTC())
   }
 
-  const onChangePageCount = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setPageCount(+e.currentTarget.value))
-    dispatch(getCardsPackTC())
-  }
-
-  const onChangePage = (page: number) => {
-    dispatch(setPage(page))
-    dispatch(getCardsPackTC())
-  }
-
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
         <h2>Packs list</h2>
         <SuperButton onClick={addNewPack}>Add new pack</SuperButton>
       </div>
-
       <FilterPanel />
       <PackListTable cardPacks={state.cardPacks} />
-
-      <div className={s.footer}>
-        <Paginator
-          totalUsersCount={state.cardPacksTotalCount}
-          currentPage={state.page}
-          pageSize={state.pageCount}
-          onPageChange={onChangePage}
-        />
-        <div className={s.pageCount}>
-          <span>Show</span>
-          <input
-            type="number"
-            step={1}
-            min={5}
-            max={25}
-            value={state.pageCount}
-            onChange={onChangePageCount}
-          />
-          <span>cards per page</span>
-        </div>
-      </div>
+      <PackListFooter />
     </div>
   )
 }

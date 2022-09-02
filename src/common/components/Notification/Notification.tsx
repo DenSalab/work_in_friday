@@ -6,7 +6,7 @@ import errorImg from './images/OOjs_UI_icon_error-destructive.svg.png'
 import s from './Notification.module.css'
 
 const Notification = () => {
-  const error = useAppSelector(state => state.app.error)
+  const error = useAppSelector((state) => state.app.error)
   const [on, setOn] = useState(true)
 
   setTimeout(() => {
@@ -17,7 +17,7 @@ const Notification = () => {
     <div className={s.error}>
       {on && (
         <div className={s.errorBlockImg}>
-          <img src={errorImg} className={s.errorImg} />
+          <img src={errorImg} className={s.errorImg} alt={'errorImg'} />
           <div className={s.errorBlock}>
             ERROR!
             <span className={s.errorMessage}>{error}</span>
