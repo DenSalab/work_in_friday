@@ -26,10 +26,11 @@ export const CardsList = () => {
   const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
 
   const cards = useAppSelector(state => state.cards.cards)
-  const pageCount: number = useAppSelector(state => state.cards.pageCount)
-  const cardsTotalCount: number = useAppSelector(state => state.cards.cardsTotalCount)
-  const page: number = useAppSelector(state => state.cards.page)
+  const pageCount = useAppSelector(state => state.cards.pageCount)
+  const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
+  const page = useAppSelector(state => state.cards.page)
   const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
+  const cardsPack_id = useAppSelector(state => state.cards.cardsPack_id)
 
   const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchedQuestionAC(e.currentTarget.value))
@@ -43,7 +44,7 @@ export const CardsList = () => {
   const onAddNewCard = () => {
     dispatch(
       createCardTC({
-        cardsPack_id: '63122273496f1f035918e09c',
+        cardsPack_id: cardsPack_id,
         question: 'can I delete it?',
         answer: 'NOOOO',
       })
