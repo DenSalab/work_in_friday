@@ -1,14 +1,11 @@
 .symbols {
-  width: 15px;
-}
-.name {
-  top: 44.03%;
-  right: 48.28%;
-  bottom: 52.64%;
-  left: 48.36%;
+  cursor: pointer;
 
-  /*display: flex;*/
-  /*align-items: center;*/
+  width: 16px;
+}
+.name, .input{
+  margin: 0;
+  padding: 0;
 
   font-family: Montserrat, sans-serif;
   font-size: 20px;
@@ -16,4 +13,20 @@
   font-style: normal;
   line-height: 24px;
   color: #000000;
+}
+
+.name{
+  cursor: pointer;
+}
+.name:hover{
+  color: #366EFF;
+}
+.input{
+  display: block;
+
+color: #366EFF;
+
+  border: none;
+  border-bottom: 1px solid #366EFF;
+  outline: none;
 }

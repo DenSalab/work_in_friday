@@ -17,7 +17,7 @@ import {
   setPage,
   setPageCount,
   setSearchedPackName,
-} from './packs-reducer'
+} from '../packs-reducer'
 import { ChangeEvent, useEffect } from 'react'
 import { useDebounce } from '../../../common/hooks/debounce'
 
@@ -133,19 +133,21 @@ export const PacksList = () => {
 
         <div className={s.selectPacks}>
           <label htmlFor="my">Show packs cards</label>
-          <button
-            id={'my'}
-            className={`${s.btn_my} ${state.onlyMyPacks ? s.btn_selected : ''}`}
-            onClick={() => sortMyAllToggle(true)}
-          >
-            My
-          </button>
-          <button
-            className={`${s.btn_all} ${!state.onlyMyPacks ? s.btn_selected : ''}`}
-            onClick={() => sortMyAllToggle(false)}
-          >
-            All
-          </button>
+          <div className={s.buttons}>
+            <button
+              id={'my'}
+              className={`${s.btn_my} ${state.onlyMyPacks ? s.btn_selected : ''}`}
+              onClick={() => sortMyAllToggle(true)}
+            >
+              My
+            </button>
+            <button
+              className={`${s.btn_all} ${!state.onlyMyPacks ? s.btn_selected : ''}`}
+              onClick={() => sortMyAllToggle(false)}
+            >
+              All
+            </button>
+          </div>
         </div>
 
         <div className={s.switch}>

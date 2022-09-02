@@ -10,6 +10,7 @@ import { CardsList } from '../../../features/cards/CardsList/CardsList'
 import { PacksList } from '../../../features/packs/PacksList/PacksList'
 import s from './Pages.module.css'
 import { Page404 } from '../Page404/Page404'
+import { PagePack } from '../../../features/packs/PagePack/PagePack'
 
 export const Pages = () => {
   return (
@@ -25,6 +26,7 @@ export const Pages = () => {
         <Route path={'/404'} element={<Page404 />} />
         <Route path={'/packs_list'} element={<PacksList />} />
         <Route path={'/cards_list'} element={<CardsList />} />
+        <Route path={'/page_pack'} element={<PagePack />} />
       </Routes>
     </div>
   )
