@@ -1,0 +1,46 @@
+.table{
+    background-color: #fff;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1);
+
+}
+.tb_header, .tb_main{
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr 100px;
+
+    padding: 10px 15px;
+}
+.main .teacher{
+
+}
+.tb_header{
+    background-color: #EFEFEF;
+}
+.tb_name, .tb_cards, .tb_last, .tb_createdBy{
+    overflow:hidden;
+
+    padding-left: 3px;
+}
+
+.tb_actions{
+    display: flex;
+    justify-content: space-between;
+
+    padding-left: 3px;
+}
+.edit, .teacher, .trash{
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+}
+
+.teacher:hover path{
+    stroke: #366EFF;
+}
+.edit:hover path, .trash:hover path{
+    fill: #366EFF;
+}

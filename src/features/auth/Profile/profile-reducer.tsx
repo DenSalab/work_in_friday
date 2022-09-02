@@ -33,23 +33,21 @@ export const setUserAC = (user: UserDataType) =>
 export const updateUserTC =
   (user: UserDataType): AppThunk =>
   async (dispatch) => {
-    dispatch(setAppErrorAC(null))
-    dispatch(setAppStatusAC('loading'))
     try {
+      dispatch(setAppErrorAC(null))
+      dispatch(setAppStatusAC('loading'))
       const res = await authAPI.updateUser(user.name, user.avatar)
-
       dispatch(setUserAC(res.data.updatedUser))
       dispatch(setAppStatusAC('succeeded'))
-      console.log(res.data.updatedUser)
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
     }
   }
 
 export const logoutTC = (): AppThunk => async (dispatch) => {
-  dispatch(setAppErrorAC(null))
-  dispatch(setAppStatusAC('loading'))
   try {
+    dispatch(setAppErrorAC(null))
+    dispatch(setAppStatusAC('loading'))
     await authAPI.logout()
     dispatch(setIsLoggedInAC(false))
     dispatch(setAppStatusAC('succeeded'))

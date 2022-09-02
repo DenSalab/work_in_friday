@@ -40,12 +40,11 @@ export const authReducer = (
 export const registerTC =
   (data: RegisterRequestType): AppThunk =>
   async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    dispatch(setAppErrorAC(null))
     try {
+      dispatch(setAppStatusAC('loading'))
+      dispatch(setAppErrorAC(null))
       await authAPI.register(data)
       dispatch(setIsRegisteredAC(true))
-      //dispatch(setServerErrorAC(''))
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)

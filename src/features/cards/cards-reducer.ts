@@ -75,7 +75,7 @@ export const getCardsTC = (): AppThunk => async (dispatch, getState: () => AppRo
 
 export const createCardTC =
   (card: CreatedCardType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       await cardsAPI.createCard(card)
@@ -87,11 +87,10 @@ export const createCardTC =
 
 export const deleteCardTC =
   (id: string): AppThunk =>
-  async dispatch => {
-    dispatch(setAppStatusAC('loading'))
+  async (dispatch) => {
     try {
+      dispatch(setAppStatusAC('loading'))
       await cardsAPI.deleteCard(id)
-
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
@@ -100,9 +99,9 @@ export const deleteCardTC =
 
 export const updateCardTC =
   (card: UpdatedCardType): AppThunk =>
-  async dispatch => {
-    dispatch(setAppStatusAC('loading'))
+  async (dispatch) => {
     try {
+      dispatch(setAppStatusAC('loading'))
       await cardsAPI.updateCard(card)
 
       dispatch(setAppStatusAC('succeeded'))

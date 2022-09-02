@@ -1,117 +1,70 @@
 import s from './PacksList.module.css'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
-import filter_img from './images/filter.png'
-import teacher_img from './images/teacher.png'
-import edit_img from './images/edit.png'
-import delete_img from './images/delete.png'
-import SuperDoubleRange from '../../../common/components/SuperDoubleRange/SuperDoubleRange'
-import { CardPackType, CardsPackQueryType } from '../../../api/packAPI'
 import Paginator from '../../../common/components/Pagination/Paginator'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import {
+  createCardsPackTC,
   getCardsPackTC,
   PackStateType,
-  setMaxCardsCount,
-  setMinCardsCount,
-  setOnlyMyPacks,
   setPage,
   setPageCount,
-  setSearchedPackName,
 } from '../packs-reducer'
 import { ChangeEvent, useEffect } from 'react'
 import { useDebounce } from '../../../common/hooks/debounce'
+import { PackListTable } from './PackListTable/PackListTable'
+import { FilterPanel } from './FilterPanel/FilterPanel'
 
 export const PacksList = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
-  const user_id: string = useAppSelector((state) => state.profile.user._id)
+  // const user_id: string = useAppSelector((state) => state.profile.user._id)
   const state: PackStateType = useAppSelector((state) => state.packs)
 
-  // наимбольшее количество карточек
-  const maxRangeValue = state.cardPacks.map((e) => e.cardsCount).sort((a, b) => b - a)[0]
-  console.log('cards:', state.cardPacksTotalCount)
-  const data: CardsPackQueryType = {
-    packName: state.searchedPackName,
-    pageCount: state.pageCount,
-    user_id: state.onlyMyPacks ? user_id : null,
-    min: state.minCardsCount,
-    max: state.maxCardsCount,
-    page: state.page,
-  }
+  // const getCardsRequestData: CardsPackQueryType = {
+  //   packName: state.searchedPackName,
+  //   pageCount: state.pageCount,
+  //   user_id: state.onlyMyPacks ? user_id : null,
+  //   min: state.minCardsCount,
+  //   max: state.maxCardsCount,
+  //   page: state.page,
+  // }
+
   useEffect(() => {
     if (isLoggedIn) {
-      dispatch(getCardsPackTC(data))
+      console.log(isLoggedIn)
+      dispatch(getCardsPackTC())
     }
   }, [])
 
   const debouncedSearchTerm = useDebounce(state.searchedPackName, 500)
   useEffect(() => {
     if (debouncedSearchTerm) {
-      dispatch(getCardsPackTC(data))
+      dispatch(getCardsPackTC())
     }
   }, [debouncedSearchTerm])
 
-  const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchedPackName(e.currentTarget.value))
-  }
-
   const addNewPack = () => {
-    alert('Not now, maybe someday...')
-  }
-
-  const sortMyAllToggle = (value: boolean) => {
-    dispatch(setOnlyMyPacks(value))
-    if (state.onlyMyPacks !== value) {
-      dispatch(getCardsPackTC(data))
+    const baseURL =
+      'data:image/jpeg;base64,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'
+    const CreatePackData = {
+      name: 'Пачек тачка',
+      deckCover: baseURL,
+      private: false,
     }
-  }
-
-  const onChangeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setMinCardsCount(+e.currentTarget.value))
-  }
-  const onChangeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setMaxCardsCount(+e.currentTarget.value))
-  }
-  const onChangeRange = ([min, max]: [number, number]) => {
-    dispatch(setMinCardsCount(min))
-    dispatch(setMaxCardsCount(max))
-  }
-
-  const filterRemote = () => {
-    dispatch(setOnlyMyPacks(false))
-    dispatch(setSearchedPackName(''))
-    dispatch(setMinCardsCount(0))
-    dispatch(setMaxCardsCount(maxRangeValue))
-    dispatch(getCardsPackTC(data))
+    dispatch(createCardsPackTC(CreatePackData))
+    dispatch(getCardsPackTC())
   }
 
   const onChangePageCount = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setPageCount(+e.currentTarget.value))
-    dispatch(getCardsPackTC(data))
+    dispatch(getCardsPackTC())
   }
+
   const onChangePage = (page: number) => {
     dispatch(setPage(page))
-    dispatch(getCardsPackTC(data))
+    dispatch(getCardsPackTC())
   }
-  const tableRender = (e: CardPackType) => {
-    const onClickTeacher = () => {}
-    const onClickEdit = () => {}
-    const onClickDelete = () => {}
 
-    return (
-      <div className={s.tb_main} key={e._id}>
-        <div className={s.tb_name}>{e.name}</div>
-        <div className={s.tb_cards}>{e.cardsCount}</div>
-        <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
-        <div className={s.tb_createdBy}>{e.user_name}</div>
-        <div className={s.tb_actions}>
-          <img src={teacher_img} alt="teacher" onClick={onClickTeacher} />
-          <img src={edit_img} alt="edit" onClick={onClickEdit} />
-          <img src={delete_img} alt="delete" onClick={onClickDelete} />
-        </div>
-      </div>
-    )
-  }
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
@@ -119,63 +72,8 @@ export const PacksList = () => {
         <SuperButton onClick={addNewPack}>Add new pack</SuperButton>
       </div>
 
-      <div className={s.control}>
-        <div className={s.search}>
-          <label htmlFor="search">Search</label>
-          <input
-            id={'search'}
-            placeholder={'Provide your text'}
-            className={s.search}
-            value={state.searchedPackName}
-            onChange={onChangeSearch}
-          />
-        </div>
-
-        <div className={s.selectPacks}>
-          <label htmlFor="my">Show packs cards</label>
-          <div className={s.buttons}>
-            <button
-              id={'my'}
-              className={`${s.btn_my} ${state.onlyMyPacks ? s.btn_selected : ''}`}
-              onClick={() => sortMyAllToggle(true)}
-            >
-              My
-            </button>
-            <button
-              className={`${s.btn_all} ${!state.onlyMyPacks ? s.btn_selected : ''}`}
-              onClick={() => sortMyAllToggle(false)}
-            >
-              All
-            </button>
-          </div>
-        </div>
-
-        <div className={s.switch}>
-          <input className={s.switch_min} value={state.minCardsCount} onChange={onChangeMinValue} />
-          <SuperDoubleRange
-            value={[state.minCardsCount, state.maxCardsCount]}
-            onChangeRange={onChangeRange}
-            range={[0, maxRangeValue]}
-          />
-          <input className={s.switch_max} value={state.maxCardsCount} onChange={onChangeMaxValue} />
-        </div>
-
-        <div className={s.filter_remove}>
-          <img src={filter_img} alt="swg" onClick={filterRemote} />
-        </div>
-      </div>
-
-      <div className={s.table}>
-        <div className={s.tb_header}>
-          <div className={s.tb_name}>Name</div>
-          <div className={s.tb_cards}>Cards</div>
-          <div className={s.tb_last}>Last Updated</div>
-          <div className={s.tb_createdBy}>Created by</div>
-          <div className={s.tb_actions}>Actions</div>
-        </div>
-
-        <div>{state.cardPacks.map((e) => tableRender(e))}</div>
-      </div>
+      <FilterPanel />
+      <PackListTable cardPacks={state.cardPacks} />
 
       <div className={s.footer}>
         <Paginator

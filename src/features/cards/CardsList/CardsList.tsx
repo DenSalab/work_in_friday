@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
@@ -7,9 +7,6 @@ import Paginator from '../../../common/components/Pagination/Paginator'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useDebounce } from '../../../common/hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import delete_img from '../../packs/PacksList/images/delete.png'
-import edit_img from '../../packs/PacksList/images/edit.png'
-import teacher_img from '../../packs/PacksList/images/teacher.png'
 import {
   createCardTC,
   deleteCardTC,
@@ -20,6 +17,9 @@ import {
 } from '../cards-reducer'
 
 import s from './CardsList.module.css'
+import { teacher } from '../../../common/swg/teacher'
+import { edit } from '../../../common/swg/edit'
+import { trash } from '../../../common/swg/trash'
 
 export const CardsList = () => {
   const dispatch = useAppDispatch()
@@ -70,9 +70,15 @@ export const CardsList = () => {
         <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
         <div className={s.tb_grade}>{e.grade}</div>
         <div className={s.tb_actions}>
-          <img src={teacher_img} alt="teacher" onClick={onClickTeacher} />
-          <img src={edit_img} alt="edit" onClick={onClickEdit} />
-          <img src={delete_img} alt="delete" onClick={onClickDelete} />
+          <div className={s.icon} onClick={onClickTeacher}>
+            {teacher}
+          </div>
+          <div className={s.edit} onClick={onClickEdit}>
+            {edit}
+          </div>
+          <div className={s.edit} onClick={onClickDelete}>
+            {trash}
+          </div>
         </div>
       </div>
     )
