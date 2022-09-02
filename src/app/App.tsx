@@ -33,7 +33,6 @@ function App() {
   return (
     <div className={s.container}>
       <Header />
-      {/*<LinearPreloader turnOn={status === 'loading'} />*/}
       <Pages />
       {appError && appError}
       <Footer />

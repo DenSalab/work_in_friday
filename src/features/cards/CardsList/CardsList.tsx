@@ -1,15 +1,11 @@
-import React, { useEffect } from 'react'
-
+import React, { ChangeEvent, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
-
 import { CardType } from '../../../api/cardsAPI'
 import Paginator from '../../../common/components/Pagination/Paginator'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useDebounce } from '../../../common/hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import delete_img from '../../packs/PacksList/images/delete.png'
-import edit_img from '../../packs/PacksList/images/edit.png'
-import teacher_img from '../../packs/PacksList/images/teacher.png'
+
 import {
   createCardTC,
   deleteCardTC,
@@ -20,16 +16,19 @@ import {
 } from '../cards-reducer'
 
 import s from './CardsList.module.css'
+import { teacher } from '../../../common/swg/teacher'
+import { edit } from '../../../common/swg/edit'
+import { trash } from '../../../common/swg/trash'
 
 export const CardsList = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
 
-  const cards = useAppSelector(state => state.cards.cards)
-  const pageCount: number = useAppSelector(state => state.cards.pageCount)
-  const cardsTotalCount: number = useAppSelector(state => state.cards.cardsTotalCount)
-  const page: number = useAppSelector(state => state.cards.page)
-  const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
+  const cards = useAppSelector((state) => state.cards.cards)
+  const pageCount: number = useAppSelector((state) => state.cards.pageCount)
+  const cardsTotalCount: number = useAppSelector((state) => state.cards.cardsTotalCount)
+  const page: number = useAppSelector((state) => state.cards.page)
+  const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
 
   const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchedQuestionAC(e.currentTarget.value))
@@ -68,17 +67,25 @@ export const CardsList = () => {
         <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
         <div className={s.tb_grade}>{e.grade}</div>
         <div className={s.tb_actions}>
-          <img src={teacher_img} alt="teacher" onClick={onClickTeacher} />
-          <img src={edit_img} alt="edit" onClick={onClickEdit} />
-          <img src={delete_img} alt="delete" onClick={onClickDelete} />
+          <div className={s.icon} onClick={onClickTeacher}>
+            {teacher}
+          </div>
+          <div className={s.edit} onClick={onClickEdit}>
+            {edit}
+          </div>
+          <div className={s.edit} onClick={onClickDelete}>
+            {trash}
+          </div>
         </div>
       </div>
     )
   }
 
+  useDebounce(searchedQuestion, 500)
+
   useEffect(() => {
     dispatch(getCardsTC())
-  }, [page, pageCount, cardsTotalCount])
+  }, [page, pageCount, cardsTotalCount, searchedQuestion])
 
   if (!isLoggedIn) {
     return <Navigate to={'/login'} />
@@ -88,9 +95,6 @@ export const CardsList = () => {
     <div className={s.wrapper}>
       <div className={s.header}>
         <h2>Cards list</h2>
-        <SuperButton onClick={() => alert('click')}>
-          Клацни сюда, чтобы обновить (пока нет debounce)
-        </SuperButton>
         <SuperButton onClick={onAddNewCard}>Add new card</SuperButton>
       </div>
 
@@ -101,9 +105,8 @@ export const CardsList = () => {
             id={'search'}
             placeholder={'Provide your text'}
             className={s.search}
-            value={''}
-            onChange={() => {}}
-            onKeyDown={() => {}}
+            value={searchedQuestion}
+            onChange={onChangeSearch}
           />
         </div>
       </div>
@@ -116,7 +119,7 @@ export const CardsList = () => {
           <div className={s.tb_grade}>Grade</div>
           <div className={s.tb_actions}>Actions</div>
         </div>
-        <div>{cards.map(e => tableRender(e))}</div>
+        <div>{cards.map((e) => tableRender(e))}</div>
       </div>
 
       <div className={s.footer}>
@@ -134,7 +137,7 @@ export const CardsList = () => {
             min={1}
             max={25}
             value={pageCount}
-            onChange={e => onSetPageCount(+e.currentTarget.value)}
+            onChange={(e) => onSetPageCount(+e.currentTarget.value)}
           />
           <span>cards per page</span>
         </div>

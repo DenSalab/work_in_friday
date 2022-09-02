@@ -72,26 +72,35 @@ export const setCardPacks = (cardPacks: Array<CardPackType>) =>
   ({ type: 'packs/SET__CARD_PACKS', cardPacks } as const)
 
 // thunk creators
-export const getCardsPackTC =
-  (data: CardsPackQueryType): AppThunk =>
-  async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    try {
-      const res = await packAPI.getCardsPack(data)
-      dispatch(setCardPacks(res.data.cardPacks))
-      dispatch(setPacksTotalCount(res.data.cardPacksTotalCount))
-      dispatch(setServerErrorAC(''))
-      dispatch(setAppStatusAC('succeeded'))
-    } catch (e) {
-      serverErrorHandler(e as AxiosError | Error, dispatch)
+export const getCardsPackTC = (): AppThunk => async (dispatch, getState) => {
+  try {
+    const user_id: string = getState().profile.user._id
+    const packs: PackStateType = getState().packs
+    const data: CardsPackQueryType = {
+      packName: packs.searchedPackName,
+      pageCount: packs.pageCount,
+      user_id: packs.onlyMyPacks ? user_id : null,
+      min: packs.minCardsCount,
+      max: packs.maxCardsCount,
+      page: packs.page,
     }
+
+    dispatch(setAppStatusAC('loading'))
+    const res = await packAPI.getCardsPack(data)
+    dispatch(setCardPacks(res.data.cardPacks))
+    dispatch(setPacksTotalCount(res.data.cardPacksTotalCount))
+    dispatch(setServerErrorAC(''))
+    dispatch(setAppStatusAC('succeeded'))
+  } catch (e) {
+    serverErrorHandler(e as AxiosError | Error, dispatch)
   }
+}
 
 export const createCardsPackTC =
   (data: CreatePackType): AppThunk =>
   async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
     try {
+      dispatch(setAppStatusAC('loading'))
       await packAPI.createCardsPack(data)
       dispatch(setServerErrorAC(''))
       dispatch(setAppStatusAC('succeeded'))
@@ -103,8 +112,8 @@ export const createCardsPackTC =
 export const deleteCardsPackTC =
   (id: string): AppThunk =>
   async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
     try {
+      dispatch(setAppStatusAC('loading'))
       await packAPI.deleteCardsPack(id)
       dispatch(setServerErrorAC(''))
       dispatch(setAppStatusAC('succeeded'))
@@ -116,8 +125,8 @@ export const deleteCardsPackTC =
 export const updateCardsPackTC =
   (cardsPack: CardPackType): AppThunk =>
   async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
     try {
+      dispatch(setAppStatusAC('loading'))
       await packAPI.updateCardsPack(cardsPack)
       dispatch(setServerErrorAC(''))
       dispatch(setAppStatusAC('succeeded'))

@@ -44,9 +44,9 @@ export const setAppInitializedAC = (value: boolean) =>
   ({ type: 'app/SET-IS-INITIALIZED', value } as const)
 
 export const initializeAppTC = (): AppThunk => async (dispatch) => {
-  dispatch(setAppStatusAC('loading'))
-  dispatch(setAppErrorAC(null))
   try {
+    dispatch(setAppStatusAC('loading'))
+    dispatch(setAppErrorAC(null))
     const res = await authAPI.getUser()
     dispatch(setIsLoggedInAC(true))
     dispatch(setUserAC(res.data))

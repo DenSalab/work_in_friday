@@ -26,38 +26,29 @@ export const setRecoveryEmailAC = (email: string) =>
 // thunks
 export const passwordRecoveryTC =
   (email: string): AppThunk =>
-  (dispatch) => {
-    dispatch(setAppErrorAC(null))
-    dispatch(setAppStatusAC('loading'))
-    dispatch(setRecoveryEmailAC(email))
-
-    authAPI
-      .passwordRecovery(email)
-      .then((res) => {
-        console.log(res)
-        dispatch(setAppStatusAC('succeeded'))
-      })
-      .catch((error) => {
-        //dispatch(setServerErrorAC(error.response.statusText))
-        serverErrorHandler(error as AxiosError | Error, dispatch)
-      })
+  async (dispatch) => {
+    try {
+      dispatch(setAppErrorAC(null))
+      dispatch(setAppStatusAC('loading'))
+      dispatch(setRecoveryEmailAC(email))
+      await authAPI.passwordRecovery(email)
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      serverErrorHandler(e as AxiosError | Error, dispatch)
+    }
   }
 
 export const setNewPasswordTC =
   (password: string, resetPasswordToken: string): AppThunk =>
-  (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    dispatch(setAppErrorAC(null))
-
-    authAPI
-      .setNewPassword(password, resetPasswordToken)
-      .then((res) => {
-        console.log(res)
-        dispatch(setAppStatusAC('succeeded'))
-      })
-      .catch((error) => {
-        serverErrorHandler(error as AxiosError | Error, dispatch)
-      })
+  async (dispatch) => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      dispatch(setAppErrorAC(null))
+      await authAPI.setNewPassword(password, resetPasswordToken)
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      serverErrorHandler(e as AxiosError | Error, dispatch)
+    }
   }
 
 // types
