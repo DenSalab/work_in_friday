@@ -1,22 +1,24 @@
+import { ChangeEvent, useEffect } from 'react'
+
+import SuperDoubleRange from '../../../common/components/SuperDoubleRange/SuperDoubleRange'
+import { useDebounce } from '../../../common/hooks/debounce'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import s from '../FilterPanel/FilterPanel.module.css'
-import SuperDoubleRange from '../../../../common/components/SuperDoubleRange/SuperDoubleRange'
-import { filter } from '../../../../common/swg/filter'
-import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
 import {
   getCardsPackTC,
   setMaxCardsCount,
   setMinCardsCount,
   setOnlyMyPacks,
   setSearchedPackName,
-} from '../../packs-reducer'
-import { ChangeEvent, useEffect } from 'react'
-import { useDebounce } from '../../../../common/hooks/debounce'
+} from '../packs-reducer'
+
+import { filter } from './../../../common/swg/filter'
 
 export const FilterPanel = () => {
   const dispatch = useAppDispatch()
-  const state = useAppSelector((state) => state.packs)
+  const state = useAppSelector(state => state.packs)
 
-  const maxRangeValue = state.cardPacks.map((e) => e.cardsCount).sort((a, b) => b - a)[0]
+  const maxRangeValue = state.cardPacks.map(e => e.cardsCount).sort((a, b) => b - a)[0]
 
   const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchedPackName(e.currentTarget.value))
@@ -42,6 +44,7 @@ export const FilterPanel = () => {
 
   const debouncedMinCardsCount = useDebounce(state.minCardsCount, 500)
   const debouncedMaxCardsCount = useDebounce(state.minCardsCount, 500)
+
   useEffect(() => {
     if (debouncedMinCardsCount && debouncedMaxCardsCount) {
       dispatch(getCardsPackTC())

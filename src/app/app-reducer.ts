@@ -1,7 +1,4 @@
-import { AxiosError } from 'axios'
-
 import { authAPI } from '../api/authAPI'
-import { serverErrorHandler } from '../common/utils/serverErrorHandler'
 import { setIsLoggedInAC } from '../features/auth/auth-reducer'
 import { setUserAC } from '../features/auth/Profile/profile-reducer'
 

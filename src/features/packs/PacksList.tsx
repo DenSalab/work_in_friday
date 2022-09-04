@@ -1,19 +1,19 @@
 import { useEffect } from 'react'
 
-import SuperButton from '../../../common/components/SuperButton/SuperButton'
-import { useDebounce } from '../../../common/hooks/debounce'
-import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import { createCardsPackTC, getCardsPackTC } from '../packs-reducer'
+import SuperButton from '../../common/components/SuperButton/SuperButton'
+import { useDebounce } from '../../common/hooks/debounce'
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
 
 import { FilterPanel } from './FilterPanel/FilterPanel'
 import { PackListFooter } from './PackListFooter/PackListFooter'
 import { PackListTable } from './PackListTable/PackListTable'
+import { createCardsPackTC, getCardsPackTC, PackStateType } from './packs-reducer'
 import s from './PacksList.module.css'
 
 export const PacksList = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-  const state = useAppSelector(state => state.packs)
+  const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
+  const state: PackStateType = useAppSelector(state => state.packs)
 
   useEffect(() => {
     if (isLoggedIn) {
