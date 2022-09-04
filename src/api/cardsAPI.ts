@@ -10,7 +10,7 @@ export const cardsAPI = {
   deleteCard(id: string) {
     return instance.delete<DeleteCardResponseType>(`cards/card/?id=${id}`)
   },
-  updateCard(card: UpdatedCardType) {
+  updateCard(card: CardType) {
     return instance.put<UpdateCardResponseType>('cards/card', { card })
   },
 }
@@ -95,12 +95,13 @@ export type UpdateCardResponseType = {
   tokenDeathTime: number
 }
 
-export type UpdatedCardType = {
-  card: {
-    _id: string
-    question?: string
-    answer?: string
-    comments?: string
-    [key: string]: any
-  }
-}
+// Следует удалить этот тип. В запрос уходит просто обновленная карточка.
+// export type UpdatedCardType = {
+//   card: {
+//     _id: string
+//     question?: string
+//     answer?: string
+//     comments?: string
+//     [key: string]: any
+//   }
+// }

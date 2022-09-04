@@ -1,20 +1,25 @@
 import s from './PacksList.module.css'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import { createCardsPackTC, getCardsPackTC, PackStateType } from '../packs-reducer'
+import { getCardsPackTC, PackStateType } from '../packs-reducer'
 import {useEffect, useState} from 'react'
 import { useDebounce } from '../../../common/hooks/debounce'
 import { PackListTable } from './PackListTable/PackListTable'
 import { FilterPanel } from './FilterPanel/FilterPanel'
 import { PackListFooter } from './PackListFooter/PackListFooter'
-import {CustomModal} from '../../../common/components/CustomModal/CustomModal';
-import SuperInputText from '../../../common/components/SuperInputText/SuperInputText';
-import SuperCheckbox from '../../../common/components/SuperCheckbox/SuperCheckbox';
-import mainStyles from '../../../common/styles/Container.module.css';
-import {AddPackModal} from '../../modals/AddPackModal/AddPackModal';
+import {AddPackModal} from '../modals/AddPackModal';
+import {EditPackModal} from '../modals/EditPackModal';
+import {CardPackType} from '../../../api/packAPI';
+import {DelPackModal} from '../modals/DelPackModal';
 
 export const PacksList = () => {
-  const [modalActive, setModalActive] = useState(false)
+
+  const [addModalActive, setAddModalActive] = useState(false)
+  const [editModalActive, setEditModalActive] = useState(false)
+  const [delModalActive, setDelModalActive] = useState(false)
+  const [editedPack, setEditedPack] = useState({} as CardPackType)
+
+
   const dispatch = useAppDispatch()
   const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
   const state: PackStateType = useAppSelector((state) => state.packs)
@@ -33,7 +38,17 @@ export const PacksList = () => {
   }, [debouncedSearchTerm])
 
   const addNewPack = () => {
-    setModalActive(true)
+    setAddModalActive(true)
+  }
+
+  const editCallback = (pack: CardPackType) => {
+    setEditedPack(pack)
+    setEditModalActive(true)
+  }
+
+  const deleteCallBack = (pack: CardPackType) => {
+    setEditedPack(pack)
+    setDelModalActive(true)
   }
 
   return (
@@ -43,9 +58,11 @@ export const PacksList = () => {
         <SuperButton onClick={addNewPack}>Add new pack</SuperButton>
       </div>
       <FilterPanel />
-      <PackListTable cardPacks={state.cardPacks} />
+      <PackListTable cardPacks={state.cardPacks} editCallback={editCallback} deleteCallBack={deleteCallBack}/>
       <PackListFooter />
-        <AddPackModal active={modalActive} setActive={setModalActive} />
+        <AddPackModal active={addModalActive} setActive={setAddModalActive} />
+        <EditPackModal active={editModalActive} setActive={setEditModalActive} pack={editedPack}/>
+        <DelPackModal active={delModalActive} setActive={setDelModalActive} pack={editedPack}/>
     </div>
   )
 }

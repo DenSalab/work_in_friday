@@ -1,12 +1,9 @@
-import React, {ChangeEvent, ReactNode, useState} from 'react';
-import modalStyles from '../../../common/components/CustomModal/CustomModal.module.css';
+import React, {ChangeEvent, useState} from 'react';
 import SuperInputText from '../../../common/components/SuperInputText/SuperInputText';
 import SuperCheckbox from '../../../common/components/SuperCheckbox/SuperCheckbox';
-import SuperButton from '../../../common/components/SuperButton/SuperButton';
-import mainStyles from '../../../common/styles/Container.module.css';
 import {CustomModal} from '../../../common/components/CustomModal/CustomModal';
 import {useAppDispatch} from '../../../common/hooks/hooks';
-import {createCardsPackTC, getCardsPackTC} from '../../packs/packs-reducer';
+import {createCardsPackTC, getCardsPackTC} from '../packs-reducer';
 
 type PropsType = {
     active: boolean
@@ -33,7 +30,7 @@ export const AddPackModal: React.FC<PropsType> = ({active, setActive}) => {
         const CreatePackData = {
             name: newPackName,
             deckCover: baseURL,
-            private: false,
+            private: isPrivate,
         }
         await dispatch(createCardsPackTC(CreatePackData))
         await dispatch(getCardsPackTC())
@@ -43,16 +40,17 @@ export const AddPackModal: React.FC<PropsType> = ({active, setActive}) => {
     }
 
     return (
-        <CustomModal title={'Add new pack'} active={active} setActive={setActive}>
-            <div>Name pack</div>
-            <SuperInputText id={'newPackName'} placeholder={newPackName} onChange={onChangeInputHandler}/>
+        <CustomModal title={'Add new pack'} active={active} setActive={setActive}
+                     callback={addNewPack} buttonsText={'Add'}>
+            <div>Packs name:</div>
+            <SuperInputText id={'newPackName'} value={newPackName} onChange={onChangeInputHandler}/>
             <div>
-                <SuperCheckbox id={'PrivatePack'} onChange={onChangeCheckboxHandler} checked={isPrivate}/>
-                <label htmlFor={'PrivatePack'}>Private pack</label>
+                <SuperCheckbox id={'PrivatePack'} onChange={onChangeCheckboxHandler} checked={isPrivate}>
+                    Private pack
+                </SuperCheckbox>
+
             </div>
-            <SuperButton className={mainStyles.mainButton} onClick={addNewPack}>
-                Add
-            </SuperButton>
+
         </ CustomModal>
     )
 }
