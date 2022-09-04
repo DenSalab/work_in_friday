@@ -1,17 +1,19 @@
-import s from './PacksList.module.css'
-import SuperButton from '../../../common/components/SuperButton/SuperButton'
-import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import { createCardsPackTC, getCardsPackTC, PackStateType } from '../packs-reducer'
 import { useEffect } from 'react'
-import { useDebounce } from '../../../common/hooks/debounce'
-import { PackListTable } from './PackListTable/PackListTable'
+
+import SuperButton from '../../common/components/SuperButton/SuperButton'
+import { useDebounce } from '../../common/hooks/debounce'
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
+
 import { FilterPanel } from './FilterPanel/FilterPanel'
 import { PackListFooter } from './PackListFooter/PackListFooter'
+import { PackListTable } from './PackListTable/PackListTable'
+import { createCardsPackTC, getCardsPackTC, PackStateType } from './packs-reducer'
+import s from './PacksList.module.css'
 
 export const PacksList = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
-  const state: PackStateType = useAppSelector((state) => state.packs)
+  const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
+  const state: PackStateType = useAppSelector(state => state.packs)
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -20,6 +22,7 @@ export const PacksList = () => {
   }, [])
 
   const debouncedSearchTerm = useDebounce(state.searchedPackName, 500)
+
   useEffect(() => {
     if (debouncedSearchTerm) {
       dispatch(getCardsPackTC())
@@ -34,6 +37,7 @@ export const PacksList = () => {
       deckCover: baseURL,
       private: false,
     }
+
     dispatch(createCardsPackTC(CreatePackData))
     dispatch(getCardsPackTC())
   }

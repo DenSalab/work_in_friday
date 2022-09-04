@@ -1,16 +1,17 @@
-import { CardPackType } from '../../../../api/packAPI'
+import { CardPackType } from '../../../api/packAPI'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
+import { deleteCardsPackTC } from '../packs-reducer'
+
+import { edit } from './../../../common/swg/edit'
+import { teacher } from './../../../common/swg/teacher'
+import { trash } from './../../../common/swg/trash'
 import s from './PackListTable.module.css'
-import { teacher } from '../../../../common/swg/teacher'
-import { edit } from '../../../../common/swg/edit'
-import { trash } from '../../../../common/swg/trash'
-import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
-import { deleteCardsPackTC } from '../../packs-reducer'
 
 type PackListTableType = {
   cardPacks: CardPackType[]
 }
 export const PackListTable = (props: PackListTableType) => {
-  const user_id: string = useAppSelector((state) => state.profile.user._id)
+  const user_id: string = useAppSelector(state => state.profile.user._id)
   const dispatch = useAppDispatch()
 
   return (
@@ -23,7 +24,7 @@ export const PackListTable = (props: PackListTableType) => {
         <div className={s.tb_actions}>Actions</div>
       </div>
 
-      {props.cardPacks.map((e) => {
+      {props.cardPacks.map(e => {
         const onClickTeacher = () => {
           alert('teacher')
         }
