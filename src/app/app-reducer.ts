@@ -1,7 +1,6 @@
 import { setIsLoggedInAC } from '../features/auth/auth-reducer'
 import { authAPI } from '../api/authAPI'
 import { setUserAC } from '../features/auth/Profile/profile-reducer'
-
 import { ActionsType, AppThunk } from './store'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -50,7 +49,6 @@ export const initializeAppTC = (): AppThunk => async (dispatch) => {
     dispatch(setUserAC(res.data))
     dispatch(setAppStatusAC('succeeded'))
   } catch (e) {
-    // serverErrorHandler(e as AxiosError | Error, dispatch)
     dispatch(setAppStatusAC('failed'))
   } finally {
     dispatch(setAppInitializedAC(true))

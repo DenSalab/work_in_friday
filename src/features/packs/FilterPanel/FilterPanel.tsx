@@ -1,16 +1,16 @@
-import s from '../FilterPanel/FilterPanel.module.css'
-import SuperDoubleRange from '../../../../common/components/SuperDoubleRange/SuperDoubleRange'
-import { filter } from '../../../../common/swg/filter'
-import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
+import s from './FilterPanel.module.css'
+import SuperDoubleRange from '../../../common/components/SuperDoubleRange/SuperDoubleRange'
+import { filter } from '../../../common/swg/filter'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import {
   getCardsPackTC,
   setMaxCardsCount,
   setMinCardsCount,
   setOnlyMyPacks,
   setSearchedPackName,
-} from '../../packs-reducer'
+} from '../packs-reducer'
 import { ChangeEvent, useEffect } from 'react'
-import { useDebounce } from '../../../../common/hooks/debounce'
+import { useDebounce } from '../../../common/hooks/debounce'
 
 export const FilterPanel = () => {
   const dispatch = useAppDispatch()

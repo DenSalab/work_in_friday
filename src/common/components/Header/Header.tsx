@@ -5,7 +5,7 @@ import logo from './../../images/logo.png'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import SuperButton from '../SuperButton/SuperButton'
 import { logoutTC } from '../../../features/auth/Profile/profile-reducer'
-import { LinearPreloader } from '../LinearPreloader/LinearPreloader'
+import { LinearPreloader } from '../preloaders/LinearPreloader/LinearPreloader'
 
 export const Header = () => {
   const dispatch = useAppDispatch()
@@ -75,7 +75,7 @@ export const Header = () => {
       <LinearPreloader turnOn={loading} />
       <div className={s.container}>
         <div className={s.logo}>
-          <img src={logo} alt="logo" onClick={() => navigate('/profile')} />
+          <img src={logo} alt="logo" onClick={() => navigate('/packs_list')} />
         </div>
         {isLogin ? user : <SuperButton onClick={logInHandler}>Sign in</SuperButton>}
       </div>

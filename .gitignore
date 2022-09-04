@@ -28,5 +28,5 @@ yarn-error.log*
 /.prettierrc.js
 /.stylelintrc.js
 /.vscode/
-/.package-lock.json
-/.yarn.lock
+/yarn.lock
+/package-lock.json

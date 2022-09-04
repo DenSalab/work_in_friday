@@ -1,8 +1,8 @@
 import s from './PackListFooter.module.css'
-import Paginator from '../../../../common/components/Pagination/Paginator'
+import Paginator from '../../../common/components/Pagination/Paginator'
 import { ChangeEvent } from 'react'
-import { getCardsPackTC, PackStateType, setPage, setPageCount } from '../../packs-reducer'
-import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
+import { getCardsPackTC, PackStateType, setPage, setPageCount } from '../packs-reducer'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 
 export const PackListFooter = () => {
   const dispatch = useAppDispatch()
