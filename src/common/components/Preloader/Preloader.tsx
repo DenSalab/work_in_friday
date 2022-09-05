@@ -1,5 +1,7 @@
 import React from 'react'
-import preloader from '../../images/Eclipse-1s-200px.gif'
+
+import preloader from '../../images/preloader.gif'
+
 import s from './Preloader.module.css'
 
 export const Preloader = () => {

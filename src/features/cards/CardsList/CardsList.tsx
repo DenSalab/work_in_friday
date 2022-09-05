@@ -3,6 +3,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { CardType } from '../../../api/cardsAPI'
+import { ArrowBack } from '../../../common/components/ArrowBack/ArrowBack'
 import Paginator from '../../../common/components/Pagination/Paginator'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useDebounce } from '../../../common/hooks/debounce'
@@ -26,6 +27,7 @@ export const CardsList = () => {
   const dispatch = useAppDispatch()
   const params = useParams()
   const navigate = useNavigate()
+
   const packId = params.packId ? params.packId : ''
   const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
 
@@ -34,7 +36,6 @@ export const CardsList = () => {
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const page = useAppSelector(state => state.cards.page)
   const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
-  const cardsPack_id = useAppSelector(state => state.cards.cardsPack_id)
   const user_id: string = useAppSelector(state => state.profile.user._id)
 
   const [addModalActive, setAddModalActive] = useState(false)
@@ -110,7 +111,10 @@ export const CardsList = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
-        <h2>Cards list</h2>
+        <div className={s.header_title}>
+          <ArrowBack title={'Back to Packs List'} onClick={() => navigate('/packs_list')} />
+          <h2>Cards list</h2>
+        </div>
         <SuperButton onClick={onAddNewCard}>Add new card</SuperButton>
       </div>
 

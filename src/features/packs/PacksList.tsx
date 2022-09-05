@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
+import { useNavigate } from 'react-router-dom'
 
 import { CardPackType } from '../../api/packAPI'
+import { ArrowBack } from '../../common/components/ArrowBack/ArrowBack'
 import SuperButton from '../../common/components/SuperButton/SuperButton'
 import { useDebounce } from '../../common/hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
@@ -20,6 +23,7 @@ export const PacksList = () => {
   const [delModalActive, setDelModalActive] = useState(false)
   const [editedPack, setEditedPack] = useState({} as CardPackType)
 
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
   const state: PackStateType = useAppSelector(state => state.packs)
@@ -55,7 +59,10 @@ export const PacksList = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
-        <h2>Packs list</h2>
+        <div className={s.header_title}>
+          <ArrowBack title={'Back to Profile'} onClick={() => navigate('/profile')} />
+          <h2>Packs list</h2>
+        </div>
         <SuperButton onClick={addNewPack}>Add new pack</SuperButton>
       </div>
       <FilterPanel />

@@ -9,6 +9,12 @@
     align-items: center;
     justify-content: space-between;
 }
+.header_title {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-evenly;
+}
 .control{
     display: flex;
     align-items: flex-end;

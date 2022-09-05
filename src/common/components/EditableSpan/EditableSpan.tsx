@@ -1,5 +1,7 @@
 import React, { useState, ChangeEvent } from 'react'
-import pen from '../../images/edit_FILL0_wght400_GRAD0_opsz48.png'
+
+import pen from '../../images/pen.png'
+
 import style from './EditableSpan.module.css'
 
 type EditableSpanPropsSpan = {
@@ -30,7 +32,7 @@ export const EditableSpan = React.memo((props: EditableSpanPropsSpan) => {
       value={title}
       onChange={onChangeTitleHandler}
       className={style.input}
-      onKeyDown={(e) => {
+      onKeyDown={e => {
         if (e.key === 'Enter') {
           onBlurInput()
         }
