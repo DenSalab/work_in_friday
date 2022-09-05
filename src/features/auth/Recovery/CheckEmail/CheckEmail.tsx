@@ -7,6 +7,7 @@ import { useAppSelector } from '../../../../common/hooks/hooks'
 
 import s from './CheckEmail.module.css'
 import icon from './emailIcon.png'
+import mainStyles from '../../../../common/styles/Container.module.css';
 
 export const CheckEmail = () => {
   const navigate = useNavigate()
@@ -28,7 +29,7 @@ export const CheckEmail = () => {
           We’ve sent an Email with instructions to <b>{recoveryEmail}</b>
         </div>
         <div className={s.buttonWrapper}>
-          <SuperButton width100pr={true} onClick={onClickHandler}>
+          <SuperButton className={mainStyles.mainButton} onClick={onClickHandler}>
             Back to login
           </SuperButton>
         </div>

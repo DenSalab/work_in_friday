@@ -27,8 +27,7 @@ export const Pages = () => {
         <Route path={'/test'} element={<CheckEmail />} />
         <Route path={'/404'} element={<Page404 />} />
         <Route path={'/packs_list'} element={<PacksList />} />
-        <Route path={'/cards_list'} element={<CardsList />} />
-        {/*        <Route path={'/page_pack'} element={<PagePack />} />*/}
+        <Route path={'/cards_list/:packId'} element={<CardsList />} />
       </Routes>
     </div>
   )

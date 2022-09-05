@@ -1,18 +1,28 @@
+import React from 'react'
+
+import { Navigate, useNavigate } from 'react-router-dom'
+
 import { CardPackType } from '../../../api/packAPI'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import { deleteCardsPackTC } from '../packs-reducer'
+import { edit } from '../../../common/swg/edit'
+import { teacher } from '../../../common/swg/teacher'
+import { trash } from '../../../common/swg/trash'
 
-import { edit } from './../../../common/swg/edit'
-import { teacher } from './../../../common/swg/teacher'
-import { trash } from './../../../common/swg/trash'
 import s from './PackListTable.module.css'
 
 type PackListTableType = {
   cardPacks: CardPackType[]
+  editCallback: (pack: CardPackType) => void
+  deleteCallBack: (pack: CardPackType) => void
 }
-export const PackListTable = (props: PackListTableType) => {
+export const PackListTable: React.FC<PackListTableType> = ({
+  cardPacks,
+  editCallback,
+  deleteCallBack,
+}) => {
   const user_id: string = useAppSelector(state => state.profile.user._id)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   return (
     <div className={s.table}>
@@ -24,20 +34,25 @@ export const PackListTable = (props: PackListTableType) => {
         <div className={s.tb_actions}>Actions</div>
       </div>
 
-      {props.cardPacks.map(e => {
+      {cardPacks.map(e => {
+        const onClickNamePack = () => {
+          if (e.user_id === user_id) navigate(`/cards_list/${e._id}`)
+        }
         const onClickTeacher = () => {
           alert('teacher')
         }
         const onClickEdit = () => {
-          alert('edit')
+          editCallback(e)
         }
         const onClickDelete = () => {
-          dispatch(deleteCardsPackTC(e._id))
+          deleteCallBack(e)
         }
 
         return (
           <div className={s.tb_main} key={e._id}>
-            <div className={s.tb_name}>{e.name}</div>
+            <div className={s.tb_name} onClick={onClickNamePack}>
+              {e.name}
+            </div>
             <div className={s.tb_cards}>{e.cardsCount}</div>
             <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
             <div className={s.tb_createdBy}>{e.user_name}</div>

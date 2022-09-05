@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, {useEffect, useState} from 'react'
 
-import { Navigate } from 'react-router-dom'
+import { useNavigate, useParams} from 'react-router-dom'
 
 import { CardType } from '../../../api/cardsAPI'
 import Paginator from '../../../common/components/Pagination/Paginator'
@@ -20,10 +20,16 @@ import {
 } from '../cards-reducer'
 
 import s from './CardsList.module.css'
+import {AddCardModal} from '../modals/AddNewCardModal';
+import {EditCardModal} from '../modals/EditCardModal';
+import {DelCardModal} from '../modals/DelCardModal';
 
 export const CardsList = () => {
   const dispatch = useAppDispatch()
-  const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
+  const params = useParams()
+  const navigate = useNavigate()
+  const packId = params.packId ? params.packId : ''
+  const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
 
   const cards = useAppSelector(state => state.cards.cards)
   const pageCount = useAppSelector(state => state.cards.pageCount)
@@ -32,6 +38,13 @@ export const CardsList = () => {
   const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
   const cardsPack_id = useAppSelector(state => state.cards.cardsPack_id)
 
+  const [addModalActive, setAddModalActive] = useState(false)
+  const [editModalActive, setEditModalActive] = useState(false)
+  const [delModalActive, setDelModalActive] = useState(false)
+  const [editedCard, setEditedCard] = useState({} as CardType)
+
+  const onChangeSearch = (e: string) => {
+    dispatch(setSearchedQuestionAC(e))
   const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchedQuestionAC(e.currentTarget.value))
   }
@@ -42,14 +55,15 @@ export const CardsList = () => {
     dispatch(setPageCountAC(page))
   }
   const onAddNewCard = () => {
-    dispatch(
+    setAddModalActive(true)
+   /* dispatch(
       createCardTC({
-        cardsPack_id: cardsPack_id,
+        cardsPack_id: '63122273496f1f035918e09c',
         question: 'can I delete it?',
         answer: 'NOOOO',
       })
     )
-    dispatch(getCardsTC())
+    dispatch(getCardsTC())*/
   }
 
   const tableRender = (e: CardType) => {
@@ -57,11 +71,14 @@ export const CardsList = () => {
       alert('Do you want to learn it?')
     }
     const onClickEdit = () => {
-      alert('You can edit this card')
+      setEditedCard(e)
+      setEditModalActive(true)
     }
     const onClickDelete = () => {
-      dispatch(deleteCardTC(e._id))
-      dispatch(getCardsTC())
+     // dispatch(deleteCardTC(e._id))
+      // dispatch(getCardsTC())
+      setEditedCard(e)
+      setDelModalActive(true)
     }
 
     return (
@@ -88,11 +105,16 @@ export const CardsList = () => {
   useDebounce(searchedQuestion, 500)
 
   useEffect(() => {
-    dispatch(getCardsTC())
+    if (packId==='1') {
+      alert('Пожалуйста, для перехода к списку вопросов нажмите на имя вашей колоды')
+      navigate('/packs_list')
+    } else dispatch(getCardsTC(packId))
   }, [page, pageCount, cardsTotalCount, searchedQuestion])
 
+
+
   if (!isLoggedIn) {
-    return <Navigate to={'/login'} />
+    navigate('/login')
   }
 
   return (
@@ -123,7 +145,7 @@ export const CardsList = () => {
           <div className={s.tb_grade}>Grade</div>
           <div className={s.tb_actions}>Actions</div>
         </div>
-        <div>{cards.map(e => tableRender(e))}</div>
+        <div>{cards.map((e) => tableRender(e))}</div>
       </div>
 
       <div className={s.footer}>
@@ -146,6 +168,9 @@ export const CardsList = () => {
           <span>cards per page</span>
         </div>
       </div>
+      <AddCardModal packId={packId} active={addModalActive} setActive={setAddModalActive}/>
+      <EditCardModal packId={packId} card={editedCard} active={editModalActive} setActive={setEditModalActive}/>
+      <DelCardModal packId={packId} card={editedCard} active={delModalActive} setActive={setDelModalActive}/>
     </div>
   )
 }
