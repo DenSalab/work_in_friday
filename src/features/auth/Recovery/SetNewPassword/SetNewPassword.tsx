@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFormik } from 'formik'
-import { Navigate, useParams } from 'react-router-dom'
+import {Navigate, useNavigate, useParams} from 'react-router-dom'
 import SuperButton from '../../../../common/components/SuperButton/SuperButton'
 import SuperInputText from '../../../../common/components/SuperInputText/SuperInputText'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
@@ -13,6 +13,7 @@ import {setAppStatusAC} from '../../../../app/app-reducer';
 
 export const SetNewPassword = () => {
   const params = useParams()
+  const navigate = useNavigate()
   const resetPasswordToken = params.token
   const dispatch = useAppDispatch()
   const newPasswordRequestStatus = useAppSelector(
@@ -42,8 +43,7 @@ export const SetNewPassword = () => {
 
   if (newPasswordRequestStatus === 'succeeded') {
     dispatch(setAppStatusAC('idle'))
-
-    return <Navigate to={'/Login'} />
+    navigate('/Login')
   }
 
   return (

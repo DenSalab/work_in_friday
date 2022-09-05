@@ -1,7 +1,5 @@
 import React from 'react'
-
 import { Route, Routes, Navigate } from 'react-router-dom'
-
 import { Login } from '../../../features/auth/Login/Login'
 import { Profile } from '../../../features/auth/Profile/Profile'
 import { CheckEmail } from '../../../features/auth/Recovery/CheckEmail/CheckEmail'
@@ -9,10 +7,10 @@ import { PasswordRecovery } from '../../../features/auth/Recovery/PasswordRecove
 import { SetNewPassword } from '../../../features/auth/Recovery/SetNewPassword/SetNewPassword'
 import { Register } from '../../../features/auth/Register/Register'
 import { CardsList } from '../../../features/cards/CardsList/CardsList'
-import { PacksList } from '../../../features/packs/PacksList'
-import { Page404 } from '../Page404/Page404'
-
+import { PacksList } from '../../../features/packs/PacksList/PacksList'
 import s from './Pages.module.css'
+import { Page404 } from '../Page404/Page404'
+import { PagePack } from '../../../features/packs/PagePack/PagePack'
 
 export const Pages = () => {
   return (
@@ -27,8 +25,8 @@ export const Pages = () => {
         <Route path={'/test'} element={<CheckEmail />} />
         <Route path={'/404'} element={<Page404 />} />
         <Route path={'/packs_list'} element={<PacksList />} />
-        <Route path={'/cards_list'} element={<CardsList />} />
-        {/*        <Route path={'/page_pack'} element={<PagePack />} />*/}
+        <Route path={'/cards_list/:packId'} element={<CardsList />} />
+        <Route path={'/page_pack'} element={<PagePack />} />
       </Routes>
     </div>
   )

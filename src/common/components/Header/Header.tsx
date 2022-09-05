@@ -50,7 +50,7 @@ export const Header = () => {
       <Link to={'/packs_list'} className={s.linkItem}>
         Packs List
       </Link>
-      <Link to={'/cards_list'} className={s.linkItem}>
+      <Link to={'/cards_list/1'} className={s.linkItem}>
         Cards List
       </Link>
       <Link to={'/page_pack'} className={s.linkItem}>

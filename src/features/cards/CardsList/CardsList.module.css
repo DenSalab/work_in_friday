@@ -55,7 +55,6 @@
 .tb_question, .tb_answer, .tb_last, .tb_grade{
     overflow: hidden;
     display: -webkit-box;
-    display: box;
 
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
@@ -141,4 +140,8 @@
     font-size: 16px;
 
     outline: none;
+}
+.edit:hover path{
+    fill: #366EFF;
+    transition: 0.3s;
 }
