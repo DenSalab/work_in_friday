@@ -3,7 +3,6 @@ import { AxiosError } from 'axios'
 import { cardsAPI, CardsStateType, CardType, CreatedCardType } from '../../api/cardsAPI'
 import { setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppRootStateType, AppThunk } from '../../app/store'
-import { useAppSelector } from '../../common/hooks/hooks'
 import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
 
 const initialState = {

@@ -94,14 +94,3 @@ export type UpdateCardResponseType = {
   token: string
   tokenDeathTime: number
 }
-
-// Следует удалить этот тип. В запрос уходит просто обновленная карточка.
-// export type UpdatedCardType = {
-//   card: {
-//     _id: string
-//     question?: string
-//     answer?: string
-//     comments?: string
-//     [key: string]: any
-//   }
-// }
