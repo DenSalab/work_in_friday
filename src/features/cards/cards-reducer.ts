@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 
-import { cardsAPI, CardsStateType, CreatedCardType, UpdatedCardType } from '../../api/cardsAPI'
+import {cardsAPI, CardsStateType, CardType, CreatedCardType} from '../../api/cardsAPI'
 import { setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppRootStateType, AppThunk } from '../../app/store'
 import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
@@ -53,10 +53,9 @@ export const setSearchedQuestionAC = (cardQuestion: string) =>
 export const setSortCardsAC = (value: string) => ({ type: 'cards/SET_SORT_CARDS', value } as const)
 
 // thunk creators
-export const getCardsTC = (): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
+export const getCardsTC = (cardsPack_id:string): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
   const page = getState().cards.page
   const pageCount = getState().cards.pageCount
-  const cardsPack_id = getState().cards.cardsPack_id
   const cardQuestion = getState().cards.cardQuestion
 
   dispatch(setAppStatusAC('loading'))
@@ -98,7 +97,7 @@ export const deleteCardTC =
   }
 
 export const updateCardTC =
-  (card: UpdatedCardType): AppThunk =>
+  (card: CardType): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(setAppStatusAC('loading'))

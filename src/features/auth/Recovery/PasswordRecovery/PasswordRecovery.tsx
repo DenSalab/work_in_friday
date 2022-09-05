@@ -53,7 +53,7 @@ export const PasswordRecovery = () => {
             <p>Enter your email address and we will send you further instructions</p>
           </div>
 
-          <SuperButton width100pr={true} type={'submit'} className={mainStyles.mainButton}>
+          <SuperButton type={'submit'} className={mainStyles.mainButton}>
             Send Instructions
           </SuperButton>
 
