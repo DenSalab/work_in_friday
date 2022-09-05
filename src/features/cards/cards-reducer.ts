@@ -3,6 +3,7 @@ import { AxiosError } from 'axios'
 import { cardsAPI, CardsStateType, CardType, CreatedCardType } from '../../api/cardsAPI'
 import { setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppRootStateType, AppThunk } from '../../app/store'
+import { useAppSelector } from '../../common/hooks/hooks'
 import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
 
 const initialState = {
@@ -12,7 +13,7 @@ const initialState = {
   cardQuestion: '',
   min: 0,
   max: 5,
-  sortCards: '0created',
+  sortCards: '0updated',
   page: 1,
   pageCount: 5,
   cardsTotalCount: 0,
@@ -59,11 +60,12 @@ export const getCardsTC =
     const page = getState().cards.page
     const pageCount = getState().cards.pageCount
     const cardQuestion = getState().cards.cardQuestion
+    const sortCards = getState().cards.sortCards
 
     dispatch(setAppStatusAC('loading'))
 
     try {
-      const res = await cardsAPI.getCard({ cardsPack_id, page, pageCount, cardQuestion })
+      const res = await cardsAPI.getCard({ cardsPack_id, page, pageCount, cardQuestion, sortCards })
 
       dispatch(setCardsAC(res.data.cards))
       dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
