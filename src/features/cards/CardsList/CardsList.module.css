@@ -36,6 +36,8 @@
     outline: none;
 }
 .table{
+    cursor: pointer;
+
     background-color: #fff;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1);
 
@@ -45,9 +47,6 @@
     grid-template-columns: 2fr 3fr 1fr 1fr 80px;
 
     padding: 10px 15px;
-}
-.main .teacher{
-
 }
 .tb_header{
     background-color: #EFEFEF;
@@ -67,17 +66,8 @@
     line-clamp: 1;
 }
 
-.tb_actions{
-    display: flex;
-    justify-content: space-between;
-
-    padding-left: 3px;
-}
 .tb_actions img{
     width: 18px;
-}
-.tb_actions img:hover{
-    cursor: pointer;
 }
 
 .switch{
@@ -141,7 +131,26 @@
 
     outline: none;
 }
-.edit:hover path{
+.tb_actions{
+    display: flex;
+    justify-content: space-between;
+
+    padding-left: 3px;
+}
+.edit, .teacher, .trash{
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+}
+
+.teacher:hover path{
+    stroke: #366EFF;
+}
+.edit:hover path, .trash:hover path{
     fill: #366EFF;
-    transition: 0.3s;
 }

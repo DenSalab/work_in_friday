@@ -1,13 +1,13 @@
 import { AxiosError } from 'axios'
 
-import {cardsAPI, CardsStateType, CardType, CreatedCardType} from '../../api/cardsAPI'
+import { cardsAPI, CardsStateType, CardType, CreatedCardType } from '../../api/cardsAPI'
 import { setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppRootStateType, AppThunk } from '../../app/store'
 import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
 
 const initialState = {
   cards: [] as CardsStateType,
-  cardsPack_id: '63122273496f1f035918e09c',
+  cardsPack_id: '',
   cardAnswer: '',
   cardQuestion: '',
   min: 0,
@@ -53,28 +53,30 @@ export const setSearchedQuestionAC = (cardQuestion: string) =>
 export const setSortCardsAC = (value: string) => ({ type: 'cards/SET_SORT_CARDS', value } as const)
 
 // thunk creators
-export const getCardsTC = (cardsPack_id:string): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
-  const page = getState().cards.page
-  const pageCount = getState().cards.pageCount
-  const cardQuestion = getState().cards.cardQuestion
+export const getCardsTC =
+  (cardsPack_id: string): AppThunk =>
+  async (dispatch, getState: () => AppRootStateType) => {
+    const page = getState().cards.page
+    const pageCount = getState().cards.pageCount
+    const cardQuestion = getState().cards.cardQuestion
 
-  dispatch(setAppStatusAC('loading'))
+    dispatch(setAppStatusAC('loading'))
 
-  try {
-    const res = await cardsAPI.getCard({ cardsPack_id, page, pageCount, cardQuestion })
+    try {
+      const res = await cardsAPI.getCard({ cardsPack_id, page, pageCount, cardQuestion })
 
-    dispatch(setCardsAC(res.data.cards))
-    dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
-    dispatch(setPageCountAC(res.data.pageCount))
-    dispatch(setAppStatusAC('succeeded'))
-  } catch (e) {
-    serverErrorHandler(e as AxiosError | Error, dispatch)
+      dispatch(setCardsAC(res.data.cards))
+      dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
+      dispatch(setPageCountAC(res.data.pageCount))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      serverErrorHandler(e as AxiosError | Error, dispatch)
+    }
   }
-}
 
 export const createCardTC =
   (card: CreatedCardType): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     dispatch(setAppStatusAC('loading'))
     try {
       await cardsAPI.createCard(card)
@@ -86,7 +88,7 @@ export const createCardTC =
 
 export const deleteCardTC =
   (id: string): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     try {
       dispatch(setAppStatusAC('loading'))
       await cardsAPI.deleteCard(id)
@@ -98,7 +100,7 @@ export const deleteCardTC =
 
 export const updateCardTC =
   (card: CardType): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     try {
       dispatch(setAppStatusAC('loading'))
       await cardsAPI.updateCard(card)

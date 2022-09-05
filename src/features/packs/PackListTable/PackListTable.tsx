@@ -36,7 +36,7 @@ export const PackListTable: React.FC<PackListTableType> = ({
 
       {cardPacks.map(e => {
         const onClickNamePack = () => {
-          if (e.user_id === user_id) navigate(`/cards_list/${e._id}`)
+          navigate(`/cards_list/${e._id}`)
         }
         const onClickTeacher = () => {
           alert('teacher')

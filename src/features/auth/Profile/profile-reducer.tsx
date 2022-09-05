@@ -9,7 +9,7 @@ import { setSuccess } from '../Login/login-reducer'
 
 const initialState = {
   user: {
-    _id: '5eecf82a3ed8f700042f1186',
+    _id: '',
     rememberMe: true,
   } as UserDataType,
 }
