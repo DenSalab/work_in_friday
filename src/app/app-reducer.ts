@@ -1,7 +1,6 @@
 import { authAPI } from '../api/authAPI'
 import { setIsLoggedInAC } from '../features/auth/auth-reducer'
 import { setUserAC } from '../features/auth/Profile/profile-reducer'
-
 import { ActionsType, AppThunk } from './store'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'

@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react'
-
-import { useNavigate } from 'react-router-dom'
-
-import { CardPackType } from '../../api/packAPI'
-import { ArrowBack } from '../../common/components/ArrowBack/ArrowBack'
-import SuperButton from '../../common/components/SuperButton/SuperButton'
-import { useDebounce } from '../../common/hooks/debounce'
-import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
-
+import SuperButton from '../../../common/components/SuperButton/SuperButton'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
+import { createCardsPackTC, getCardsPackTC, PackStateType } from '../packs-reducer'
+import { useEffect } from 'react'
+import { useDebounce } from '../../../common/hooks/debounce'
+import { PackListTable } from './PackListTable/PackListTable'
 import { FilterPanel } from './FilterPanel/FilterPanel'
 import { AddPackModal } from './modals/AddPackModal'
 import { DelPackModal } from './modals/DelPackModal'
@@ -25,8 +21,8 @@ export const PacksList = () => {
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
-  const state: PackStateType = useAppSelector(state => state.packs)
+  const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
+  const state: PackStateType = useAppSelector((state) => state.packs)
 
   useEffect(() => {
     if (isLoggedIn) {
