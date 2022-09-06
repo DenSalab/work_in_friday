@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import { CardType } from '../../../api/cardsAPI'
 import { ArrowBack } from '../../../common/components/ArrowBack/ArrowBack'
-import Paginator from '../../../common/components/Pagination/Paginator'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useDebounce } from '../../../common/hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
@@ -13,13 +12,8 @@ import { arrowUp } from '../../../common/swg/arrowUp'
 import { edit } from '../../../common/swg/edit'
 import { teacher } from '../../../common/swg/teacher'
 import { trash } from '../../../common/swg/trash'
-import {
-  getCardsTC,
-  setCardsListPageAC,
-  setPageCountAC,
-  setSearchedQuestionAC,
-  setSortCardsAC,
-} from '../cards-reducer'
+import { getCardsTC, setSearchedQuestionAC, setSortCardsAC } from '../cards-reducer'
+import { CardsListFooter } from '../CardsListFooter/CardsListFooter'
 import { AddCardModal } from '../modals/AddNewCardModal'
 import { DelCardModal } from '../modals/DelCardModal'
 import { EditCardModal } from '../modals/EditCardModal'
@@ -27,10 +21,13 @@ import { EditCardModal } from '../modals/EditCardModal'
 import s from './CardsList.module.css'
 
 export const CardsList = () => {
+  const [editedCard, setEditedCard] = useState({} as CardType)
+  const [editModalActive, setEditModalActive] = useState(false)
+  const [delModalActive, setDelModalActive] = useState(false)
   const dispatch = useAppDispatch()
   const params = useParams()
   const navigate = useNavigate()
-
+  const user_id = useAppSelector(state => state.profile.user._id)
   const packId = params.packId ? params.packId : ''
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
@@ -39,23 +36,14 @@ export const CardsList = () => {
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const page = useAppSelector(state => state.cards.page)
   const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
-  const user_id = useAppSelector(state => state.profile.user._id)
-  const sortCards = useAppSelector(state => state.cards.sortCards)
 
+  const sortCards = useAppSelector(state => state.cards.sortCards)
   const [addModalActive, setAddModalActive] = useState(false)
-  const [editModalActive, setEditModalActive] = useState(false)
-  const [delModalActive, setDelModalActive] = useState(false)
-  const [editedCard, setEditedCard] = useState({} as CardType)
 
   const onChangeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchedQuestionAC(e.currentTarget.value))
   }
-  const onChangePageHandler = (page: number) => {
-    dispatch(setCardsListPageAC(page))
-  }
-  const onSetPageCountHandler = (page: number) => {
-    dispatch(setPageCountAC(page))
-  }
+
   const onSortCardHandler = () => {
     dispatch(setSortCardsAC(sortCards === '0updated' ? '1updated' : '0updated'))
   }
@@ -63,6 +51,18 @@ export const CardsList = () => {
     setAddModalActive(true)
   }
 
+  useDebounce(searchedQuestion, 500)
+
+  useEffect(() => {
+    if (packId === '1') {
+      alert('Пожалуйста, для перехода к списку вопросов нажмите на имя вашей колоды')
+      navigate('/packs_list')
+    } else dispatch(getCardsTC(packId))
+  }, [page, pageCount, cardsTotalCount, searchedQuestion, sortCards])
+
+  if (!isLoggedIn) {
+    navigate('/login')
+  }
   const tableRender = (e: CardType) => {
     const onClickTeacherHandler = () => {
       alert('Do you want to learn it?')
@@ -102,19 +102,6 @@ export const CardsList = () => {
     )
   }
 
-  useDebounce(searchedQuestion, 500)
-
-  useEffect(() => {
-    if (packId === '1') {
-      alert('Пожалуйста, для перехода к списку вопросов нажмите на имя вашей колоды')
-      navigate('/packs_list')
-    } else dispatch(getCardsTC(packId))
-  }, [page, pageCount, cardsTotalCount, searchedQuestion, sortCards])
-
-  if (!isLoggedIn) {
-    navigate('/login')
-  }
-
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
@@ -151,27 +138,7 @@ export const CardsList = () => {
         </div>
         <div>{cards.map(e => tableRender(e))}</div>
       </div>
-
-      <div className={s.footer}>
-        <Paginator
-          totalUsersCount={cardsTotalCount}
-          currentPage={page}
-          pageSize={pageCount}
-          onPageChange={onChangePageHandler}
-        />
-        <div className={s.pageCount}>
-          <span>Show</span>
-          <input
-            type="number"
-            step={1}
-            min={1}
-            max={25}
-            value={pageCount}
-            onChange={e => onSetPageCountHandler(+e.currentTarget.value)}
-          />
-          <span>cards per page</span>
-        </div>
-      </div>
+      <CardsListFooter />
       <AddCardModal packId={packId} active={addModalActive} setActive={setAddModalActive} />
       <EditCardModal
         packId={packId}
