@@ -4,7 +4,7 @@ import { AddPackModal } from './modals/AddPackModal'
 import { DelPackModal } from './modals/DelPackModal'
 import { EditPackModal } from './modals/EditPackModal'
 import s from './PacksList.module.css'
-import { getCardsPackTC, PackStateType } from './packs-reducer'
+import { getCardsPackTC, PackStateType, setPage } from './packs-reducer'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
 import { ArrowBack } from '../../common/components/ArrowBack/ArrowBack'
 import { useDebounce } from '../../common/hooks/debounce'
@@ -28,6 +28,9 @@ export const PacksList = () => {
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(getCardsPackTC())
+    }
+    return () => {
+      dispatch(setPage(1))
     }
   }, [])
 
