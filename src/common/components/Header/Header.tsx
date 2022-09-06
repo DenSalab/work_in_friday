@@ -25,10 +25,14 @@ export const Header = () => {
     }
   }
 
+  const onMouseLeaveHandler = () => {
+    setTimeout(() => setSelect(false), 300)
+  }
+
   const onClickLogOutHandler = () => dispatch(logoutTC())
 
   const nav = (
-    <div className={s.selector}>
+    <div className={s.selector} onMouseLeave={onMouseLeaveHandler}>
       <Link to={'/login'} className={s.linkItem}>
         Log In
       </Link>
