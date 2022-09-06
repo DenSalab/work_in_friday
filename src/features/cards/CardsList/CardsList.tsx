@@ -20,6 +20,8 @@ export const CardsList = () => {
   const [editedCard, setEditedCard] = useState({} as CardType)
   const [editModalActive, setEditModalActive] = useState(false)
   const [delModalActive, setDelModalActive] = useState(false)
+  const [addModalActive, setAddModalActive] = useState(false)
+
   const dispatch = useAppDispatch()
   const params = useParams()
   const navigate = useNavigate()
@@ -33,7 +35,6 @@ export const CardsList = () => {
   const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
 
   const sortCards = useAppSelector(state => state.cards.sortCards)
-  const [addModalActive, setAddModalActive] = useState(false)
 
   const onAddNewCardHandler = () => {
     setAddModalActive(true)
