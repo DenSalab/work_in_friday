@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from 'react'
-
-import { useNavigate } from 'react-router-dom'
-
-import { CardPackType } from '../../api/packAPI'
-import { ArrowBack } from '../../common/components/ArrowBack/ArrowBack'
-import SuperButton from '../../common/components/SuperButton/SuperButton'
-import { useDebounce } from '../../common/hooks/debounce'
-import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
-
+import { useEffect, useState } from 'react'
 import { FilterPanel } from './FilterPanel/FilterPanel'
 import { AddPackModal } from './modals/AddPackModal'
 import { DelPackModal } from './modals/DelPackModal'
 import { EditPackModal } from './modals/EditPackModal'
+import s from './PacksList.module.css'
+import { getCardsPackTC, PackStateType, setPage } from './packs-reducer'
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
+import { ArrowBack } from '../../common/components/ArrowBack/ArrowBack'
+import { useDebounce } from '../../common/hooks/debounce'
+import SuperButton from '../../common/components/SuperButton/SuperButton'
+import { useNavigate } from 'react-router-dom'
+import { CardPackType } from '../../api/packAPI'
 import { PackListFooter } from './PackListFooter/PackListFooter'
 import { PackListTable } from './PackListTable/PackListTable'
-import { getCardsPackTC, PackStateType } from './packs-reducer'
-import s from './PacksList.module.css'
 
 export const PacksList = () => {
   const [addModalActive, setAddModalActive] = useState(false)
@@ -25,12 +22,15 @@ export const PacksList = () => {
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const isLoggedIn: boolean = useAppSelector(state => state.auth.isLoggedIn)
-  const state: PackStateType = useAppSelector(state => state.packs)
+  const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
+  const state: PackStateType = useAppSelector((state) => state.packs)
 
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(getCardsPackTC())
+    }
+    return () => {
+      dispatch(setPage(1))
     }
   }, [])
 

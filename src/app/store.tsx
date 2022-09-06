@@ -42,6 +42,7 @@ import {
   setPage,
   setPageCount,
   setSearchedPackName,
+  setSortPacks,
 } from '../features/packs/packs-reducer'
 
 import {
@@ -94,6 +95,7 @@ export type ActionsType =
   | ReturnType<typeof setPageCountAC>
   | ReturnType<typeof setSearchedQuestionAC>
   | ReturnType<typeof setSortCardsAC>
+  | ReturnType<typeof setSortPacks>
 
 export type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>
 

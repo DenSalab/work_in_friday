@@ -1,5 +1,4 @@
 import React, { ReactNode, useEffect } from 'react'
-
 import mainStyles from '../../styles/Container.module.css'
 import SuperButton from '../SuperButton/SuperButton'
 
@@ -43,7 +42,7 @@ export const CustomModal: React.FC<PropsType> = ({
       className={active ? `${modalStyles.modal} ${modalStyles.active}` : modalStyles['modal']}
       onClick={close}
     >
-      <div className={modalStyles.modal__content} onClick={e => e.stopPropagation()}>
+      <div className={modalStyles.modal__content} onClick={(e) => e.stopPropagation()}>
         <div className={modalStyles.close} onClick={close}>
           {' '}
           x{' '}
@@ -59,7 +58,7 @@ export const CustomModal: React.FC<PropsType> = ({
           <SuperButton
             className={mainStyles.mainButton}
             onClick={callback}
-            red={buttonsText === 'Delete' ? true : false}
+            red={buttonsText === 'Delete'}
           >
             {buttonsText}
           </SuperButton>

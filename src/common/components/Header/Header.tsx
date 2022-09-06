@@ -1,21 +1,18 @@
 import React, { useState } from 'react'
-
 import { Link, useNavigate } from 'react-router-dom'
-
-import { logoutTC } from '../../../features/auth/Profile/profile-reducer'
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
-import { LinearPreloader } from '../LinearPreloader/LinearPreloader'
-import SuperButton from '../SuperButton/SuperButton'
-
-import logo from './../../images/logo.png'
 import s from './Header.module.css'
+import logo from './../../images/logo.png'
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
+import SuperButton from '../SuperButton/SuperButton'
+import { logoutTC } from '../../../features/auth/Profile/profile-reducer'
+import { LinearPreloader } from '../preloaders/LinearPreloader/LinearPreloader'
 
 export const Header = () => {
   const dispatch = useAppDispatch()
-  const isLogin = useAppSelector(state => state.auth.isLoggedIn)
-  const userData = useAppSelector(state => state.profile.user)
+  const isLogin = useAppSelector((state) => state.auth.isLoggedIn)
+  const userData = useAppSelector((state) => state.profile.user)
   const [select, setSelect] = useState(false)
-  const loading = useAppSelector(state => state.app.status) === 'loading'
+  const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const navigate = useNavigate()
   const logInHandler = () => {
@@ -28,10 +25,14 @@ export const Header = () => {
     }
   }
 
+  const onMouseLeaveHandler = () => {
+    setTimeout(() => setSelect(false), 300)
+  }
+
   const onClickLogOutHandler = () => dispatch(logoutTC())
 
   const nav = (
-    <div className={s.selector}>
+    <div className={s.selector} onMouseLeave={onMouseLeaveHandler}>
       <Link to={'/login'} className={s.linkItem}>
         Log In
       </Link>
@@ -78,7 +79,7 @@ export const Header = () => {
       <LinearPreloader turnOn={loading} />
       <div className={s.container}>
         <div className={s.logo}>
-          <img src={logo} alt="logo" onClick={() => navigate('/profile')} />
+          <img src={logo} alt="logo" onClick={() => navigate('/packs_list')} />
         </div>
         {isLogin ? user : <SuperButton onClick={logInHandler}>Sign in</SuperButton>}
       </div>

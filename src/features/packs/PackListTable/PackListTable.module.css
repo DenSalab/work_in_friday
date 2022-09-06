@@ -10,6 +10,14 @@
     padding: 10px 15px;
     cursor: pointer;
 }
+.tb_header span:hover  {
+    cursor: pointer;
+}
+.tb_header span:hover .arrowDown {
+    cursor: pointer;
+
+    color: #366EFF;
+}
 .main .teacher{
 
 }
@@ -18,8 +26,11 @@
 }
 .tb_name, .tb_cards, .tb_last, .tb_createdBy{
     overflow:hidden;
+    display: flex;
 
     padding-left: 3px;
+
+    text-align: center;
 }
 
 .tb_actions{
@@ -44,4 +55,9 @@
 }
 .edit:hover path, .trash:hover path{
     fill: #366EFF;
+}
+/* -------------------------------------filter arrows-------------- */
+
+.arrowUp, .arrowDown{
+    font-size: 13px;
 }

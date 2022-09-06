@@ -16,6 +16,7 @@ const initialState = {
   maxCardsCount: 100,
   cardPacks: [] as CardPackType[],
   cardPacksTotalCount: 0,
+  sortPacks: '0updated',
   // token: '',
   // tokenDeathTime: 0,
 }
@@ -50,6 +51,9 @@ export const packsReducer = (
     case 'packs/SET__CARD_PACKS': {
       return { ...state, cardPacks: action.cardPacks }
     }
+    case 'packs/SET_SORT_PACKS': {
+      return { ...state, sortPacks: action.sortPacks }
+    }
   }
 
   return state
@@ -70,6 +74,8 @@ export const setMaxCardsCount = (value: number) =>
   ({ type: 'packs/SET_MAX_CARDS_COUNT', value } as const)
 export const setCardPacks = (cardPacks: Array<CardPackType>) =>
   ({ type: 'packs/SET__CARD_PACKS', cardPacks } as const)
+export const setSortPacks = (sortPacks: string) =>
+  ({ type: 'packs/SET_SORT_PACKS', sortPacks } as const)
 
 // thunk creators
 export const getCardsPackTC = (): AppThunk => async (dispatch, getState) => {
@@ -77,6 +83,7 @@ export const getCardsPackTC = (): AppThunk => async (dispatch, getState) => {
     const user_id: string = getState().profile.user._id
     const packs: PackStateType = getState().packs
     const data: CardsPackQueryType = {
+      sortPacks: packs.sortPacks,
       packName: packs.searchedPackName,
       pageCount: packs.pageCount,
       user_id: packs.onlyMyPacks ? user_id : null,
