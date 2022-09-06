@@ -32,7 +32,7 @@ export const EditableSpan = React.memo((props: EditableSpanPropsSpan) => {
       value={title}
       onChange={onChangeTitleHandler}
       className={style.input}
-      onKeyDown={e => {
+      onKeyDown={(e) => {
         if (e.key === 'Enter') {
           onBlurInput()
         }

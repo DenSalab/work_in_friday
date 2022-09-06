@@ -1,19 +1,12 @@
-import React from 'react'
-
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import { CardPackType } from '../../../api/packAPI'
-import { useAppSelector } from '../../../common/hooks/hooks'
-import { edit } from '../../../common/swg/edit'
-import { teacher } from '../../../common/swg/teacher'
-import { trash } from '../../../common/swg/trash'
-
 import s from './PackListTable.module.css'
-import { teacher } from '../../../../common/swg/teacher'
-import { edit } from '../../../../common/swg/edit'
-import { trash } from '../../../../common/swg/trash'
-import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
-import { deleteCardsPackTC } from '../../packs-reducer'
+import { teacher } from '../../../common/swg/teacher'
+import { getCardsPackTC, setSortPacks } from '../packs-reducer'
+import { edit } from '../../../common/swg/edit'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
+import { trash } from '../../../common/swg/trash'
 
 type PackListTableType = {
   cardPacks: CardPackType[]
@@ -25,9 +18,9 @@ export const PackListTable: React.FC<PackListTableType> = ({
   editCallback,
   deleteCallBack,
 }) => {
-  const user_id: string = useAppSelector(state => state.profile.user._id)
+  const user_id: string = useAppSelector((state) => state.profile.user._id)
   const navigate = useNavigate()
-
+  const dispatch = useAppDispatch()
   // sort
   type sortType = 'name' | 'cardsCount' | 'updated' | 'user_name'
 
@@ -73,7 +66,7 @@ export const PackListTable: React.FC<PackListTableType> = ({
         </div>
       </div>
 
-      {cardPacks.map(e => {
+      {cardPacks.map((e) => {
         const onClickNamePack = () => {
           navigate(`/cards_list/${e._id}`)
         }
