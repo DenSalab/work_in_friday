@@ -25,22 +25,9 @@ export const PacksList = () => {
   const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
   const state: PackStateType = useAppSelector((state) => state.packs)
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(getCardsPackTC())
-    }
-    return () => {
-      dispatch(setPage(1))
-    }
-  }, [])
-
-  const debouncedSearchTerm = useDebounce(state.searchedPackName, 500)
-
-  useEffect(() => {
-    if (debouncedSearchTerm) {
-      dispatch(getCardsPackTC())
-    }
-  }, [debouncedSearchTerm])
+  if (!isLoggedIn) {
+    navigate('/login')
+  }
 
   const addNewPack = () => {
     setAddModalActive(true)
@@ -56,6 +43,22 @@ export const PacksList = () => {
     setDelModalActive(true)
   }
 
+  const debouncedSearchTerm = useDebounce(state.searchedPackName, 500)
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(getCardsPackTC())
+    }
+    return () => {
+      dispatch(setPage(1))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      dispatch(getCardsPackTC())
+    }
+  }, [debouncedSearchTerm])
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
