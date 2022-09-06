@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { CardPackType } from '../../../api/packAPI'
-import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
+import { useAppSelector } from '../../../common/hooks/hooks'
 import { edit } from '../../../common/swg/edit'
 import { teacher } from '../../../common/swg/teacher'
 import { trash } from '../../../common/swg/trash'
@@ -21,7 +21,6 @@ export const PackListTable: React.FC<PackListTableType> = ({
   deleteCallBack,
 }) => {
   const user_id: string = useAppSelector(state => state.profile.user._id)
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   return (
