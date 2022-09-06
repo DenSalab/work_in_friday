@@ -58,7 +58,7 @@ export const CustomModal: React.FC<PropsType> = ({
           <SuperButton
             className={mainStyles.mainButton}
             onClick={callback}
-            red={buttonsText === 'Delete' ? true : false}
+            red={buttonsText === 'Delete'}
           >
             {buttonsText}
           </SuperButton>

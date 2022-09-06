@@ -1,36 +1,46 @@
 .modal {
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(0,0,0,0.6);
+    pointer-events: none;
+
     position: fixed;
+    z-index: 999999;
     top: 0;
     left: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    width: 100vw;
+    height: 100vh;
+
     opacity: 0;
-    pointer-events: none;
+    background-color: rgba(0,0,0,0.6);
+
     transition: 0.5s;
 }
 
 .modal.active{
-    opacity: 1;
     pointer-events: all;
+
+    opacity: 1; 
 }
 
 .modal__content {
-    box-sizing: border-box;
     position: absolute;
+    top: 25vh;
+    left: 40vw;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    top: 25vh;
-    left: 40vw;
+
+    box-sizing: border-box;
     width: 20vw;
+    padding: 20px;
+
+    background-color: white;
     border-radius: 2px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    background-color: white;
 }
 
 .modal__content.active {
@@ -38,20 +48,23 @@
 }
 
 .header {
-    font-size: 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 1);
-    text-align: center;
     margin-bottom: 30px;
+
+    font-size: 24px;
+    text-align: center;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 1);
 }
 
 .close {
     position: absolute;
-    right: 10px;
     top: 5px;
+    right: 10px;
 }
 
 .close:hover{
     cursor: pointer;
+
     transition: 0.1s;
 }
 
