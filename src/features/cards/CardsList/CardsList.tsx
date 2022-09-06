@@ -1,19 +1,15 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { CardType } from '../../../api/cardsAPI'
 import { ArrowBack } from '../../../common/components/ArrowBack/ArrowBack'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
-import { useDebounce } from '../../../common/hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import { arrowDown } from '../../../common/swg/arrowDown'
-import { arrowUp } from '../../../common/swg/arrowUp'
-import { edit } from '../../../common/swg/edit'
-import { teacher } from '../../../common/swg/teacher'
-import { trash } from '../../../common/swg/trash'
-import { getCardsTC, setSearchedQuestionAC, setSortCardsAC } from '../cards-reducer'
+import { getCardsTC } from '../cards-reducer'
 import { CardsListFooter } from '../CardsListFooter/CardsListFooter'
+import { CardsListTable } from '../CardsListTable/CardsListTable'
+import { CardsSearchPanel } from '../CardsSearchPanel/CardsSearchPanel'
 import { AddCardModal } from '../modals/AddNewCardModal'
 import { DelCardModal } from '../modals/DelCardModal'
 import { EditCardModal } from '../modals/EditCardModal'
@@ -27,11 +23,10 @@ export const CardsList = () => {
   const dispatch = useAppDispatch()
   const params = useParams()
   const navigate = useNavigate()
-  const user_id = useAppSelector(state => state.profile.user._id)
+
   const packId = params.packId ? params.packId : ''
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
-  const cards = useAppSelector(state => state.cards.cards)
   const pageCount = useAppSelector(state => state.cards.pageCount)
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
   const page = useAppSelector(state => state.cards.page)
@@ -40,18 +35,9 @@ export const CardsList = () => {
   const sortCards = useAppSelector(state => state.cards.sortCards)
   const [addModalActive, setAddModalActive] = useState(false)
 
-  const onChangeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchedQuestionAC(e.currentTarget.value))
-  }
-
-  const onSortCardHandler = () => {
-    dispatch(setSortCardsAC(sortCards === '0updated' ? '1updated' : '0updated'))
-  }
   const onAddNewCardHandler = () => {
     setAddModalActive(true)
   }
-
-  useDebounce(searchedQuestion, 500)
 
   useEffect(() => {
     if (packId === '1') {
@@ -62,44 +48,6 @@ export const CardsList = () => {
 
   if (!isLoggedIn) {
     navigate('/login')
-  }
-  const tableRender = (e: CardType) => {
-    const onClickTeacherHandler = () => {
-      alert('Do you want to learn it?')
-    }
-    const onClickEditHandler = () => {
-      setEditedCard(e)
-      setEditModalActive(true)
-    }
-    const onClickDeleteHandler = () => {
-      setEditedCard(e)
-      setDelModalActive(true)
-    }
-
-    return (
-      <div className={s.tb_main} key={e._id}>
-        <div className={s.tb_question}>{e.question}</div>
-        <div className={s.tb_answer}>{e.answer}</div>
-        <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
-        <div className={s.tb_grade}>{e.grade}</div>
-        <div className={s.tb_actions}>
-          <div className={s.teacher} onClick={onClickTeacherHandler}>
-            {teacher}
-          </div>
-          {e.user_id === user_id && (
-            <div className={s.edit} onClick={onClickEditHandler}>
-              {edit}
-            </div>
-          )}
-
-          {e.user_id === user_id && (
-            <div className={s.trash} onClick={onClickDeleteHandler}>
-              {trash}
-            </div>
-          )}
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -112,33 +60,16 @@ export const CardsList = () => {
         <SuperButton onClick={onAddNewCardHandler}>Add new card</SuperButton>
       </div>
 
-      <div className={s.control}>
-        <div className={s.search}>
-          <label htmlFor="search">Search</label>
-          <input
-            id={'search'}
-            placeholder={'Provide your text'}
-            className={s.search}
-            value={searchedQuestion}
-            onChange={onChangeSearchHandler}
-          />
-        </div>
-      </div>
+      <CardsSearchPanel />
 
-      <div className={s.table}>
-        <div className={s.tb_header}>
-          <div className={s.tb_question}>Question</div>
-          <div className={s.tb_answer}>Answer</div>
-          <div className={s.tb_last} onClick={onSortCardHandler}>
-            Last Updated
-            {sortCards === '0updated' ? arrowUp : arrowDown}
-          </div>
-          <div className={s.tb_grade}>Grade</div>
-          <div className={s.tb_actions}>Actions</div>
-        </div>
-        <div>{cards.map(e => tableRender(e))}</div>
-      </div>
+      <CardsListTable
+        setEditedCard={setEditedCard}
+        setEditModalActive={setEditModalActive}
+        setDelModalActive={setDelModalActive}
+      />
+
       <CardsListFooter />
+
       <AddCardModal packId={packId} active={addModalActive} setActive={setAddModalActive} />
       <EditCardModal
         packId={packId}

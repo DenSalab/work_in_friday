@@ -1,0 +1,25 @@
+.control{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  padding-bottom: 20px;
+
+}
+.control label{
+  display: flex;
+  align-items: center;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  opacity: 1;
+}
+.search input, .search input:hover, .search input:focus{
+  min-width: 430px;
+  margin-bottom: 0;
+  padding: 10px;
+
+  border: 1px solid #D9D9D9;
+  outline: none;
+}

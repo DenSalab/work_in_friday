@@ -1,0 +1,56 @@
+.table{
+    cursor: pointer;
+
+    background-color: #fff;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1);
+
+}
+.tb_header, .tb_main{
+    display: grid;
+    grid-template-columns: 2fr 3fr 1fr 1fr 80px;
+
+    padding: 10px 15px;
+}
+.tb_header{
+    background-color: #EFEFEF;
+}
+.tb_question, .tb_answer, .tb_last, .tb_grade{
+    overflow: hidden;
+    display: -webkit-box;
+
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    -ms-line-clamp: 1;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+}
+.tb_actions{
+    display: flex;
+    justify-content: space-between;
+
+    padding-left: 3px;
+}
+.tb_actions img{
+    width: 18px;
+}
+.edit, .teacher, .trash{
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+}
+
+.teacher:hover path{
+    stroke: #366EFF;
+}
+.edit:hover path, .trash:hover path{
+    fill: #366EFF;
+}
