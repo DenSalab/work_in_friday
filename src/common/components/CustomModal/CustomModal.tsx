@@ -52,7 +52,7 @@ export const CustomModal: React.FC<PropsType> = ({
         </div>
         <div>{children}</div>
         <div className={modalStyles.buttons__wrap}>
-          <SuperButton className={mainStyles.mainButton} cancel={true} onClick={close}>
+          <SuperButton className={mainStyles.mainButton} monochrome={true} onClick={close}>
             Cancel
           </SuperButton>
           <SuperButton

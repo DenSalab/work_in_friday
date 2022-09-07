@@ -76,7 +76,6 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
           Last Updated
           {sortCards === '0updated' ? arrowUp : arrowDown}
         </div>
-        <div className={s.tb_grade}>Grade</div>
         <div className={s.tb_actions}>Actions</div>
       </div>
       <div>{cards.map((e) => tableRender(e))}</div>

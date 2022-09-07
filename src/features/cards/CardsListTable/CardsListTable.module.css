@@ -7,7 +7,7 @@
 }
 .tb_header, .tb_main{
     display: grid;
-    grid-template-columns: 2fr 3fr 1fr 1fr 80px;
+    grid-template-columns: 2fr 3fr 1fr 80px;
 
     padding: 10px 15px;
 }

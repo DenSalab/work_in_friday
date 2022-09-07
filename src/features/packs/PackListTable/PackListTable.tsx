@@ -72,7 +72,7 @@ export const PackListTable: React.FC<PackListTableType> = ({
           navigate(`/cards_list/${e._id}`)
         }
         const onClickTeacher = () => {
-          alert('teacher')
+          navigate(`/learn/${e._id}/${e.name}`)
         }
         const onClickEdit = () => {
           editCallback(e)
