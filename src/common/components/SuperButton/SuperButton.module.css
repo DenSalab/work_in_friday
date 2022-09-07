@@ -21,29 +21,33 @@
 }
 
 .default:disabled {
-  cursor: auto;
+  cursor: not-allowed;
 
   color: #67717a;
 
-  background-color: #283543;
+  background-color: #ffffff;
 }
 
 .red {
   color: white;
+
   background: #c76a6a;
 }
 
 .red:hover {
   background: #b23232;
+
   transition: background-color 200ms;
 }
 
 .cancel {
   color: black;
+
   background: snow;
 }
 .cancel:hover {
   background: gray;
+
   transition: 200ms;
 }
 
