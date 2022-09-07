@@ -36,15 +36,22 @@
   transition: background-color 200ms;
 }
 
-.cancel {
+.monochrome {
   color: black;
 
   background: snow;
 }
-.cancel:hover {
+.monochrome:hover {
   background: gray;
 
   transition: 200ms;
+}
+.monochrome:disabled {
+  cursor: auto;
+
+  color: black;
+
+  background-color: gray;
 }
 
 
