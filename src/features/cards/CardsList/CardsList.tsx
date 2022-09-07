@@ -27,14 +27,15 @@ export const CardsList = () => {
   const navigate = useNavigate()
 
   const packId = params.packId ? params.packId : ''
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
-  const pageCount = useAppSelector(state => state.cards.pageCount)
-  const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
-  const page = useAppSelector(state => state.cards.page)
-  const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
+  const pageCount = useAppSelector((state) => state.cards.pageCount)
+  const cardsTotalCount = useAppSelector((state) => state.cards.cardsTotalCount)
+  const page = useAppSelector((state) => state.cards.page)
+  const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
 
-  const sortCards = useAppSelector(state => state.cards.sortCards)
+  const sortCards = useAppSelector((state) => state.cards.sortCards)
+  const isPackEmpty = cardsTotalCount === 0
 
   const onAddNewCardHandler = () => {
     setAddModalActive(true)
@@ -61,15 +62,16 @@ export const CardsList = () => {
         <SuperButton onClick={onAddNewCardHandler}>Add new card</SuperButton>
       </div>
 
-      <CardsSearchPanel />
-
-      <CardsListTable
-        setEditedCard={setEditedCard}
-        setEditModalActive={setEditModalActive}
-        setDelModalActive={setDelModalActive}
-      />
-
-      <CardsListFooter />
+      {isPackEmpty && 'This pack is empty. Click "Add new card" to fill this pack.'}
+      {!isPackEmpty && <CardsSearchPanel />}
+      {!isPackEmpty && (
+        <CardsListTable
+          setEditedCard={setEditedCard}
+          setEditModalActive={setEditModalActive}
+          setDelModalActive={setDelModalActive}
+        />
+      )}
+      {!isPackEmpty && <CardsListFooter />}
 
       <AddCardModal packId={packId} active={addModalActive} setActive={setAddModalActive} />
       <EditCardModal

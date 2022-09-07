@@ -24,10 +24,8 @@ export const PacksList = () => {
   const dispatch = useAppDispatch()
   const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
   const state: PackStateType = useAppSelector((state) => state.packs)
-
-  if (!isLoggedIn) {
-    navigate('/login')
-  }
+  const cardPacksTotalCount = useAppSelector((state) => state.packs.cardPacksTotalCount)
+  const isEmptyState = cardPacksTotalCount === 0
 
   const addNewPack = () => {
     setAddModalActive(true)
@@ -59,6 +57,11 @@ export const PacksList = () => {
       dispatch(getCardsPackTC())
     }
   }, [debouncedSearchTerm])
+
+  if (!isLoggedIn) {
+    navigate('/login')
+  }
+
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
@@ -68,13 +71,16 @@ export const PacksList = () => {
         </div>
         <SuperButton onClick={addNewPack}>Add new pack</SuperButton>
       </div>
-      <FilterPanel />
-      <PackListTable
-        cardPacks={state.cardPacks}
-        editCallback={editCallback}
-        deleteCallBack={deleteCallBack}
-      />
-      <PackListFooter />
+      {isEmptyState && 'There are any packs. Click "Add new pack".'}
+      {!isEmptyState && <FilterPanel />}
+      {!isEmptyState && (
+        <PackListTable
+          cardPacks={state.cardPacks}
+          editCallback={editCallback}
+          deleteCallBack={deleteCallBack}
+        />
+      )}
+      {!isEmptyState && <PackListFooter />}
       <AddPackModal active={addModalActive} setActive={setAddModalActive} />
       <EditPackModal active={editModalActive} setActive={setEditModalActive} pack={editedPack} />
       <DelPackModal active={delModalActive} setActive={setDelModalActive} pack={editedPack} />
