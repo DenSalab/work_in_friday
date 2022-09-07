@@ -10,6 +10,7 @@ import { trash } from '../../../common/swg/trash'
 import { setSortCardsAC } from '../cards-reducer'
 
 import s from './CardsListTable.module.css'
+import { StarRating } from '../StarRating/StarRating'
 
 type CardsListTableType = {
   setEditedCard: (e: CardType) => void
@@ -21,13 +22,14 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
   setEditModalActive,
   setDelModalActive,
 }) => {
-  const user_id = useAppSelector(state => state.profile.user._id)
-  const cards = useAppSelector(state => state.cards.cards)
-  const sortCards = useAppSelector(state => state.cards.sortCards)
+  const user_id = useAppSelector((state) => state.profile.user._id)
+  const cards = useAppSelector((state) => state.cards.cards)
+  const sortCards = useAppSelector((state) => state.cards.sortCards)
   const dispatch = useAppDispatch()
   const onSortCardHandler = () => {
     dispatch(setSortCardsAC(sortCards === '0updated' ? '1updated' : '0updated'))
   }
+
   const tableRender = (e: CardType) => {
     const onClickTeacherHandler = () => {
       alert('Do you want to learn it?')
@@ -46,7 +48,9 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
         <div className={s.tb_question}>{e.question}</div>
         <div className={s.tb_answer}>{e.answer}</div>
         <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
-        <div className={s.tb_grade}>{e.grade}</div>
+        <div className={s.tb_grade}>
+          <StarRating grade={e.grade} />
+        </div>
         <div className={s.tb_actions}>
           <div className={s.teacher} onClick={onClickTeacherHandler}>
             {teacher}
@@ -79,7 +83,7 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
         <div className={s.tb_grade}>Grade</div>
         <div className={s.tb_actions}>Actions</div>
       </div>
-      <div>{cards.map(e => tableRender(e))}</div>
+      <div>{cards.map((e) => tableRender(e))}</div>
     </div>
   )
 }

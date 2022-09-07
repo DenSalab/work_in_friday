@@ -36,6 +36,13 @@ export const cardsReducer = (state = initialState, action: ActionsType): Initial
       return { ...state, cardQuestion: action.cardQuestion }
     case 'cards/SET_SORT_CARDS':
       return { ...state, sortCards: action.value }
+    case 'cards/SET_CARD_GRADE':
+      return {
+        ...state,
+        cards: state.cards.map((c) =>
+          c._id === action.card_id ? { ...c, grade: action.grade } : c
+        ),
+      }
     default:
       return state
   }
@@ -51,6 +58,8 @@ export const setPageCountAC = (count: number) => ({ type: 'cards/SET_PAGE_COUNT'
 export const setSearchedQuestionAC = (cardQuestion: string) =>
   ({ type: 'cards/SET_SEARCHED_QUESTION', cardQuestion } as const)
 export const setSortCardsAC = (value: string) => ({ type: 'cards/SET_SORT_CARDS', value } as const)
+export const setCardGradeAC = (card_id: string, grade: number) =>
+  ({ type: 'cards/SET_CARD_GRADE', card_id, grade } as const)
 
 // thunk creators
 export const getCardsTC =
@@ -77,7 +86,7 @@ export const getCardsTC =
 
 export const createCardTC =
   (card: CreatedCardType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
       await cardsAPI.createCard(card)
@@ -89,7 +98,7 @@ export const createCardTC =
 
 export const deleteCardTC =
   (id: string): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     try {
       dispatch(setAppStatusAC('loading'))
       await cardsAPI.deleteCard(id)
@@ -101,7 +110,7 @@ export const deleteCardTC =
 
 export const updateCardTC =
   (card: CardType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     try {
       dispatch(setAppStatusAC('loading'))
       await cardsAPI.updateCard(card)
