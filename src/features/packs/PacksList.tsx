@@ -42,25 +42,10 @@ export const PacksList = () => {
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
-  const state: PackStateType = useAppSelector((state) => state.packs)
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(getCardsPackTC())
-    }
-    return () => {
-      dispatch(setPage(1))
-    }
-  }, [])
-
-  const debouncedSearchTerm = useDebounce(state.searchedPackName, 500)
-
-  useEffect(() => {
-    if (debouncedSearchTerm) {
-      dispatch(getCardsPackTC())
-    }
-  }, [debouncedSearchTerm])
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+  const state = useAppSelector((state) => state.packs)
+  const cardPacksTotalCount = useAppSelector((state) => state.packs.cardPacksTotalCount)
+  const isEmptyState = cardPacksTotalCount === 0
 
   const addNewPack = () => {
     setAddModalActive(true)
@@ -76,6 +61,27 @@ export const PacksList = () => {
     setDelModalActive(true)
   }
 
+  const debouncedSearchTerm = useDebounce(state.searchedPackName, 500)
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(getCardsPackTC())
+    }
+    return () => {
+      dispatch(setPage(1))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      dispatch(getCardsPackTC())
+    }
+  }, [debouncedSearchTerm])
+
+  if (!isLoggedIn) {
+    navigate('/login')
+  }
+
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
@@ -85,13 +91,16 @@ export const PacksList = () => {
         </div>
         <SuperButton onClick={addNewPack}>Add new pack</SuperButton>
       </div>
-      <FilterPanel />
-      <PackListTable
-        cardPacks={state.cardPacks}
-        editCallback={editCallback}
-        deleteCallBack={deleteCallBack}
-      />
-      <PackListFooter />
+      {isEmptyState && 'There are no packs. Click "Add new pack" to start.'}
+      {!isEmptyState && <FilterPanel />}
+      {!isEmptyState && (
+        <PackListTable
+          cardPacks={state.cardPacks}
+          editCallback={editCallback}
+          deleteCallBack={deleteCallBack}
+        />
+      )}
+      {!isEmptyState && <PackListFooter />}
       <AddPackModal active={addModalActive} setActive={setAddModalActive} />
       <EditPackModal active={editModalActive} setActive={setEditModalActive} pack={editedPack} />
       <DelPackModal active={delModalActive} setActive={setDelModalActive} pack={editedPack} />

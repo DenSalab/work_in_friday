@@ -16,13 +16,13 @@ type PropsType = {
 export const DelCardModal: React.FC<PropsType> = ({ packId, card, active, setActive }) => {
   const dispatch = useAppDispatch()
 
-  const [newQuestion, setNewQuestion] = useState('question')
+  const [newQuestion, setNewQuestion] = useState('')
 
   const deleteCard = async () => {
     await dispatch(deleteCardTC(card._id))
-    await dispatch(getCardsTC(packId))
     setActive(false)
-    setNewQuestion('question')
+    await dispatch(getCardsTC(packId))
+    setNewQuestion('')
   }
 
   useEffect(() => {
