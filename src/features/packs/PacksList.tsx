@@ -22,8 +22,8 @@ export const PacksList = () => {
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const isLoggedIn: boolean = useAppSelector((state) => state.auth.isLoggedIn)
-  const state: PackStateType = useAppSelector((state) => state.packs)
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+  const state = useAppSelector((state) => state.packs)
   const cardPacksTotalCount = useAppSelector((state) => state.packs.cardPacksTotalCount)
   const isEmptyState = cardPacksTotalCount === 0
 
@@ -71,7 +71,7 @@ export const PacksList = () => {
         </div>
         <SuperButton onClick={addNewPack}>Add new pack</SuperButton>
       </div>
-      {isEmptyState && 'There are any packs. Click "Add new pack".'}
+      {isEmptyState && 'There are no packs. Click "Add new pack" to start.'}
       {!isEmptyState && <FilterPanel />}
       {!isEmptyState && (
         <PackListTable
