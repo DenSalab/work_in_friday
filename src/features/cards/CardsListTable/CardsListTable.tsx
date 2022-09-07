@@ -17,6 +17,7 @@ type CardsListTableType = {
   setEditModalActive: (value: boolean) => void
   setDelModalActive: (value: boolean) => void
 }
+
 export const CardsListTable: React.FC<CardsListTableType> = ({
   setEditedCard,
   setEditModalActive,
@@ -48,9 +49,9 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
         <div className={s.tb_question}>{e.question}</div>
         <div className={s.tb_answer}>{e.answer}</div>
         <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
-        <div className={s.tb_grade}>
-          <StarRating grade={e.grade} />
-        </div>
+
+        <StarRating grade={e.grade} />
+
         <div className={s.tb_actions}>
           <div className={s.teacher} onClick={onClickTeacherHandler}>
             {teacher}

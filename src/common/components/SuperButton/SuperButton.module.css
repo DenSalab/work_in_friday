@@ -22,10 +22,6 @@
 
 .default:disabled {
   cursor: not-allowed;
-
-  color: #67717a;
-
-  background-color: #ffffff;
 }
 
 .red {

@@ -1,28 +1,29 @@
-import React, { useState } from 'react'
+import React from 'react'
 import s from './StarRating.module.css'
 
 export type StarRatingType = {
   grade: number
 }
 export const StarRating: React.FC<StarRatingType> = ({ grade }) => {
-  const [rating, setRating] = useState(0)
-  const [hover, setHover] = useState(0)
-  const cardGrade = Math.round(grade)
+  const ceilGrade = Math.ceil(grade)
+
   return (
-    <div>
+    <div className={s.star}>
       {[...Array(5)].map((star, index) => {
         index += 1
         return (
-          <button
-            type="button"
+          <span
             key={index}
-            className={index <= cardGrade ? s.on : s.off}
-            onClick={() => setRating(index)}
-            onMouseEnter={() => setHover(index)}
-            onMouseLeave={() => setHover(rating)}
+            className={
+              index < ceilGrade || index === grade
+                ? s.on
+                : index === ceilGrade && ceilGrade !== grade
+                ? s.half
+                : s.off
+            }
           >
-            <span>&#9733;</span>
-          </button>
+            &#9733;
+          </span>
         )
       })}
     </div>

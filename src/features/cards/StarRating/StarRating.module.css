@@ -1,13 +1,22 @@
-button {
-    cursor: pointer;
-
-    background-color: transparent;
-    border: none;
-    outline: none;
+.star {
+    font-family: Helvetica, Arial, sans-serif;
 }
 .on {
     color: orange;
 }
 .off {
     color: #ccc;
+}
+.half{
+    display: inline-block;
+
+    margin: 0;
+
+    font-weight: bold;
+    line-height: 1em;
+
+    background: linear-gradient(to right, orange 50%, #ccc 50%);
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
 }

@@ -25,7 +25,6 @@ import {
 } from '../features/auth/Recovery/PasswordRecovery/passwordRecovery-reducer'
 import {
   cardsReducer,
-  setCardGradeAC,
   setCardsAC,
   setCardsListPageAC,
   setCardsTotalCountAC,
@@ -97,7 +96,6 @@ export type ActionsType =
   | ReturnType<typeof setSearchedQuestionAC>
   | ReturnType<typeof setSortCardsAC>
   | ReturnType<typeof setSortPacks>
-  | ReturnType<typeof setCardGradeAC>
 
 export type AppThunk = ThunkAction<void, AppRootStateType, unknown, ActionsType>
 

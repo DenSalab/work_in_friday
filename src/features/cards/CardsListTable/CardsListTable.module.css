@@ -14,7 +14,7 @@
 .tb_header{
     background-color: #EFEFEF;
 }
-.tb_question, .tb_answer, .tb_last, .tb_grade{
+.tb_question, .tb_answer, .tb_last{
     overflow: hidden;
     display: -webkit-box;
 
