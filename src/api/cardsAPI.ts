@@ -13,8 +13,8 @@ export const cardsAPI = {
     updateCard(card: CardType) {
         return instance.put<UpdateCardResponseType>('cards/card', {card})
     },
-    updateCardGrade(grade: number, card_id: string) {
-        return instance.put<UpdateGradeResponseType>('cards/grade', {grade, card_id})
+    updateCardGrade(token:string, grade: number, card_id: string) {
+        return instance.put<UpdateGradeResponseType>('cards/grade', {token, grade, card_id})
     },
 }
 

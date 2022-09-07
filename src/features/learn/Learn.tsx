@@ -26,12 +26,16 @@ const getCard = (cards: CardType[]) => {
 export const Learn = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+
     const {packId, packName} = useParams()
+
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [first, setFirst] = useState<boolean>(true);
     const [activeButton, setActiveButton] = useState<number>(0);
     const [card, setCard] = useState({} as CardType)
+
     const {cards} = useAppSelector((store) => store.cards);
+
     useEffect(() => {
         if (first) {
             if (packId) dispatch(getCardsTC(packId))
@@ -58,8 +62,10 @@ export const Learn = () => {
             <ArrowBack title={'Back to Packs List'} onClick={() => navigate('/packs_list')}/>
             <h2>You are learning: {packName}</h2>
             <div className={mainStyles.container}>
+                {(card.question)&&(
                 <div className={mainStyles.content}>
-                    <div>Question: {card.question}</div>
+
+                        <div>Question: {card.question}</div>
                     <br/>
                     {isChecked && (
                         <>
@@ -84,6 +90,7 @@ export const Learn = () => {
                         </div>
                     )}
                 </div>
+                )}
             </div>
         </>
     )

@@ -114,10 +114,12 @@ export const updateCardTC =
 
 export const updateCardGradeTC =
     (grade: number, cardId: string): AppThunk =>
-        async dispatch => {
+        async (dispatch,
+               getStore: GetAppStoreType) => {
+            const {token} = getStore().profile.user;
             try {
                 dispatch(setAppStatusAC('loading'))
-                await cardsAPI.updateCardGrade(grade, cardId)
+                await cardsAPI.updateCardGrade(token, grade, cardId)
                 dispatch(setAppStatusAC('succeeded'))
             } catch (e) {
                 serverErrorHandler(e as AxiosError | Error, dispatch)
@@ -126,3 +128,4 @@ export const updateCardGradeTC =
 
 //types
 type InitialStateType = typeof initialState
+type GetAppStoreType = () => AppRootStateType;
