@@ -91,7 +91,6 @@ export const PackListTable: React.FC<PackListTableType> = ({
             <div className={s.tb_cards}>{e.cardsCount}</div>
             <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
             <div className={s.tb_createdBy}>{e.user_name}</div>
-            <div className={s.tb_last}>{e.grade}</div>
             <div className={s.tb_actions}>
               <div className={s.swg} onClick={onClickTeacher}>
                 <div className={s.teacher}>{teacher}</div>

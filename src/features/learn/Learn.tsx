@@ -4,7 +4,7 @@ import {ArrowBack} from '../../common/components/ArrowBack/ArrowBack';
 import {useNavigate, useParams} from 'react-router-dom';
 import {CardType} from '../../api/cardsAPI';
 import {useAppDispatch, useAppSelector} from '../../common/hooks/hooks';
-import {getCardsTC, updateCardGradeTC, updateCardTC} from '../cards/cards-reducer';
+import {getCardsTC, setCardsAC, updateCardGradeTC} from '../cards/cards-reducer';
 import SuperButton from '../../common/components/SuperButton/SuperButton';
 
 const grades = ['не знал', 'забыл', 'долго думал', 'перепутал', 'знал'];
@@ -36,60 +36,53 @@ export const Learn = () => {
 
     const {cards} = useAppSelector((store) => store.cards);
 
-    useEffect(() => {
+    useEffect(()=>{
         if (first) {
             if (packId) dispatch(getCardsTC(packId))
             setFirst(false);
-            if (cards.length > 0) setCard(getCard(cards))
-            alert('useEffect')
         }
-    }, [])
+        if (cards.length > 0) setCard(getCard(cards))
+    }, [dispatch, packId, cards, first]);
 
     const onNext = () => {
-        dispatch(updateCardGradeTC(activeButton, card._id))
-        if (packId) dispatch(getCardsTC(packId))
         setIsChecked(false);
-
-        if (cards.length > 0) {
-            // dispatch
-            setCard(getCard(cards));
-        } else {
-
-        }
+        if (packId) dispatch(updateCardGradeTC(packId, activeButton+1, card._id))
+        if (cards.length > 0) setCard(getCard(cards));
     }
 
     return (<>
             <ArrowBack title={'Back to Packs List'} onClick={() => navigate('/packs_list')}/>
             <h2>You are learning: {packName}</h2>
             <div className={mainStyles.container}>
-                {(card.question)&&(
-                <div className={mainStyles.content}>
+                {(card.question) && (
+                    <div className={mainStyles.content}>
 
                         <div>Question: {card.question}</div>
-                    <br/>
-                    {isChecked && (
-                        <>
-                            <div>Answer: {card.answer}</div>
+                        <br/>
+                        {isChecked && (
+                            <>
+                                <div>Answer: {card.answer}</div>
 
-                            {grades.map((g, i) => (
-                                <>
-                                <div>
-                                    <SuperButton monochrome disabled={(i===activeButton)} key={'grade-' + i}
-                                                 style={{width:"200px"}} onClick={() => {setActiveButton(i)
-                                }}>{g}</SuperButton>
-                                </div>
-                                </>
-                            ))}
+                                {grades.map((g, i) => (
+                                    <>
+                                        <div>
+                                            <SuperButton monochrome disabled={(i === activeButton)} key={'grade-' + i}
+                                                         style={{width: '200px'}} onClick={() => {
+                                                setActiveButton(i)
+                                            }}>{g}</SuperButton>
+                                        </div>
+                                    </>
+                                ))}
 
-                            <div><SuperButton onClick={onNext}>next</SuperButton></div>
-                        </>
-                    )}
-                    {!isChecked && (
-                        <div>
-                            <SuperButton onClick={() => setIsChecked(true)}>Check</SuperButton>
-                        </div>
-                    )}
-                </div>
+                                <div><SuperButton onClick={onNext}>next</SuperButton></div>
+                            </>
+                        )}
+                        {!isChecked && (
+                            <div>
+                                <SuperButton onClick={() => setIsChecked(true)}>Check</SuperButton>
+                            </div>
+                        )}
+                    </div>
                 )}
             </div>
         </>
