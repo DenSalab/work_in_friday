@@ -10,18 +10,18 @@ type DefaultButtonPropsType = DetailedHTMLProps<
 >
 
 type SuperButtonPropsType = DefaultButtonPropsType & {
-  cancel?: boolean
+  monochrome?: boolean
   red?: boolean
 }
 
 const SuperButton: React.FC<SuperButtonPropsType> = ({
-  cancel,
+  monochrome,
   red,
   className,
   disabled,
   ...restProps // все остальные пропсы попадут в объект restProps, там же будет children
 }) => {
-  const finalClassName = `${red ? s.red : ''} ${cancel ? s.cancel : ''} ${s.default} ${className}`
+  const finalClassName = `${red ? s.red : ''} ${monochrome ? s.cancel : ''} ${s.default} ${className}`
   const isLoggedIn = useAppSelector((state) => state.app.status)
   return (
     <button

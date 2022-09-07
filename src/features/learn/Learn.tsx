@@ -6,6 +6,7 @@ import {CardType} from '../../api/cardsAPI';
 import {useAppDispatch, useAppSelector} from '../../common/hooks/hooks';
 import {getCardsTC, setCardsAC, updateCardGradeTC} from '../cards/cards-reducer';
 import SuperButton from '../../common/components/SuperButton/SuperButton';
+import SuperRadio from '../../common/components/SuperRadio/SuperRadio';
 
 const grades = ['не знал', 'забыл', 'долго думал', 'перепутал', 'знал'];
 
@@ -31,10 +32,12 @@ export const Learn = () => {
 
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [first, setFirst] = useState<boolean>(true);
-    const [activeButton, setActiveButton] = useState<number>(0);
+    const [radioValue, setRadioValue] = useState(grades[0]);
     const [card, setCard] = useState({} as CardType)
 
     const {cards} = useAppSelector((store) => store.cards);
+
+    let radioValueIndex = grades.indexOf(radioValue)
 
     useEffect(()=>{
         if (first) {
@@ -46,7 +49,7 @@ export const Learn = () => {
 
     const onNext = () => {
         setIsChecked(false);
-        if (packId) dispatch(updateCardGradeTC(packId, activeButton+1, card._id))
+        if (packId) dispatch(updateCardGradeTC(packId, radioValueIndex+1, card._id))
         if (cards.length > 0) setCard(getCard(cards));
     }
 
@@ -63,16 +66,12 @@ export const Learn = () => {
                             <>
                                 <div>Answer: {card.answer}</div>
 
-                                {grades.map((g, i) => (
-                                    <>
-                                        <div>
-                                            <SuperButton monochrome disabled={(i === activeButton)} key={'grade-' + i}
-                                                         style={{width: '200px'}} onClick={() => {
-                                                setActiveButton(i)
-                                            }}>{g}</SuperButton>
-                                        </div>
-                                    </>
-                                ))}
+                                <SuperRadio
+                                    name={"radio"}
+                                    options={grades}
+                                    value={radioValue}
+                                    onChangeOption={setRadioValue}
+                                />
 
                                 <div><SuperButton onClick={onNext}>next</SuperButton></div>
                             </>

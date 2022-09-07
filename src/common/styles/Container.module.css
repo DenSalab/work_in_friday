@@ -57,6 +57,10 @@ label {
   background: none;
 }
 
+.content {
+  color:#000000
+}
+
 .content >* {
   margin-bottom: 10px;
 }
