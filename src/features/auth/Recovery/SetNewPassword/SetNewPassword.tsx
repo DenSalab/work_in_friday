@@ -1,30 +1,26 @@
 import React from 'react'
 import { useFormik } from 'formik'
-import {Navigate, useNavigate, useParams} from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import SuperButton from '../../../../common/components/SuperButton/SuperButton'
 import SuperInputText from '../../../../common/components/SuperInputText/SuperInputText'
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks'
 import mainStyles from '../../../../common/styles/Container.module.css'
 import { FormikErrorType } from '../../Register/Register'
-import {
-  setNewPasswordTC,
-} from '../PasswordRecovery/passwordRecovery-reducer'
-import {setAppStatusAC} from '../../../../app/app-reducer';
+import { setNewPasswordTC } from '../PasswordRecovery/passwordRecovery-reducer'
+import { setAppStatusAC } from '../../../../app/app-reducer'
 
 export const SetNewPassword = () => {
   const params = useParams()
   const navigate = useNavigate()
   const resetPasswordToken = params.token
   const dispatch = useAppDispatch()
-  const newPasswordRequestStatus = useAppSelector(
-    state => state.app.status
-  )
+  const newPasswordRequestStatus = useAppSelector((state) => state.app.status)
   const formik = useFormik({
     initialValues: {
       password: '',
     },
 
-    validate: values => {
+    validate: (values) => {
       const errors: FormikErrorType = {}
 
       if (!values.password) {
@@ -35,8 +31,8 @@ export const SetNewPassword = () => {
       return errors
     },
 
-    onSubmit: values => {
-      alert(resetPasswordToken);
+    onSubmit: (values) => {
+      alert(resetPasswordToken)
       if (resetPasswordToken) dispatch(setNewPasswordTC(values.password, resetPasswordToken))
     },
   })
@@ -48,9 +44,7 @@ export const SetNewPassword = () => {
 
   return (
     <div className={mainStyles.container}>
-
       <form onSubmit={formik.handleSubmit}>
-
         <h2>Create new password</h2>
 
         <label htmlFor="password">Password</label>
@@ -67,9 +61,7 @@ export const SetNewPassword = () => {
         <SuperButton className={mainStyles.mainButton} type={'submit'}>
           Create new password
         </SuperButton>
-
       </form>
-
     </div>
   )
 }

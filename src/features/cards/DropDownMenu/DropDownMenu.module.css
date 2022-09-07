@@ -1,0 +1,34 @@
+/* drop down */
+.dd_menu{
+    cursor: pointer;
+
+    margin-left: 5px;
+}
+.dd_menu:hover circle{
+    stroke: #366EFF;
+}
+.dd_container{
+    position: relative;
+}
+.dropDown{
+    position: absolute;
+    right: 0;
+    bottom: -105px;
+
+    min-width: 100px;
+
+    background-color: #fff;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit, .delete, .teacher{
+    margin: 10px;
+
+    font-size: 14px;
+}
+
+.edit:hover, .delete:hover, .teacher:hover{
+    cursor: pointer;
+
+    text-decoration: underline;
+}
