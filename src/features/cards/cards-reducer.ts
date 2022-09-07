@@ -112,5 +112,17 @@ export const updateCardTC =
     }
   }
 
+export const updateCardGradeTC =
+    (grade: number, cardId: string): AppThunk =>
+        async dispatch => {
+            try {
+                dispatch(setAppStatusAC('loading'))
+                await cardsAPI.updateCardGrade(grade, cardId)
+                dispatch(setAppStatusAC('succeeded'))
+            } catch (e) {
+                serverErrorHandler(e as AxiosError | Error, dispatch)
+            }
+        }
+
 //types
 type InitialStateType = typeof initialState

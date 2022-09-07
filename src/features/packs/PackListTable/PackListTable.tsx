@@ -25,13 +25,13 @@ export const PackListTable: React.FC<PackListTableType> = ({
   type sortType = 'name' | 'cardsCount' | 'updated' | 'user_name'
 
   const [sort, setSort] = useState<sortType>('updated')
+  const [dirUp, setDirUp] = useState(0)
   const onClickSortHandler = (sortType: sortType) => {
     setSort(sortType)
     dispatch(getCardsPackTC())
   }
 
   const filterArrow = (sort: sortType) => {
-    const [dirUp, setDirUp] = useState(0)
     return (
       <span
         className={s.arrowDown}
@@ -61,6 +61,9 @@ export const PackListTable: React.FC<PackListTableType> = ({
         <div className={s.tb_createdBy} onClick={() => onClickSortHandler('user_name')}>
           <span>Created by {sort === 'user_name' ? filterArrow('user_name') : ''}</span>
         </div>
+        <div className={s.tb_createdBy}>
+          <span>Grade </span>
+        </div>
         <div className={s.tb_actions}>
           <span>Actions</span>
         </div>
@@ -71,7 +74,7 @@ export const PackListTable: React.FC<PackListTableType> = ({
           navigate(`/cards_list/${e._id}`)
         }
         const onClickTeacher = () => {
-          alert('teacher')
+          navigate(`/learn/${e._id}/${e.name}`)
         }
         const onClickEdit = () => {
           editCallback(e)
@@ -88,6 +91,7 @@ export const PackListTable: React.FC<PackListTableType> = ({
             <div className={s.tb_cards}>{e.cardsCount}</div>
             <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
             <div className={s.tb_createdBy}>{e.user_name}</div>
+            <div className={s.tb_last}>{e.grade}</div>
             <div className={s.tb_actions}>
               <div className={s.swg} onClick={onClickTeacher}>
                 <div className={s.teacher}>{teacher}</div>
