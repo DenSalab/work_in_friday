@@ -15,7 +15,10 @@
     align-items: flex-start;
     justify-content: space-evenly;
 }
-
+.title{
+    display: flex;
+    align-items: center;
+}
 .btn_my, .btn_all{
     cursor: pointer;
 
@@ -30,7 +33,3 @@
 
     background: #366EFF;
 }
-
-
-
-

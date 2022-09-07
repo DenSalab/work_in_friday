@@ -21,9 +21,9 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
   setEditModalActive,
   setDelModalActive,
 }) => {
-  const user_id = useAppSelector(state => state.profile.user._id)
-  const cards = useAppSelector(state => state.cards.cards)
-  const sortCards = useAppSelector(state => state.cards.sortCards)
+  const user_id = useAppSelector((state) => state.profile.user._id)
+  const cards = useAppSelector((state) => state.cards.cards)
+  const sortCards = useAppSelector((state) => state.cards.sortCards)
   const dispatch = useAppDispatch()
   const onSortCardHandler = () => {
     dispatch(setSortCardsAC(sortCards === '0updated' ? '1updated' : '0updated'))
@@ -79,7 +79,7 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
         <div className={s.tb_grade}>Grade</div>
         <div className={s.tb_actions}>Actions</div>
       </div>
-      <div>{cards.map(e => tableRender(e))}</div>
+      <div>{cards.map((e) => tableRender(e))}</div>
     </div>
   )
 }

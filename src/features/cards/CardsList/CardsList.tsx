@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
 import { useNavigate, useParams } from 'react-router-dom'
-
 import { CardType } from '../../../api/cardsAPI'
 import { ArrowBack } from '../../../common/components/ArrowBack/ArrowBack'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
@@ -13,8 +11,8 @@ import { CardsSearchPanel } from '../CardsSearchPanel/CardsSearchPanel'
 import { AddCardModal } from '../modals/AddNewCardModal'
 import { DelCardModal } from '../modals/DelCardModal'
 import { EditCardModal } from '../modals/EditCardModal'
-
 import s from './CardsList.module.css'
+import { DropDownMenu } from '../DropDownMenu/DropDownMenu'
 
 export const CardsList = () => {
   const [editedCard, setEditedCard] = useState({} as CardType)
@@ -25,14 +23,14 @@ export const CardsList = () => {
   const navigate = useNavigate()
 
   const packId = params.packId ? params.packId : ''
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
-  const pageCount = useAppSelector(state => state.cards.pageCount)
-  const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
-  const page = useAppSelector(state => state.cards.page)
-  const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
+  const pageCount = useAppSelector((state) => state.cards.pageCount)
+  const cardsTotalCount = useAppSelector((state) => state.cards.cardsTotalCount)
+  const page = useAppSelector((state) => state.cards.page)
+  const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
 
-  const sortCards = useAppSelector(state => state.cards.sortCards)
+  const sortCards = useAppSelector((state) => state.cards.sortCards)
   const [addModalActive, setAddModalActive] = useState(false)
 
   const onAddNewCardHandler = () => {
@@ -55,7 +53,10 @@ export const CardsList = () => {
       <div className={s.header}>
         <div className={s.header_title}>
           <ArrowBack title={'Back to Packs List'} onClick={() => navigate('/packs_list')} />
-          <h2>Cards list</h2>
+          <div className={s.title}>
+            <h2>Cards list</h2>
+            <DropDownMenu />
+          </div>
         </div>
         <SuperButton onClick={onAddNewCardHandler}>Add new card</SuperButton>
       </div>

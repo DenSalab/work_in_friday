@@ -25,23 +25,24 @@ export const PackListTable: React.FC<PackListTableType> = ({
   type sortType = 'name' | 'cardsCount' | 'updated' | 'user_name'
 
   const [sort, setSort] = useState<sortType>('updated')
+  const [directionUp, setDirectionUp] = useState(0)
+
   const onClickSortHandler = (sortType: sortType) => {
     setSort(sortType)
     dispatch(getCardsPackTC())
   }
 
-  const filterArrow = (sort: sortType) => {
-    const [dirUp, setDirUp] = useState(0)
+  const sortArrows = (sort: sortType) => {
     return (
       <span
         className={s.arrowDown}
         onClick={() => {
-          setDirUp(dirUp === 0 ? 1 : 0)
-          dispatch(setSortPacks(dirUp + sort))
+          setDirectionUp(!directionUp ? 1 : 0)
+          dispatch(setSortPacks(directionUp + sort))
           dispatch(getCardsPackTC())
         }}
       >
-        {dirUp ? '▲' : '▼'}
+        {directionUp ? '▲' : '▼'}
       </span>
     )
   }
@@ -50,16 +51,16 @@ export const PackListTable: React.FC<PackListTableType> = ({
     <div className={s.table}>
       <div className={s.tb_header}>
         <div className={s.tb_name} onClick={() => onClickSortHandler('name')}>
-          <span>Name {sort === 'name' ? filterArrow('name') : ''}</span>
+          <span>Name {sort === 'name' ? sortArrows('name') : ''}</span>
         </div>
         <div className={s.tb_cards} onClick={() => onClickSortHandler('cardsCount')}>
-          <span>Cards {sort === 'cardsCount' ? filterArrow('cardsCount') : ''}</span>
+          <span>Cards {sort === 'cardsCount' ? sortArrows('cardsCount') : ''}</span>
         </div>
         <div className={s.tb_last} onClick={() => onClickSortHandler('updated')}>
-          <span>Last Updated {sort === 'updated' ? filterArrow('updated') : ''}</span>
+          <span>Last Updated {sort === 'updated' ? sortArrows('updated') : ''}</span>
         </div>
         <div className={s.tb_createdBy} onClick={() => onClickSortHandler('user_name')}>
-          <span>Created by {sort === 'user_name' ? filterArrow('user_name') : ''}</span>
+          <span>Created by {sort === 'user_name' ? sortArrows('user_name') : ''}</span>
         </div>
         <div className={s.tb_actions}>
           <span>Actions</span>
