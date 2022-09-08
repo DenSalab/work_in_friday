@@ -113,18 +113,17 @@ export const updateCardTC =
   }
 
 export const updateCardGradeTC =
-    (packId: string, grade: number, cardId: string): AppThunk =>
-        async (dispatch) => {
-
-            try {
-                dispatch(setAppStatusAC('loading'))
-                await cardsAPI.updateCardGrade( grade, cardId)
-                await dispatch(getCardsTC(packId))
-                dispatch(setAppStatusAC('succeeded'))
-            } catch (e) {
-                serverErrorHandler(e as AxiosError | Error, dispatch)
-            }
-        }
+  (packId: string, grade: number, cardId: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setAppStatusAC('loading'))
+      await cardsAPI.updateCardGrade(grade, cardId)
+      await dispatch(getCardsTC(packId))
+      dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+      serverErrorHandler(e as AxiosError | Error, dispatch)
+    }
+  }
 
 //types
 type InitialStateType = typeof initialState

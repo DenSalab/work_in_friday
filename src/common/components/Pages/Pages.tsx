@@ -10,7 +10,7 @@ import { CardsList } from '../../../features/cards/CardsList/CardsList'
 import { PacksList } from '../../../features/packs/PacksList'
 import s from './Pages.module.css'
 import { Page404 } from '../Page404/Page404'
-import {Learn} from '../../../features/learn/Learn';
+import { Learn } from '../../../features/learn/Learn'
 
 export const Pages = () => {
   return (

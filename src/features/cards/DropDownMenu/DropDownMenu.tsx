@@ -5,7 +5,12 @@ import { edit } from '../../../common/swg/edit'
 import { trash } from '../../../common/swg/trash'
 import { teacher } from '../../../common/swg/teacher'
 
-export const DropDownMenu = () => {
+type DropDownMenuType = {
+  editCallback: () => void
+  deleteCallBack: () => void
+}
+
+export const DropDownMenu = (props: DropDownMenuType) => {
   const [visible, setVisible] = useState(false)
 
   const onClickMenu = () => {
@@ -15,10 +20,10 @@ export const DropDownMenu = () => {
     alert('Learn')
   }
   const onClickEdit = () => {
-    alert('Edit')
+    props.editCallback()
   }
   const onClickDelete = () => {
-    alert('Delete')
+    props.deleteCallBack()
   }
   const onMouseLeaveHandler = () => {
     setTimeout(() => setVisible(false), 300)

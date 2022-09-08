@@ -1,21 +1,21 @@
 import { instance } from './instance'
 
 export const cardsAPI = {
-    getCard(values: CardQueryType) {
-        return instance.get<GetCardsResponseType>('cards/card', {params: values})
-    },
-    createCard(card: CreatedCardType) {
-        return instance.post<CreateCardResponseType>('cards/card', {card: card})
-    },
-    deleteCard(id: string) {
-        return instance.delete<DeleteCardResponseType>(`cards/card/?id=${id}`)
-    },
-    updateCard(card: CardType) {
-        return instance.put<UpdateCardResponseType>('cards/card', {card})
-    },
-    updateCardGrade( grade: number, card_id: string) {
-        return instance.put<UpdateGradeResponseType>('cards/grade', { grade, card_id})
-    },
+  getCard(values: CardQueryType) {
+    return instance.get<GetCardsResponseType>('cards/card', { params: values })
+  },
+  createCard(card: CreatedCardType) {
+    return instance.post<CreateCardResponseType>('cards/card', { card: card })
+  },
+  deleteCard(id: string) {
+    return instance.delete<DeleteCardResponseType>(`cards/card/?id=${id}`)
+  },
+  updateCard(card: CardType) {
+    return instance.put<UpdateCardResponseType>('cards/card', { card })
+  },
+  updateCardGrade(grade: number, card_id: string) {
+    return instance.put<UpdateGradeResponseType>('cards/grade', { grade, card_id })
+  },
 }
 
 // types
@@ -88,30 +88,30 @@ export type DeleteCardResponseType = {
   tokenDeathTime: number
 }
 export type UpdateCardResponseType = {
-    updatedCard: CardType & {
-        answerImg: string
-        answerVideo: string
-        questionImg: string
-        questionVideo: string
-    }
-    token: string
-    tokenDeathTime: number
+  updatedCard: CardType & {
+    answerImg: string
+    answerVideo: string
+    questionImg: string
+    questionVideo: string
+  }
+  token: string
+  tokenDeathTime: number
 }
 
 export type UpdateGradeResponseType = {
-    updatedGrade: RootObjectUpdateGrade
-    token: string
-    tokenDeathTime: number
+  updatedGrade: RootObjectUpdateGrade
+  token: string
+  tokenDeathTime: number
 }
 export type RootObjectUpdateGrade = {
-    _id: string
-    cardsPack_id: string
-    card_id: string
-    user_id: string
-    grade: number
-    shots: number
-    more_id: string
-    created: string
-    updated: string
-    __v: number
+  _id: string
+  cardsPack_id: string
+  card_id: string
+  user_id: string
+  grade: number
+  shots: number
+  more_id: string
+  created: string
+  updated: string
+  __v: number
 }

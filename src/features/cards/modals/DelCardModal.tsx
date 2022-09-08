@@ -37,6 +37,7 @@ export const DelCardModal: React.FC<PropsType> = ({ packId, card, active, setAct
       callback={deleteCard}
       buttonsText={'Delete'}
     >
+      {/* eslint-disable-next-line react/no-unescaped-entities */}
       <div>Do you really want to remove "{newQuestion}" card?</div>
     </CustomModal>
   )
