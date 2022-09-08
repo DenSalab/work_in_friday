@@ -10,7 +10,7 @@ import { trash } from '../../../common/swg/trash'
 import { setSortCardsAC } from '../cards-reducer'
 
 import s from './CardsListTable.module.css'
-import { StarRating } from '../StarRating/StarRating'
+import { StarRating } from './StarRating/StarRating'
 
 type CardsListTableType = {
   setEditedCard: (e: CardType) => void
