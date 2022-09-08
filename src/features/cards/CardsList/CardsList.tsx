@@ -37,6 +37,9 @@ export const CardsList = () => {
   const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
   const isPackEmpty = cardsTotalCount === 0
   const sortCards = useAppSelector((state) => state.cards.sortCards)
+  const currentPackName = useAppSelector((state) => state.packs.cardPacks).find(
+    (n) => n._id === packId
+  )
 
   const onAddNewCardHandler = () => {
     setAddModalActive(true)
@@ -93,7 +96,7 @@ export const CardsList = () => {
         <div className={s.header_title}>
           <ArrowBack title={'Back to Packs List'} onClick={() => navigate('/packs_list')} />
           <div className={s.title}>
-            <h2>Cards list</h2>
+            <h2>{currentPackName?.name}</h2>
             <DropDownMenu editCallback={editPackCallback} deleteCallBack={deletePackCallBack} />
           </div>
         </div>
