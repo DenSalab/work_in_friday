@@ -48,6 +48,9 @@
 .switch_max{
     margin-left: 10px;
 }
+.switch_min:disabled, .switch_min:disabled{
+    color: #434e5b;
+}
 .btn_my, .btn_all{
     cursor: pointer;
 
@@ -82,4 +85,14 @@
 }
 .filter_remove:hover path{
     fill: #366EFF;
+}
+.filter_remove:disabled{
+    cursor: auto;
+
+    background-color: inherit;
+}
+.filter_remove:disabled path{
+    cursor: auto;
+
+    fill: #434e5b;
 }

@@ -15,6 +15,7 @@ import { useDebounce } from '../../../common/hooks/debounce'
 export const FilterPanel = () => {
   const dispatch = useAppDispatch()
   const state = useAppSelector((state) => state.packs)
+  const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const maxRangeValue = state.cardPacks.map((e) => e.cardsCount).sort((a, b) => b - a)[0]
 
@@ -65,6 +66,7 @@ export const FilterPanel = () => {
           className={s.search}
           value={state.searchedPackName}
           onChange={onChangeSearch}
+          disabled={loading}
         />
       </div>
 
@@ -74,12 +76,14 @@ export const FilterPanel = () => {
           <button
             className={`${s.btn_my} ${state.onlyMyPacks ? s.btn_selected : ''}`}
             onClick={() => sortMyAllToggle(true)}
+            disabled={loading}
           >
             My
           </button>
           <button
             className={`${s.btn_all} ${!state.onlyMyPacks ? s.btn_selected : ''}`}
             onClick={() => sortMyAllToggle(false)}
+            disabled={loading}
           >
             All
           </button>
@@ -89,19 +93,29 @@ export const FilterPanel = () => {
       <div className={s.inputContainer}>
         <span className={s.label}>Numbers of cart</span>
         <div className={s.switch}>
-          <input className={s.switch_min} value={state.minCardsCount} onChange={onChangeMinValue} />
+          <input
+            className={s.switch_min}
+            value={state.minCardsCount}
+            onChange={onChangeMinValue}
+            disabled={loading}
+          />
           <SuperDoubleRange
             value={[state.minCardsCount, state.maxCardsCount]}
             onChangeRange={onChangeRange}
             range={[0, 100]}
           />
-          <input className={s.switch_max} value={state.maxCardsCount} onChange={onChangeMaxValue} />
+          <input
+            className={s.switch_max}
+            value={state.maxCardsCount}
+            onChange={onChangeMaxValue}
+            disabled={loading}
+          />
         </div>
       </div>
 
-      <div className={s.filter_remove} onClick={filterRemote}>
+      <button className={s.filter_remove} onClick={filterRemote} disabled={loading}>
         {filter}
-      </div>
+      </button>
     </div>
   )
 }
