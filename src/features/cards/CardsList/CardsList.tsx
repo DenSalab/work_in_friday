@@ -70,7 +70,11 @@ export const CardsList = () => {
           <ArrowBack title={'Back to Packs List'} onClick={() => navigate('/packs_list')} />
           <div className={s.title}>
             <h2>{currentPackName?.name}</h2>
-            <DropDownMenu editCallback={editPackCallback} deleteCallBack={deletePackCallBack} />
+            <DropDownMenu
+              editCallback={editPackCallback}
+              deleteCallBack={deletePackCallBack}
+              pack={pack!}
+            />
           </div>
         </div>
         <SuperButton onClick={onAddNewCardHandler}>Add new card</SuperButton>
@@ -83,6 +87,7 @@ export const CardsList = () => {
           setEditedCard={setEditedCard}
           setEditModalActive={setEditModalActive}
           setDelModalActive={setDelModalActive}
+          pack={pack!}
         />
       )}
       {!isPackEmpty && <CardsListFooter />}

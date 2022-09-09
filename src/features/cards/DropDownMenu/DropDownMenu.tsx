@@ -4,20 +4,24 @@ import { dropDown } from '../../../common/swg/dropDown'
 import { edit } from '../../../common/swg/edit'
 import { trash } from '../../../common/swg/trash'
 import { teacher } from '../../../common/swg/teacher'
+import { CardPackType } from '../../../api/packAPI'
+import { useNavigate } from 'react-router-dom'
 
 type DropDownMenuType = {
   editCallback: () => void
   deleteCallBack: () => void
+  pack: CardPackType
 }
 
 export const DropDownMenu = (props: DropDownMenuType) => {
   const [visible, setVisible] = useState(false)
+  const navigate = useNavigate()
 
   const onClickMenu = () => {
     setVisible(!visible)
   }
   const onClickTeacher = () => {
-    alert('Learn')
+    navigate(`/learn/${props.pack._id}/${props.pack.name}`)
   }
   const onClickEdit = () => {
     props.editCallback()

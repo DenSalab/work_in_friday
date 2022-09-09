@@ -19,6 +19,8 @@ export const PackListTable: React.FC<PackListTableType> = ({
   deleteCallBack,
 }) => {
   const user_id: string = useAppSelector((state) => state.profile.user._id)
+  const loading = useAppSelector((state) => state.app.status) === 'loading'
+
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   // sort
@@ -82,23 +84,27 @@ export const PackListTable: React.FC<PackListTableType> = ({
         }
 
         return (
-          <div className={s.tb_main} key={e._id}>
-            <div className={s.tb_name} onClick={onClickNamePack}>
+          <div className={`${s.tb_main} ${loading ? s.tb_disabled : ''}`} key={e._id}>
+            <div className={s.tb_name} onClick={onClickNamePack} aria-disabled={true}>
               {e.name}
             </div>
             <div className={s.tb_cards}>{e.cardsCount}</div>
             <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
             <div className={s.tb_createdBy}>{e.user_name}</div>
             <div className={s.tb_actions}>
-              <div className={s.swg} onClick={onClickTeacher}>
-                <div className={s.teacher}>{teacher}</div>
-              </div>
-              <div className={s.swg} onClick={onClickEdit}>
-                {e.user_id === user_id ? <div className={s.edit}>{edit}</div> : ''}
-              </div>
-              <div className={s.swg} onClick={onClickDelete}>
-                {e.user_id === user_id ? <div className={s.trash}>{trash}</div> : ''}
-              </div>
+              <button className={s.teacher} disabled={loading} onClick={onClickTeacher}>
+                {teacher}
+              </button>
+              {e.user_id === user_id && (
+                <button className={s.edit} disabled={loading} onClick={onClickEdit}>
+                  {edit}
+                </button>
+              )}
+              {e.user_id === user_id && (
+                <button className={s.trash} disabled={loading} onClick={onClickDelete}>
+                  {trash}
+                </button>
+              )}
             </div>
           </div>
         )

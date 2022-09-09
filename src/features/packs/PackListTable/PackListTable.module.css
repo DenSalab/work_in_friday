@@ -12,9 +12,12 @@
 .tb_main:hover{
     cursor: pointer;
 
-color: #366EFF;
+    color: #366EFF;
 
     background-color: #EFEFEF;
+}
+.tb_main[aria-disabled]{
+    background-color: red;
 }
 .tb_header span:hover  {
     cursor: pointer;
@@ -54,6 +57,9 @@ color: #366EFF;
 
     width: 30px;
     height: 30px;
+
+    background-color: inherit;
+    border: none;
 }
 
 .teacher:hover path{
@@ -61,6 +67,16 @@ color: #366EFF;
 }
 .edit:hover path, .trash:hover path{
     fill: #366EFF;
+}
+.teacher:disabled path{
+    cursor: context-menu;
+
+    stroke: #434e5b;
+}
+.edit:disabled path, .trash:disabled path{
+    cursor: context-menu;
+
+    fill: #434e5b;
 }
 /* -------------------------------------filter arrows-------------- */
 

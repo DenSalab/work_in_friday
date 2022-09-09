@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { CardType } from '../../../api/cardsAPI'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import { arrowDown } from '../../../common/swg/arrowDown'
@@ -8,20 +7,23 @@ import { edit } from '../../../common/swg/edit'
 import { teacher } from '../../../common/swg/teacher'
 import { trash } from '../../../common/swg/trash'
 import { setSortCardsAC } from '../cards-reducer'
-
 import s from './CardsListTable.module.css'
 import { StarRating } from './StarRating/StarRating'
+import { CardPackType } from '../../../api/packAPI'
+import { useNavigate } from 'react-router-dom'
 
 type CardsListTableType = {
   setEditedCard: (e: CardType) => void
   setEditModalActive: (value: boolean) => void
   setDelModalActive: (value: boolean) => void
+  pack: CardPackType
 }
 
 export const CardsListTable: React.FC<CardsListTableType> = ({
   setEditedCard,
   setEditModalActive,
   setDelModalActive,
+  pack,
 }) => {
   const user_id = useAppSelector((state) => state.profile.user._id)
   const cards = useAppSelector((state) => state.cards.cards)
@@ -30,10 +32,11 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
   const onSortCardHandler = () => {
     dispatch(setSortCardsAC(sortCards === '0updated' ? '1updated' : '0updated'))
   }
+  const navigate = useNavigate()
 
   const tableRender = (e: CardType) => {
     const onClickTeacherHandler = () => {
-      alert('Do you want to learn it?')
+      navigate(`/learn/${pack._id}/${pack.name}`)
     }
     const onClickEditHandler = () => {
       setEditedCard(e)
