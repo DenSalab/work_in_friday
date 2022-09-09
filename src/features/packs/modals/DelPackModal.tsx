@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { CustomModal } from '../../../common/components/CustomModal/CustomModal'
 import { useAppDispatch } from '../../../common/hooks/hooks'
-import { deleteCardsPackTC, getCardsPackTC } from '../packs-reducer'
+import { deleteCardsPackTC } from '../packs-reducer'
 import { CardPackType } from '../../../api/packAPI'
-
-type PropsType = {
-  active: boolean
-  setActive: (value: boolean) => void
-  pack: CardPackType
-  callback?: () => void
-}
+import { useNavigate } from 'react-router-dom'
 
 export const DelPackModal: React.FC<PropsType> = ({ active, setActive, pack }) => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
-  const [newPackName, setNewPackName] = useState('new name')
-
-  const deleteNamePack = async () => {
-    await dispatch(deleteCardsPackTC(pack._id))
-    await dispatch(getCardsPackTC())
+  const deleteNamePack = () => {
+    dispatch(deleteCardsPackTC(pack._id))
     setActive(false)
+    navigate('/packs_list')
   }
-
-  useEffect(() => {
-    setNewPackName(pack.name)
-  }, [pack._id, pack.name])
 
   return (
     <CustomModal
@@ -34,9 +23,17 @@ export const DelPackModal: React.FC<PropsType> = ({ active, setActive, pack }) =
       callback={deleteNamePack}
       buttonsText={'Delete'}
     >
-      {/* eslint-disable-next-line react/no-unescaped-entities */}
-      <div>Do you really want to remove "{newPackName}"?</div>
+      <div>Do you really want to remove &ldquo;{pack.name}&rdquo;?</div>
       <div>All cards will be excluded from this course!</div>
     </CustomModal>
   )
+}
+
+// types
+
+type PropsType = {
+  active: boolean
+  setActive: (value: boolean) => void
+  pack: CardPackType
+  callback?: () => void
 }

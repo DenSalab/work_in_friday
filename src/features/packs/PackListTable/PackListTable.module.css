@@ -8,7 +8,13 @@
     grid-template-columns: 2fr 1fr 1fr 2fr 100px;
 
     padding: 10px 15px;
+}
+.tb_main:hover{
     cursor: pointer;
+
+color: #366EFF;
+
+    background-color: #EFEFEF;
 }
 .tb_header span:hover  {
     cursor: pointer;

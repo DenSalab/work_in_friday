@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
 import { useNavigate, useParams } from 'react-router-dom'
-
 import { CardType } from '../../../api/cardsAPI'
 import { ArrowBack } from '../../../common/components/ArrowBack/ArrowBack'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
@@ -13,7 +11,6 @@ import { CardsSearchPanel } from '../CardsSearchPanel/CardsSearchPanel'
 import { AddCardModal } from '../modals/AddNewCardModal'
 import { DelCardModal } from '../modals/DelCardModal'
 import { EditCardModal } from '../modals/EditCardModal'
-
 import s from './CardsList.module.css'
 import { DropDownMenu } from '../DropDownMenu/DropDownMenu'
 import { EditPackModal } from '../../packs/modals/EditPackModal'
@@ -24,6 +21,8 @@ export const CardsList = () => {
   const [editModalActive, setEditModalActive] = useState(false)
   const [delModalActive, setDelModalActive] = useState(false)
   const [addModalActive, setAddModalActive] = useState(false)
+  const [editPackModalActive, setEditPackModalActive] = useState(false)
+  const [delPackModalActive, setDelPackModalActive] = useState(false)
 
   const dispatch = useAppDispatch()
   const params = useParams()
@@ -40,7 +39,7 @@ export const CardsList = () => {
   const currentPackName = useAppSelector((state) => state.packs.cardPacks).find(
     (n) => n._id === packId
   )
-
+  const pack = useAppSelector((state) => state.packs.cardPacks!.find((f) => f._id === packId))
   const onAddNewCardHandler = () => {
     setAddModalActive(true)
   }
@@ -56,38 +55,12 @@ export const CardsList = () => {
     navigate('/login')
   }
 
-  // for Packs modal
-  const temp = {
-    _id: 'string',
-    user_id: 'string',
-    user_name: 'string',
-    private: false,
-    name: 'string',
-    path: 'string',
-    grade: 1,
-    shots: 1,
-    cardsCount: 1,
-    type: 'string',
-    rating: 1,
-    created: 'string',
-    updated: 'string',
-    more_id: 'string',
-    __v: 1,
-    deckCover: 'string',
-  }
-  let pack = useAppSelector((state) => state.packs.cardPacks.find((f) => f._id === packId))
-  pack = pack ? pack : temp
-  console.log('packId: ', packId)
-  // const [editedPack, setEditedPack] = useState(pack as CardPackType)
-  const [editPackModalActive, setEditPackModalActive] = useState(false)
-  const [delPackModalActive, setDelPackModalActive] = useState(false)
-
   const editPackCallback = () => {
-    setEditModalActive(true)
+    setEditPackModalActive(true)
   }
 
   const deletePackCallBack = () => {
-    setDelModalActive(true)
+    setDelPackModalActive(true)
   }
 
   return (
@@ -127,10 +100,8 @@ export const CardsList = () => {
         active={delModalActive}
         setActive={setDelModalActive}
       />
-
-      {/* modals for drop down menu */}
-      <EditPackModal active={editPackModalActive} setActive={setEditPackModalActive} pack={pack} />
-      <DelPackModal active={delPackModalActive} setActive={setDelPackModalActive} pack={pack} />
+      <EditPackModal active={editPackModalActive} setActive={setEditPackModalActive} pack={pack!} />
+      <DelPackModal active={delPackModalActive} setActive={setDelPackModalActive} pack={pack!} />
     </div>
   )
 }
