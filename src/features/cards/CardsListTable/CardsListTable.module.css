@@ -18,6 +18,8 @@
     overflow: hidden;
     display: -webkit-box;
 
+    height: 20px;
+
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
     word-wrap: break-word;
