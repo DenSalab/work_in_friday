@@ -11,7 +11,7 @@ export const CardsSearchPanel = () => {
   const onChangeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchedQuestionAC(e.currentTarget.value))
   }
-  const searchedQuestion = useAppSelector(state => state.cards.cardQuestion)
+  const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
 
   useDebounce(searchedQuestion, 500)
 

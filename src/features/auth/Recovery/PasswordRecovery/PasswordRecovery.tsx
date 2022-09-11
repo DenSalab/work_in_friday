@@ -13,14 +13,12 @@ type FormikErrorType = {
 
 export const PasswordRecovery = () => {
   const dispatch = useAppDispatch()
-  const recoveryRequestStatus = useAppSelector(
-    (state) => state.app.status
-  )
+  const recoveryRequestStatus = useAppSelector((state) => state.app.status)
   const formik = useFormik({
     initialValues: {
       email: '',
     },
-    validate: values => {
+    validate: (values) => {
       const errors: FormikErrorType = {}
 
       if (!values.email) {
@@ -31,7 +29,7 @@ export const PasswordRecovery = () => {
 
       return errors
     },
-    onSubmit: values => {
+    onSubmit: (values) => {
       console.log(values.email)
       dispatch(passwordRecoveryTC(values.email))
     },

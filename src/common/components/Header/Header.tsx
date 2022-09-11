@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import SuperButton from '../SuperButton/SuperButton'
 import { logoutTC } from '../../../features/auth/Profile/profile-reducer'
 import { LinearPreloader } from '../preloaders/LinearPreloader/LinearPreloader'
+import noAvatar from '../../images/no_avatar.jpg'
 
 export const Header = () => {
   const dispatch = useAppDispatch()
@@ -68,7 +69,7 @@ export const Header = () => {
     <div className={s.user} onClick={onClickLoginHandler}>
       <div className={s.user_name}>{userData.name}</div>
       <div className={s.user_photo}>
-        <img src={userData.avatar} alt="avatar" />
+        <img src={userData.avatar || noAvatar} alt="avatar" />
       </div>
       {select ? nav : ''}
     </div>

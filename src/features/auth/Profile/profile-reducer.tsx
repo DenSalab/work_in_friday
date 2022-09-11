@@ -36,7 +36,7 @@ export const setUserAC = (user: UserDataType) =>
 // thunks creators
 export const updateUserTC =
   (user: UserDataType): AppThunk =>
-  async dispatch => {
+  async (dispatch) => {
     try {
       dispatch(setAppErrorAC(null))
       dispatch(setAppStatusAC('loading'))
@@ -49,7 +49,7 @@ export const updateUserTC =
     }
   }
 
-export const logoutTC = (): AppThunk => async dispatch => {
+export const logoutTC = (): AppThunk => async (dispatch) => {
   try {
     dispatch(setAppErrorAC(null))
     dispatch(setAppStatusAC('loading'))

@@ -1,13 +1,10 @@
 import React from 'react'
-
 import { useNavigate } from 'react-router-dom'
-
 import SuperButton from '../../../../common/components/SuperButton/SuperButton'
 import { useAppSelector } from '../../../../common/hooks/hooks'
-
 import s from './CheckEmail.module.css'
 import icon from './emailIcon.png'
-import mainStyles from '../../../../common/styles/Container.module.css';
+import mainStyles from '../../../../common/styles/Container.module.css'
 
 export const CheckEmail = () => {
   const navigate = useNavigate()

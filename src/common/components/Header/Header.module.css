@@ -31,8 +31,6 @@
 
   font-family: Montserrat, serif;
   font-size: 14px;
-
-
 }
 
 a{
@@ -74,7 +72,10 @@ a:hover{
 .user_photo{
   width: 60px;
   height: 60px;
-  margin-top: 5px;
+  /*margin-top: 5px;*/
+
+  border: 2px solid #366EFF;
+  border-radius: 50%;
 }
 .user_photo img{
   width: 100%;
