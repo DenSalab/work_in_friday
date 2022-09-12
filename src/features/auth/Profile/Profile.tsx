@@ -7,9 +7,8 @@ import logout from '../../../common/assets/images/logout.png'
 import mainStyles from '../../../common/styles/Container.module.css'
 import { logoutTC, updateUserTC } from './profile-reducer'
 import s from './Profile.module.css'
-import noAvatar from '../../../common/images/no_avatar.jpg'
-import { changePhoto } from '../../../common/swg/changePhoto'
 import noAvatar from '../../../common/assets/images/no_avatar.jpg'
+import { changePhoto } from '../../../common/assets/images/svg/changePhoto'
 
 export const Profile = () => {
   const user = useAppSelector((state) => state.profile.user)

@@ -7,7 +7,7 @@ import { setServerErrorAC } from '../auth/auth-reducer'
 import { CardPackType, CardsPackQueryType, CreatePackType, packAPI } from '../../api/packAPI'
 
 const initialState = {
-  searchedPackName: '' as string,
+  searchedPackName: '',
   onlyMyPacks: false,
   page: 1,
   pageCount: 8, // количество элементов на странице
