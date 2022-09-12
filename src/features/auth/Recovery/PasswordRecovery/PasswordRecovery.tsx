@@ -30,7 +30,6 @@ export const PasswordRecovery = () => {
       return errors
     },
     onSubmit: (values) => {
-      console.log(values.email)
       dispatch(passwordRecoveryTC(values.email))
     },
   })

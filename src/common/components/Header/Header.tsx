@@ -16,8 +16,11 @@ export const Header = () => {
   const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const navigate = useNavigate()
-  const logInHandler = () => {
+  const signInHandler = () => {
     navigate('/login')
+  }
+  const signUpHandler = () => {
+    navigate('/register')
   }
 
   const onClickLoginHandler = () => {
@@ -34,17 +37,8 @@ export const Header = () => {
 
   const nav = (
     <div className={s.selector} onMouseLeave={onMouseLeaveHandler}>
-      <Link to={'/login'} className={s.linkItem}>
-        Log In
-      </Link>
-      <Link to={'/register'} className={s.linkItem}>
-        Registration
-      </Link>
       <Link to={'/profile'} className={s.linkItem}>
         Profile
-      </Link>
-      <Link to={'/404'} className={s.linkItem}>
-        Error
       </Link>
       <Link to={'/forgot'} className={s.linkItem}>
         Recovery Password
@@ -52,14 +46,8 @@ export const Header = () => {
       <Link to={'/set_new_password/aaaa-bbbb-cccc-dddd'} className={s.linkItem}>
         New Password
       </Link>
-      <Link to={'/test'} className={s.linkItem}>
-        Test
-      </Link>
       <Link to={'/packs_list'} className={s.linkItem}>
-        Packs List
-      </Link>
-      <Link to={'/cards_list/1'} className={s.linkItem}>
-        Cards List
+        Packs
       </Link>
       <button onClick={onClickLogOutHandler}>Log Out</button>
     </div>
@@ -82,7 +70,14 @@ export const Header = () => {
         <div className={s.logo}>
           <img src={logo} alt="logo" onClick={() => navigate('/packs_list')} />
         </div>
-        {isLogin ? user : <SuperButton onClick={logInHandler}>Sign in</SuperButton>}
+        {isLogin ? (
+          user
+        ) : (
+          <div>
+            <SuperButton onClick={signInHandler}>Sign in</SuperButton>
+            <SuperButton onClick={signUpHandler}>Sign up</SuperButton>
+          </div>
+        )}
       </div>
     </div>
   )

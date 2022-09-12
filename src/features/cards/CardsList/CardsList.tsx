@@ -45,10 +45,7 @@ export const CardsList = () => {
   }
 
   useEffect(() => {
-    if (packId === '1') {
-      alert('Пожалуйста, для перехода к списку вопросов нажмите на имя вашей колоды')
-      navigate('/packs_list')
-    } else dispatch(getCardsTC(packId))
+    dispatch(getCardsTC(packId))
   }, [page, pageCount, cardsTotalCount, searchedQuestion, sortCards])
 
   if (!isLoggedIn) {
