@@ -9,17 +9,22 @@ import { LinearPreloader } from '../preloaders/LinearPreloader/LinearPreloader'
 import noAvatar from '../../assets/images/no_avatar.jpg'
 
 export const Header = () => {
+  const [signInMode, setSignInMode] = useState(true)
+  const [select, setSelect] = useState(false)
+
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   const isLogin = useAppSelector((state) => state.auth.isLoggedIn)
   const userData = useAppSelector((state) => state.profile.user)
-  const [select, setSelect] = useState(false)
   const loading = useAppSelector((state) => state.app.status) === 'loading'
 
-  const navigate = useNavigate()
   const signInHandler = () => {
+    setSignInMode(true)
     navigate('/login')
   }
   const signUpHandler = () => {
+    setSignInMode(false)
     navigate('/register')
   }
 
@@ -63,6 +68,16 @@ export const Header = () => {
     </div>
   )
 
+  const headerMode = (
+    <div>
+      {signInMode ? (
+        <SuperButton onClick={signUpHandler}>Sign up</SuperButton>
+      ) : (
+        <SuperButton onClick={signInHandler}>Sign in</SuperButton>
+      )}
+    </div>
+  )
+
   return (
     <div className={s.header}>
       <LinearPreloader turnOn={loading} />
@@ -70,14 +85,7 @@ export const Header = () => {
         <div className={s.logo}>
           <img src={logo} alt="logo" onClick={() => navigate('/packs_list')} />
         </div>
-        {isLogin ? (
-          user
-        ) : (
-          <div>
-            <SuperButton onClick={signInHandler}>Sign in</SuperButton>
-            <SuperButton onClick={signUpHandler}>Sign up</SuperButton>
-          </div>
-        )}
+        {isLogin ? user : headerMode}
       </div>
     </div>
   )
