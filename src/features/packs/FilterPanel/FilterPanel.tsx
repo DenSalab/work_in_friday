@@ -1,6 +1,6 @@
 import s from './FilterPanel.module.css'
 import SuperDoubleRange from '../../../common/components/SuperDoubleRange/SuperDoubleRange'
-import { filter } from '../../../common/swg/filter'
+import { filter } from '../../../common/assets/images/svg/filter'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import {
   getCardsPackTC,

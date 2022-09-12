@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import s from './DropDownMenu.module.css'
-import { dropDown } from '../../../common/swg/dropDown'
-import { edit } from '../../../common/swg/edit'
-import { trash } from '../../../common/swg/trash'
-import { teacher } from '../../../common/swg/teacher'
+import { dropDown } from '../../../common/assets/images/svg/dropDown'
+import { edit } from '../../../common/assets/images/svg/edit'
+import { trash } from '../../../common/assets/images/svg/trash'
+import { teacher } from '../../../common/assets/images/svg/teacher'
 import { CardPackType } from '../../../api/packAPI'
 import { useNavigate } from 'react-router-dom'
 

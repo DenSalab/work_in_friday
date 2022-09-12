@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CardPackType } from '../../../api/packAPI'
 import s from './PackListTable.module.css'
-import { teacher } from '../../../common/swg/teacher'
+import { teacher } from '../../../common/assets/images/svg/teacher'
 import { getCardsPackTC, setSortPacks } from '../packs-reducer'
-import { edit } from '../../../common/swg/edit'
+import { edit } from '../../../common/assets/images/svg/edit'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
-import { trash } from '../../../common/swg/trash'
+import { trash } from '../../../common/assets/images/svg/trash'
 
 type PackListTableType = {
   cardPacks: CardPackType[]

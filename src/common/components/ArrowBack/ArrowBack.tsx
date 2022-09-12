@@ -1,6 +1,6 @@
 import React from 'react'
 
-import arrow from './../../images/arrow-left.svg.png'
+import arrow from '../../assets/images/arrow-left.svg.png'
 import s from './ArrowBack.module.css'
 
 type ArrowBackType = {

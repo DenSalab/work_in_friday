@@ -56,7 +56,7 @@ export const Learn = () => {
 
   return (
     <>
-      <ArrowBack title={'Back to Packs List'} onClick={() => navigate('/packs_list')} />
+      <ArrowBack title={'Back to Packs List'} onClick={() => navigate(`/cards_list/${packId}`)} />
       <h2>You are learning: {packName}</h2>
       <div className={mainStyles.container}>
         {card.question && (

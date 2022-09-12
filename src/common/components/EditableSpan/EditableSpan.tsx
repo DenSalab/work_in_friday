@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from 'react'
 
-import pen from '../../images/pen.png'
+import pen from '../../assets/images/pen.png'
 
 import style from './EditableSpan.module.css'
 

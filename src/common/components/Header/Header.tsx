@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import s from './Header.module.css'
-import logo from './../../images/logo.png'
+import logo from '../../assets/images/logo.png'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import SuperButton from '../SuperButton/SuperButton'
 import { logoutTC } from '../../../features/auth/Profile/profile-reducer'
 import { LinearPreloader } from '../preloaders/LinearPreloader/LinearPreloader'
-import noAvatar from '../../images/no_avatar.jpg'
+import noAvatar from '../../assets/images/no_avatar.jpg'
 
 export const Header = () => {
   const dispatch = useAppDispatch()
