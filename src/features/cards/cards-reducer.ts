@@ -60,6 +60,7 @@ export const getCardsTC =
     const pageCount = getState().cards.pageCount
     const cardQuestion = getState().cards.cardQuestion
     const sortCards = getState().cards.sortCards
+    const cardsTotalCount = getState().cards.cardsTotalCount
 
     dispatch(setAppStatusAC('loading'))
 

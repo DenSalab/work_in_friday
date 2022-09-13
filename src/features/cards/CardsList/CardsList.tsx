@@ -34,6 +34,7 @@ export const CardsList = () => {
   const pageCount = useAppSelector((state) => state.cards.pageCount)
   const page = useAppSelector((state) => state.cards.page)
   const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
+  const cardsTotalCount = useAppSelector((state) => state.cards.cardsTotalCount)
   const sortCards = useAppSelector((state) => state.cards.sortCards)
   const currentPackName = useAppSelector((state) => state.packs.cardPacks).find(
     (n) => n._id === packId
