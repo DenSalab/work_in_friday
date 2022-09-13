@@ -25,10 +25,12 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
   setDelModalActive,
   pack,
 }) => {
+  const dispatch = useAppDispatch()
+
   const user_id = useAppSelector((state) => state.profile.user._id)
   const cards = useAppSelector((state) => state.cards.cards)
   const sortCards = useAppSelector((state) => state.cards.sortCards)
-  const dispatch = useAppDispatch()
+
   const onSortCardHandler = () => {
     dispatch(setSortCardsAC(sortCards === '0updated' ? '1updated' : '0updated'))
   }

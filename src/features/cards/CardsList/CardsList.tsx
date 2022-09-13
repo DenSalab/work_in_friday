@@ -30,23 +30,27 @@ export const CardsList = () => {
 
   const packId = params.packId ? params.packId : ''
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+  const cards = useAppSelector((state) => state.cards.cards)
   const pageCount = useAppSelector((state) => state.cards.pageCount)
-  const cardsTotalCount = useAppSelector((state) => state.cards.cardsTotalCount)
   const page = useAppSelector((state) => state.cards.page)
   const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
-  const isPackEmpty = cardsTotalCount === 0
   const sortCards = useAppSelector((state) => state.cards.sortCards)
   const currentPackName = useAppSelector((state) => state.packs.cardPacks).find(
     (n) => n._id === packId
   )
   const pack = useAppSelector((state) => state.packs.cardPacks!.find((f) => f._id === packId))
+  const cardsCount = pack?.cardsCount
+
+  const isPackEmpty = cardsCount === 0
+  const isCardsNotFound = cards.length === 0
+
   const onAddNewCardHandler = () => {
     setAddModalActive(true)
   }
 
   useEffect(() => {
     dispatch(getCardsTC(packId))
-  }, [page, pageCount, cardsTotalCount, searchedQuestion, sortCards])
+  }, [page, pageCount, cardsCount, searchedQuestion, sortCards])
 
   if (!isLoggedIn) {
     navigate('/login')
@@ -77,9 +81,12 @@ export const CardsList = () => {
         <SuperButton onClick={onAddNewCardHandler}>Add new card</SuperButton>
       </div>
 
-      {isPackEmpty && 'This pack is empty. Click "Add new card" to fill this pack.'}
       {!isPackEmpty && <CardsSearchPanel />}
-      {!isPackEmpty && (
+
+      {isPackEmpty && 'This pack is empty. Click "Add new card" to fill this pack.'}
+      {isCardsNotFound && !isPackEmpty && 'Cards not found...'}
+
+      {!isPackEmpty && !isCardsNotFound && (
         <CardsListTable
           setEditedCard={setEditedCard}
           setEditModalActive={setEditModalActive}
@@ -87,7 +94,7 @@ export const CardsList = () => {
           pack={pack!}
         />
       )}
-      {!isPackEmpty && <CardsListFooter />}
+      {!isPackEmpty && !isCardsNotFound && <CardsListFooter />}
 
       <AddCardModal packId={packId} active={addModalActive} setActive={setAddModalActive} />
       <EditCardModal

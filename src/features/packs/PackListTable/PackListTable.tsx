@@ -9,20 +9,17 @@ import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import { trash } from '../../../common/assets/images/svg/trash'
 
 type PackListTableType = {
-  cardPacks: CardPackType[]
   editCallback: (pack: CardPackType) => void
   deleteCallBack: (pack: CardPackType) => void
 }
-export const PackListTable: React.FC<PackListTableType> = ({
-  cardPacks,
-  editCallback,
-  deleteCallBack,
-}) => {
-  const user_id: string = useAppSelector((state) => state.profile.user._id)
+export const PackListTable: React.FC<PackListTableType> = ({ editCallback, deleteCallBack }) => {
+  const user_id = useAppSelector((state) => state.profile.user._id)
+  const cardPacks = useAppSelector((state) => state.packs.cardPacks)
   const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+
   // sort
   type sortType = 'name' | 'cardsCount' | 'updated' | 'user_name'
 
@@ -70,38 +67,38 @@ export const PackListTable: React.FC<PackListTableType> = ({
       </div>
 
       {cardPacks.map((e) => {
-        const onClickNamePack = () => {
+        const onClickNamePackHandler = () => {
           navigate(`/cards_list/${e._id}`)
         }
-        const onClickTeacher = () => {
+        const onClickTeacherHandler = () => {
           navigate(`/learn/${e._id}/${e.name}`)
         }
-        const onClickEdit = () => {
+        const onClickEditHandler = () => {
           editCallback(e)
         }
-        const onClickDelete = () => {
+        const onClickDeleteHandler = () => {
           deleteCallBack(e)
         }
 
         return (
           <div className={`${s.tb_main} ${loading ? s.tb_disabled : ''}`} key={e._id}>
-            <div className={s.tb_name} onClick={onClickNamePack} aria-disabled={true}>
+            <div className={s.tb_name} onClick={onClickNamePackHandler} aria-disabled={true}>
               {e.name}
             </div>
             <div className={s.tb_cards}>{e.cardsCount}</div>
             <div className={s.tb_last}>{e.updated.slice(0, 10)}</div>
             <div className={s.tb_createdBy}>{e.user_name}</div>
             <div className={s.tb_actions}>
-              <button className={s.teacher} disabled={loading} onClick={onClickTeacher}>
+              <button className={s.teacher} disabled={loading} onClick={onClickTeacherHandler}>
                 {teacher}
               </button>
               {e.user_id === user_id && (
-                <button className={s.edit} disabled={loading} onClick={onClickEdit}>
+                <button className={s.edit} disabled={loading} onClick={onClickEditHandler}>
                   {edit}
                 </button>
               )}
               {e.user_id === user_id && (
-                <button className={s.trash} disabled={loading} onClick={onClickDelete}>
+                <button className={s.trash} disabled={loading} onClick={onClickDeleteHandler}>
                   {trash}
                 </button>
               )}

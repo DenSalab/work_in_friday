@@ -4,7 +4,7 @@ import { AddPackModal } from './modals/AddPackModal'
 import { DelPackModal } from './modals/DelPackModal'
 import { EditPackModal } from './modals/EditPackModal'
 import s from './PacksList.module.css'
-import { getCardsPackTC, PackStateType, setPage } from './packs-reducer'
+import { getCardsPackTC, setPage } from './packs-reducer'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
 import { ArrowBack } from '../../common/components/ArrowBack/ArrowBack'
 import { useDebounce } from '../../common/hooks/debounce'
@@ -42,12 +42,14 @@ export const PacksList = () => {
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-  const state = useAppSelector((state) => state.packs)
+  const searchedPackName = useAppSelector((state) => state.packs.searchedPackName)
   const cardPacksTotalCount = useAppSelector((state) => state.packs.cardPacksTotalCount)
+
   const isEmptyState = cardPacksTotalCount === 0
 
-  const addNewPack = () => {
+  const addNewPackHandler = () => {
     setAddModalActive(true)
   }
 
@@ -61,7 +63,7 @@ export const PacksList = () => {
     setDelModalActive(true)
   }
 
-  const debouncedSearchTerm = useDebounce(state.searchedPackName, 500)
+  const debouncedSearchTerm = useDebounce(searchedPackName, 500)
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -89,18 +91,17 @@ export const PacksList = () => {
           <ArrowBack title={'Back to Profile'} onClick={() => navigate('/profile')} />
           <h2>Packs list</h2>
         </div>
-        <SuperButton onClick={addNewPack}>Add new pack</SuperButton>
+        <SuperButton onClick={addNewPackHandler}>Add new pack</SuperButton>
       </div>
-      {isEmptyState && 'There are no packs. Click "Add new pack" to start.'}
-      {!isEmptyState && <FilterPanel />}
+
+      <FilterPanel />
+      {isEmptyState && 'Packs not found...'}
+
       {!isEmptyState && (
-        <PackListTable
-          cardPacks={state.cardPacks}
-          editCallback={editCallback}
-          deleteCallBack={deleteCallBack}
-        />
+        <PackListTable editCallback={editCallback} deleteCallBack={deleteCallBack} />
       )}
       {!isEmptyState && <PackListFooter />}
+
       <AddPackModal active={addModalActive} setActive={setAddModalActive} />
       <EditPackModal active={editModalActive} setActive={setEditModalActive} pack={editedPack} />
       <DelPackModal active={delModalActive} setActive={setDelModalActive} pack={editedPack} />
