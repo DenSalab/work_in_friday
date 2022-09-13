@@ -5,7 +5,7 @@
 }
 .tb_header, .tb_main{
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 2fr 100px;
+    grid-template-columns: 1fr 2fr 1fr 1fr 2fr 100px;
 
     padding: 10px 15px;
 }
@@ -33,7 +33,7 @@
 .tb_header{
     background-color: #EFEFEF;
 }
-.tb_name, .tb_cards, .tb_last, .tb_createdBy{
+.tb_cover, .tb_name, .tb_cards, .tb_last, .tb_createdBy{
     overflow:hidden;
     display: flex;
 
@@ -41,7 +41,29 @@
 
     text-align: center;
 }
+.tb_cover{
+    position: relative;
 
+    overflow: visible;
+
+    max-height: 30px;
+
+    text-align: center;
+
+    background-repeat: no-repeat !important;
+    background-size: auto 100% !important;
+}
+.bigCover{
+    /*content: '';*/
+
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+
+    width: 150px;
+    height: auto;
+}
 .tb_actions{
     display: flex;
     justify-content: space-between;
