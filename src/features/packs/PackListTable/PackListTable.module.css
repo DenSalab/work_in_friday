@@ -42,10 +42,6 @@
     text-align: center;
 }
 .tb_cover{
-    position: relative;
-
-    overflow: visible;
-
     max-height: 30px;
 
     text-align: center;
@@ -53,17 +49,7 @@
     background-repeat: no-repeat !important;
     background-size: auto 100% !important;
 }
-.bigCover{
-    /*content: '';*/
 
-    position: absolute;
-    z-index: 5;
-    top: 0;
-    left: 0;
-
-    width: 150px;
-    height: auto;
-}
 .tb_actions{
     display: flex;
     justify-content: space-between;

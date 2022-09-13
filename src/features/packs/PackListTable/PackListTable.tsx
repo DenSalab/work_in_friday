@@ -86,27 +86,10 @@ export const PackListTable: React.FC<PackListTableType> = ({
           deleteCallBack(e)
         }
 
-        const [show, setShow] = useState(false)
-        const showImage = () => {
-          setShow(true)
-        }
-        const hideImage = () => {
-          setShow(false)
-        }
         return (
           <div className={`${s.tb_main} ${loading ? s.tb_disabled : ''}`} key={e._id}>
-            <div
-              className={s.tb_cover}
-              style={{ background: `url(${e.deckCover})` }}
-              onMouseEnter={showImage}
-              onMouseLeave={hideImage}
-            >
+            <div className={s.tb_cover} style={{ background: `url(${e.deckCover})` }}>
               {e.deckCover ? '' : 'no cover'}
-              {show && e.deckCover ? (
-                <img className={s.bigCover} src={e.deckCover} alt={'cover'} />
-              ) : (
-                ''
-              )}
             </div>
             <div className={s.tb_name} onClick={onClickNamePack} aria-disabled={true}>
               {e.name}
