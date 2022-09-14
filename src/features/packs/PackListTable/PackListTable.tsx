@@ -7,10 +7,11 @@ import { getCardsPackTC, setSortPacks } from '../packs-reducer'
 import { edit } from '../../../common/assets/images/svg/edit'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import { trash } from '../../../common/assets/images/svg/trash'
-
+import {getCardsTC} from '../../cards/cards-reducer';
 type PackListTableType = {
-  editCallback: (pack: CardPackType) => void
-  deleteCallBack: (pack: CardPackType) => void
+    cardPacks: CardPackType[]
+    editCallback: (pack: CardPackType) => void
+    deleteCallBack: (pack: CardPackType) => void
 }
 export const PackListTable: React.FC<PackListTableType> = ({ editCallback, deleteCallBack }) => {
   const user_id = useAppSelector((state) => state.profile.user._id)
@@ -73,8 +74,12 @@ export const PackListTable: React.FC<PackListTableType> = ({ editCallback, delet
         const onClickNamePackHandler = () => {
           navigate(`/cards_list/${e._id}`)
         }
-        const onClickTeacherHandler = () => {
-          navigate(`/learn/${e._id}/${e.name}`)
+        const onClickTeacherHandler = async () => {
+            if (e.cardsCount === 0) alert('Нет карточек для изучения')
+            else {
+                await dispatch(getCardsTC(e._id, e.cardsCount));
+                navigate(`/learn/${e._id}/${e.name}`)
+            }
         }
         const onClickEditHandler = () => {
           editCallback(e)

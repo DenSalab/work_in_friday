@@ -14,14 +14,19 @@ type DropDownMenuType = {
 }
 
 export const DropDownMenu = (props: DropDownMenuType) => {
-  const [visible, setVisible] = useState(false)
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const [visible, setVisible] = useState(false)
 
   const onClickMenu = () => {
     setVisible(!visible)
   }
-  const onClickTeacher = () => {
-    navigate(`/learn/${props.pack._id}/${props.pack.name}`)
+  const onClickTeacher = async () => {
+    if (props.pack.cardsCount === 0) alert('Нет карточек для изучения')
+    else {
+      await dispatch(getCardsTC(props.pack._id, props.pack.cardsCount));
+      navigate(`/learn/${props.pack._id}/${props.pack.name}`)
+    }
   }
   const onClickEdit = () => {
     props.editCallback()

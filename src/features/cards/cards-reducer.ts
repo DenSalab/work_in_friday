@@ -55,7 +55,7 @@ export const setSortCardsAC = (value: string) => ({ type: 'cards/SET_SORT_CARDS'
 
 // thunk creators
 export const getCardsTC =
-  (cardsPack_id: string): AppThunk =>
+  (cardsPack_id: string, count?: number): AppThunk =>
   async (dispatch, getState: () => AppRootStateType) => {
     const cards = getState().cards
     const page = cards.page
@@ -64,8 +64,12 @@ export const getCardsTC =
     const sortCards = cards.sortCards
 
     dispatch(setAppStatusAC('loading'))
+
     try {
-      const res = await cardsAPI.getCard({ cardsPack_id, page, pageCount, cardQuestion, sortCards })
+      const res = count ?
+          await cardsAPI.getCard({ cardsPack_id, page:1, pageCount: count }) :
+          await cardsAPI.getCard({ cardsPack_id, page, pageCount, cardQuestion, sortCards })
+
       dispatch(setCardsAC(res.data.cards))
       dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
       dispatch(setPageCountAC(res.data.pageCount))
