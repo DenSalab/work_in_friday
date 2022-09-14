@@ -1,12 +1,12 @@
 import s from './PackListFooter.module.css'
 import Paginator from '../../../common/components/Pagination/Paginator'
 import { ChangeEvent } from 'react'
-import { getCardsPackTC, PackStateType, setPage, setPageCount } from '../packs-reducer'
+import { getCardsPackTC, setPage, setPageCount } from '../packs-reducer'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 
 export const PackListFooter = () => {
   const dispatch = useAppDispatch()
-  const state: PackStateType = useAppSelector((state) => state.packs)
+  const state = useAppSelector((state) => state.packs)
 
   const onChangePageCount = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setPageCount(+e.currentTarget.value))

@@ -21,10 +21,7 @@ const initialState = {
   // tokenDeathTime: 0,
 }
 
-export const packsReducer = (
-  state: PackStateType = initialState,
-  action: ActionsType
-): PackStateType => {
+export const packsReducer = (state = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
     case 'packs/SET_SEARCHED_PACK_NAME': {
       return { ...state, searchedPackName: action.value }
@@ -79,8 +76,8 @@ export const setSortPacks = (sortPacks: string) =>
 // thunk creators
 export const getCardsPackTC = (): AppThunk => async (dispatch, getState) => {
   try {
-    const user_id: string = getState().profile.user._id
-    const packs: PackStateType = getState().packs
+    const user_id = getState().profile.user._id
+    const packs = getState().packs
     const data: CardsPackQueryType = {
       sortPacks: packs.sortPacks,
       packName: packs.searchedPackName,
@@ -137,3 +134,6 @@ export const updateCardsPackTC =
       serverErrorHandler(e as AxiosError | Error, dispatch)
     }
   }
+
+//type
+type InitialStateType = typeof initialState
