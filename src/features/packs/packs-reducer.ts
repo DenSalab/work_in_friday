@@ -137,6 +137,3 @@ export const updateCardsPackTC =
       serverErrorHandler(e as AxiosError | Error, dispatch)
     }
   }
-
-//types
-export type PackStateType = typeof initialState

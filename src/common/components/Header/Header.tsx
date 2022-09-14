@@ -9,7 +9,7 @@ import { LinearPreloader } from '../preloaders/LinearPreloader/LinearPreloader'
 import noAvatar from '../../assets/images/no_avatar.jpg'
 
 export const Header = () => {
-  const [signInMode, setSignInMode] = useState(false)
+  const [signInMode, setSignInMode] = useState(true)
   const [select, setSelect] = useState(false)
 
   const dispatch = useAppDispatch()
