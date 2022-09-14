@@ -15,6 +15,7 @@ import s from './CardsList.module.css'
 import { DropDownMenu } from '../DropDownMenu/DropDownMenu'
 import { EditPackModal } from '../../packs/modals/EditPackModal'
 import { DelPackModal } from '../../packs/modals/DelPackModal'
+import { getCardsPackTC } from '../../packs/packs-reducer'
 
 export const CardsList = () => {
   const [editedCard, setEditedCard] = useState({} as CardType)
@@ -34,27 +35,16 @@ export const CardsList = () => {
   const pageCount = useAppSelector((state) => state.cards.pageCount)
   const page = useAppSelector((state) => state.cards.page)
   const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
-  const cardsTotalCount = useAppSelector((state) => state.cards.cardsTotalCount)
+  const cardsTotalCount = useAppSelector((state) => state.cards.cardsTotalCount) ////
   const sortCards = useAppSelector((state) => state.cards.sortCards)
-  const currentPackName = useAppSelector((state) => state.packs.cardPacks).find(
-    (n) => n._id === packId
-  )
-  const pack = useAppSelector((state) => state.packs.cardPacks!.find((f) => f._id === packId))
-  const cardsCount = pack?.cardsCount
+  const currentPack = useAppSelector((state) => state.packs.cardPacks).find((n) => n._id === packId)
+  const currentPackCardsCount = currentPack?.cardsCount
 
-  const isPackEmpty = cardsCount === 0
-  const isCardsNotFound = cards.length === 0
+  const isPackEmpty = currentPackCardsCount === 0
+  const isCardsNotFound = cardsTotalCount === 0
 
   const onAddNewCardHandler = () => {
     setAddModalActive(true)
-  }
-
-  useEffect(() => {
-    dispatch(getCardsTC(packId))
-  }, [page, pageCount, cardsCount, searchedQuestion, sortCards])
-
-  if (!isLoggedIn) {
-    navigate('/login')
   }
 
   const editPackCallback = () => {
@@ -65,17 +55,25 @@ export const CardsList = () => {
     setDelPackModalActive(true)
   }
 
+  useEffect(() => {
+    dispatch(getCardsTC(packId))
+    //dispatch(getCardsPackTC())
+  }, [page, pageCount, currentPackCardsCount, searchedQuestion, sortCards, cardsTotalCount])
+
+  if (!isLoggedIn) {
+    navigate('/login')
+  }
   return (
     <div className={s.wrapper}>
       <div className={s.header}>
         <div className={s.header_title}>
           <ArrowBack title={'Back to Packs List'} onClick={() => navigate('/packs_list')} />
           <div className={s.title}>
-            <h2>{currentPackName?.name}</h2>
+            <h2>{currentPack?.name}</h2>
             <DropDownMenu
               editCallback={editPackCallback}
               deleteCallBack={deletePackCallBack}
-              pack={pack!}
+              pack={currentPack!}
             />
           </div>
         </div>
@@ -92,7 +90,7 @@ export const CardsList = () => {
           setEditedCard={setEditedCard}
           setEditModalActive={setEditModalActive}
           setDelModalActive={setDelModalActive}
-          pack={pack!}
+          pack={currentPack!}
         />
       )}
       {!isPackEmpty && !isCardsNotFound && <CardsListFooter />}
@@ -110,8 +108,16 @@ export const CardsList = () => {
         active={delModalActive}
         setActive={setDelModalActive}
       />
-      <EditPackModal active={editPackModalActive} setActive={setEditPackModalActive} pack={pack!} />
-      <DelPackModal active={delPackModalActive} setActive={setDelPackModalActive} pack={pack!} />
+      <EditPackModal
+        active={editPackModalActive}
+        setActive={setEditPackModalActive}
+        pack={currentPack!}
+      />
+      <DelPackModal
+        active={delPackModalActive}
+        setActive={setDelPackModalActive}
+        pack={currentPack!}
+      />
     </div>
   )
 }

@@ -24,15 +24,14 @@ export const AddCardModal: React.FC<PropsType> = ({ packId, active, setActive })
     setAnswer(e.currentTarget.value)
   }
 
-  const addNewCard = async () => {
-    await dispatch(
+  const addNewCard = () => {
+    dispatch(
       createCardTC({
         cardsPack_id: packId,
         question: newQuestion,
         answer: answer,
       })
     )
-    await dispatch(getCardsTC(packId))
     setActive(false)
     setNewQuestion('')
     setAnswer('')

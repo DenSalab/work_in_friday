@@ -27,7 +27,6 @@ export const packsReducer = (
 ): PackStateType => {
   switch (action.type) {
     case 'packs/SET_SEARCHED_PACK_NAME': {
-      console.log(action.value)
       return { ...state, searchedPackName: action.value }
     }
     case 'packs/SET_ONLY_MY_PACKS': {
@@ -48,7 +47,7 @@ export const packsReducer = (
     case 'packs/SET_MAX_CARDS_COUNT': {
       return { ...state, maxCardsCount: action.value }
     }
-    case 'packs/SET__CARD_PACKS': {
+    case 'packs/SET_CARD_PACKS': {
       return { ...state, cardPacks: action.cardPacks }
     }
     case 'packs/SET_SORT_PACKS': {
@@ -73,7 +72,7 @@ export const setMinCardsCount = (value: number) =>
 export const setMaxCardsCount = (value: number) =>
   ({ type: 'packs/SET_MAX_CARDS_COUNT', value } as const)
 export const setCardPacks = (cardPacks: Array<CardPackType>) =>
-  ({ type: 'packs/SET__CARD_PACKS', cardPacks } as const)
+  ({ type: 'packs/SET_CARD_PACKS', cardPacks } as const)
 export const setSortPacks = (sortPacks: string) =>
   ({ type: 'packs/SET_SORT_PACKS', sortPacks } as const)
 

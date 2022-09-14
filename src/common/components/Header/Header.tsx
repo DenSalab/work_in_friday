@@ -9,7 +9,7 @@ import { LinearPreloader } from '../preloaders/LinearPreloader/LinearPreloader'
 import noAvatar from '../../assets/images/no_avatar.jpg'
 
 export const Header = () => {
-  const [signInMode, setSignInMode] = useState(true)
+  const [signInMode, setSignInMode] = useState(false)
   const [select, setSelect] = useState(false)
 
   const dispatch = useAppDispatch()
@@ -38,7 +38,9 @@ export const Header = () => {
     setTimeout(() => setSelect(false), 300)
   }
 
-  const onClickLogOutHandler = () => dispatch(logoutTC())
+  const onClickLogOutHandler = () => {
+    dispatch(logoutTC())
+  }
 
   const nav = (
     <div className={s.selector} onMouseLeave={onMouseLeaveHandler}>

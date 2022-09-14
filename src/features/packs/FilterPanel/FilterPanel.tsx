@@ -66,7 +66,6 @@ export const FilterPanel = () => {
           className={s.search}
           value={state.searchedPackName}
           onChange={onChangeSearch}
-          disabled={loading}
         />
       </div>
 

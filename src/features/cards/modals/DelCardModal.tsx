@@ -18,10 +18,9 @@ export const DelCardModal: React.FC<PropsType> = ({ packId, card, active, setAct
 
   const [newQuestion, setNewQuestion] = useState('')
 
-  const deleteCard = async () => {
-    await dispatch(deleteCardTC(card._id))
+  const deleteCard = () => {
+    dispatch(deleteCardTC(card._id))
     setActive(false)
-    await dispatch(getCardsTC(packId))
     setNewQuestion('')
   }
 

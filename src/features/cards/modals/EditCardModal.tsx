@@ -25,9 +25,8 @@ export const EditCardModal: React.FC<PropsType> = ({ packId, card, active, setAc
     setAnswer(e.currentTarget.value)
   }
 
-  const editCard = async () => {
-    await dispatch(updateCardTC({ ...card, question: newQuestion, answer: answer }))
-    await dispatch(getCardsTC(packId))
+  const editCard = () => {
+    dispatch(updateCardTC({ ...card, question: newQuestion, answer: answer }))
     setActive(false)
     setNewQuestion('question')
     setAnswer('answer')

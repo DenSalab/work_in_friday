@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useRef } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { EditableSpan } from '../../../common/components/EditableSpan/EditableSpan'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
@@ -13,6 +13,7 @@ import { changePhoto } from '../../../common/assets/images/svg/changePhoto'
 export const Profile = () => {
   const user = useAppSelector((state) => state.profile.user)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const logOutHandler = () => dispatch(logoutTC())
   const onChangeNameHandler = (name: string) => {
     dispatch(updateUserTC({ ...user, name: name }))
@@ -20,7 +21,7 @@ export const Profile = () => {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
   if (!isLoggedIn) {
-    return <Navigate to={'/login'} />
+    navigate('/login')
   }
 
   const inputRef = useRef<HTMLInputElement>(null)
