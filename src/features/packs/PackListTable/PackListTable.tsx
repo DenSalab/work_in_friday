@@ -49,6 +49,9 @@ export const PackListTable: React.FC<PackListTableType> = ({ editCallback, delet
   return (
     <div className={s.table}>
       <div className={s.tb_header}>
+        <div className={s.tb_cover}>
+          <span>Cover</span>
+        </div>
         <div className={s.tb_name} onClick={() => onClickSortHandler('name')}>
           <span>Name {sort === 'name' ? sortArrows('name') : ''}</span>
         </div>
@@ -82,6 +85,9 @@ export const PackListTable: React.FC<PackListTableType> = ({ editCallback, delet
 
         return (
           <div className={`${s.tb_main} ${loading ? s.tb_disabled : ''}`} key={e._id}>
+            <div className={s.tb_cover} style={{ background: `url(${e.deckCover})` }}>
+              {e.deckCover ? '' : 'no cover'}
+            </div>
             <div className={s.tb_name} onClick={onClickNamePackHandler} aria-disabled={true}>
               {e.name}
             </div>
