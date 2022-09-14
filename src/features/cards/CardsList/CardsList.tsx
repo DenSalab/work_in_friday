@@ -94,7 +94,7 @@ export const CardsList = () => {
           <ArrowBack title={'Back to Packs List'} onClick={() => navigate('/packs_list')} />
           <div className={s.title}>
             <h2>Cards list</h2>
-            <DropDownMenu editCallback={editPackCallback} deleteCallBack={deletePackCallBack} />
+            <DropDownMenu editCallback={editPackCallback} deleteCallBack={deletePackCallBack} pack={pack}/>
           </div>
         </div>
         <SuperButton onClick={onAddNewCardHandler}>Add new card</SuperButton>

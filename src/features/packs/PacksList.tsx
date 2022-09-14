@@ -91,8 +91,8 @@ export const PacksList = () => {
         </div>
         <SuperButton onClick={addNewPack}>Add new pack</SuperButton>
       </div>
+      <FilterPanel />
       {isEmptyState && 'There are no packs. Click "Add new pack" to start.'}
-      {!isEmptyState && <FilterPanel />}
       {!isEmptyState && (
         <PackListTable
           cardPacks={state.cardPacks}

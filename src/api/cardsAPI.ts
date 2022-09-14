@@ -1,7 +1,7 @@
 import { instance } from './instance'
 
 export const cardsAPI = {
-  getCard(values: CardQueryType) {
+  getCard(values?: CardQueryType) {
     return instance.get<GetCardsResponseType>('cards/card', { params: values })
   },
   createCard(card: CreatedCardType) {

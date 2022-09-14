@@ -4,20 +4,31 @@ import { dropDown } from '../../../common/swg/dropDown'
 import { edit } from '../../../common/swg/edit'
 import { trash } from '../../../common/swg/trash'
 import { teacher } from '../../../common/swg/teacher'
+import {CardPackType} from '../../../api/packAPI';
+import {getCardsTC} from '../cards-reducer';
+import {useAppDispatch} from '../../../common/hooks/hooks';
+import {useNavigate} from 'react-router-dom';
 
 type DropDownMenuType = {
+  pack: CardPackType
   editCallback: () => void
   deleteCallBack: () => void
 }
 
 export const DropDownMenu = (props: DropDownMenuType) => {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [visible, setVisible] = useState(false)
 
   const onClickMenu = () => {
     setVisible(!visible)
   }
-  const onClickTeacher = () => {
-    alert('Learn')
+  const onClickTeacher = async () => {
+    if (props.pack.cardsCount === 0) alert('Нет карточек для изучения')
+    else {
+      await dispatch(getCardsTC(props.pack._id, props.pack.cardsCount));
+      navigate(`/learn/${props.pack._id}/${props.pack.name}`)
+    }
   }
   const onClickEdit = () => {
     props.editCallback()
