@@ -6,16 +6,20 @@ import { trash } from '../../../common/assets/images/svg/trash'
 import { teacher } from '../../../common/assets/images/svg/teacher'
 import { CardPackType } from '../../../api/packAPI'
 import { useNavigate } from 'react-router-dom'
+import { useAppSelector } from '../../../common/hooks/hooks'
 
 type DropDownMenuType = {
   editCallback: () => void
   deleteCallBack: () => void
   pack: CardPackType
+  isPackEmpty: boolean
 }
 
 export const DropDownMenu = (props: DropDownMenuType) => {
   const [visible, setVisible] = useState(false)
   const navigate = useNavigate()
+  const user_id = useAppSelector((state) => state.profile.user._id)
+  const isMyPack = user_id === props.pack.user_id
 
   const onClickMenu = () => {
     setVisible(!visible)
@@ -40,15 +44,24 @@ export const DropDownMenu = (props: DropDownMenuType) => {
 
       {visible && (
         <div className={s.dropDown} onMouseLeave={onMouseLeaveHandler}>
-          <div className={s.edit} onClick={onClickEdit}>
+          <div
+            className={isMyPack ? s.edit : s.edit_disabled}
+            onClick={isMyPack ? onClickEdit : () => {}}
+          >
             {edit}
             <span> Edit</span>
           </div>
-          <div className={s.delete} onClick={onClickDelete}>
+          <div
+            className={isMyPack ? s.delete : s.delete_disabled}
+            onClick={isMyPack ? onClickDelete : () => {}}
+          >
             {trash}
             <span> Delete</span>
           </div>
-          <div className={s.teacher} onClick={onClickTeacher}>
+          <div
+            className={!props.isPackEmpty ? s.teacher : s.teacher_disabled}
+            onClick={!props.isPackEmpty ? onClickTeacher : () => {}}
+          >
             {teacher}
             <span> Learn</span>
           </div>

@@ -26,6 +26,14 @@
 
     font-size: 14px;
 }
+.edit_disabled, .delete_disabled, .teacher_disabled{
+    cursor: default;
+
+    margin: 10px;
+
+    font-size: 14px;
+    color: grey;
+}
 
 .edit:hover, .delete:hover, .teacher:hover{
     cursor: pointer;

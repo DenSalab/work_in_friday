@@ -15,7 +15,6 @@ import s from './CardsList.module.css'
 import { DropDownMenu } from '../DropDownMenu/DropDownMenu'
 import { EditPackModal } from '../../packs/modals/EditPackModal'
 import { DelPackModal } from '../../packs/modals/DelPackModal'
-import { getCardsPackTC } from '../../packs/packs-reducer'
 
 export const CardsList = () => {
   const [editedCard, setEditedCard] = useState({} as CardType)
@@ -31,7 +30,6 @@ export const CardsList = () => {
 
   const packId = params.packId ? params.packId : ''
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-  const cards = useAppSelector((state) => state.cards.cards)
   const pageCount = useAppSelector((state) => state.cards.pageCount)
   const page = useAppSelector((state) => state.cards.page)
   const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
@@ -73,6 +71,7 @@ export const CardsList = () => {
               editCallback={editPackCallback}
               deleteCallBack={deletePackCallBack}
               pack={currentPack!}
+              isPackEmpty={isPackEmpty}
             />
           </div>
         </div>

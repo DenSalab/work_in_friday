@@ -89,12 +89,13 @@ export const PacksList = () => {
       </div>
 
       <FilterPanel />
-      {isEmptyState && 'Packs not found...'}
 
       {!isEmptyState && (
         <PackListTable editCallback={editCallback} deleteCallBack={deleteCallBack} />
       )}
       {!isEmptyState && <PackListFooter />}
+
+      {isEmptyState && 'Packs not found...'}
 
       <AddPackModal active={addModalActive} setActive={setAddModalActive} />
       <EditPackModal active={editModalActive} setActive={setEditModalActive} pack={editedPack} />
