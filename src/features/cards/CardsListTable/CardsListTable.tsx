@@ -26,6 +26,7 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
   pack,
 }) => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const user_id = useAppSelector((state) => state.profile.user._id)
   const cards = useAppSelector((state) => state.cards.cards)
@@ -34,7 +35,6 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
   const onSortCardHandler = () => {
     dispatch(setSortCardsAC(sortCards === '0updated' ? '1updated' : '0updated'))
   }
-  const navigate = useNavigate()
 
   const tableRender = (e: CardType) => {
     const onClickTeacherHandler = () => {

@@ -4,6 +4,7 @@ import { cardsAPI, CardsStateType, CardType, CreatedCardType } from '../../api/c
 import { setAppStatusAC } from '../../app/app-reducer'
 import { ActionsType, AppRootStateType, AppThunk } from '../../app/store'
 import { serverErrorHandler } from '../../common/utils/serverErrorHandler'
+import { getCardsPackTC } from '../packs/packs-reducer'
 
 const initialState = {
   cards: [] as CardsStateType,
@@ -61,13 +62,10 @@ export const getCardsTC =
     const pageCount = cards.pageCount
     const cardQuestion = cards.cardQuestion
     const sortCards = cards.sortCards
-    const cardsTotalCount = cards.cardsTotalCount
 
     dispatch(setAppStatusAC('loading'))
-
     try {
       const res = await cardsAPI.getCard({ cardsPack_id, page, pageCount, cardQuestion, sortCards })
-
       dispatch(setCardsAC(res.data.cards))
       dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
       dispatch(setPageCountAC(res.data.pageCount))
@@ -84,6 +82,7 @@ export const createCardTC =
     try {
       await cardsAPI.createCard(card)
       await dispatch(getCardsTC(card.cardsPack_id))
+      await dispatch(getCardsPackTC())
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)

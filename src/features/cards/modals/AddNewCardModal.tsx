@@ -4,6 +4,7 @@ import { CustomModal } from '../../../common/components/CustomModal/CustomModal'
 import SuperInputText from '../../../common/components/SuperInputText/SuperInputText'
 import { useAppDispatch } from '../../../common/hooks/hooks'
 import { createCardTC, getCardsTC } from '../cards-reducer'
+import { getCardsPackTC } from '../../packs/packs-reducer'
 
 type PropsType = {
   packId: string

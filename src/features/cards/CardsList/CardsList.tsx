@@ -57,8 +57,7 @@ export const CardsList = () => {
 
   useEffect(() => {
     dispatch(getCardsTC(packId))
-    //dispatch(getCardsPackTC())
-  }, [page, pageCount, currentPackCardsCount, searchedQuestion, sortCards, cardsTotalCount])
+  }, [page, pageCount, searchedQuestion, sortCards, cardsTotalCount])
 
   if (!isLoggedIn) {
     navigate('/login')

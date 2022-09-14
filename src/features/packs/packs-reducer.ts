@@ -90,7 +90,6 @@ export const getCardsPackTC = (): AppThunk => async (dispatch, getState) => {
       max: packs.maxCardsCount,
       page: packs.page,
     }
-
     dispatch(setAppStatusAC('loading'))
     const res = await packAPI.getCardsPack(data)
     dispatch(setCardPacks(res.data.cardPacks))

@@ -63,7 +63,7 @@ export const PacksList = () => {
     setDelModalActive(true)
   }
 
-  const debouncedSearchTerm = useDebounce(searchedPackName, 500)
+  useDebounce(searchedPackName, 500)
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -72,13 +72,7 @@ export const PacksList = () => {
     return () => {
       dispatch(setPage(1))
     }
-  }, [])
-
-  useEffect(() => {
-    if (debouncedSearchTerm) {
-      dispatch(getCardsPackTC())
-    }
-  }, [debouncedSearchTerm])
+  }, [searchedPackName])
 
   if (!isLoggedIn) {
     navigate('/login')
