@@ -82,7 +82,6 @@ export const CardsList = () => {
       {!isPackEmpty && <CardsSearchPanel />}
 
       {isPackEmpty && 'This pack is empty. Click "Add new card" to fill this pack.'}
-      {isCardsNotFound && !isPackEmpty && 'Cards not found...'}
 
       {!isPackEmpty && !isCardsNotFound && (
         <CardsListTable
@@ -93,6 +92,7 @@ export const CardsList = () => {
         />
       )}
       {!isPackEmpty && !isCardsNotFound && <CardsListFooter />}
+      {isCardsNotFound && !isPackEmpty && 'Cards not found...'}
 
       <AddCardModal packId={packId} active={addModalActive} setActive={setAddModalActive} />
       <EditCardModal
