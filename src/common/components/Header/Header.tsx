@@ -73,9 +73,9 @@ export const Header = () => {
   const headerMode = (
     <div>
       {signInMode ? (
-        <SuperButton onClick={signUpHandler}>Sign up</SuperButton>
-      ) : (
         <SuperButton onClick={signInHandler}>Sign in</SuperButton>
+      ) : (
+        <SuperButton onClick={signUpHandler}>Sign up</SuperButton>
       )}
     </div>
   )

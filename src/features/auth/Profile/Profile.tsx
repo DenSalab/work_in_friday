@@ -12,22 +12,23 @@ import { changePhoto } from '../../../common/assets/images/svg/changePhoto'
 
 export const Profile = () => {
   const user = useAppSelector((state) => state.profile.user)
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  const logOutHandler = () => dispatch(logoutTC())
-  const onChangeNameHandler = (name: string) => {
-    dispatch(updateUserTC({ ...user, name: name }))
-  }
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
-  if (!isLoggedIn) {
-    navigate('/login')
-  }
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const inputRef = useRef<HTMLInputElement>(null)
 
   const selectFileHandler = () => {
     inputRef && inputRef.current?.click()
+  }
+  const logOutHandler = () => dispatch(logoutTC())
+  const onChangeNameHandler = (name: string) => {
+    dispatch(updateUserTC({ ...user, name: name }))
+  }
+
+  if (!isLoggedIn) {
+    navigate('/login')
   }
 
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {

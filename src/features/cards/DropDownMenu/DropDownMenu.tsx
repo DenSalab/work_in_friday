@@ -36,6 +36,7 @@ export const DropDownMenu = (props: DropDownMenuType) => {
   const onMouseLeaveHandler = () => {
     setTimeout(() => setVisible(false), 300)
   }
+
   return (
     <div className={s.dd_container}>
       <div className={s.dd_menu} onClick={onClickMenu}>

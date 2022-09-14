@@ -66,9 +66,7 @@ export const PacksList = () => {
   useDebounce(searchedPackName, 500)
 
   useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(getCardsPackTC())
-    }
+    dispatch(getCardsPackTC())
     return () => {
       dispatch(setPage(1))
     }

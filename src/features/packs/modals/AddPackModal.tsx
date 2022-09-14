@@ -3,7 +3,7 @@ import SuperInputText from '../../../common/components/SuperInputText/SuperInput
 import SuperCheckbox from '../../../common/components/SuperCheckbox/SuperCheckbox'
 import { CustomModal } from '../../../common/components/CustomModal/CustomModal'
 import { useAppDispatch } from '../../../common/hooks/hooks'
-import { createCardsPackTC, getCardsPackTC } from '../packs-reducer'
+import { createCardsPackTC } from '../packs-reducer'
 import SuperButton from '../../../common/components/SuperButton/SuperButton'
 
 type PropsType = {
@@ -26,14 +26,13 @@ export const AddPackModal: React.FC<PropsType> = ({ active, setActive }) => {
     setIsPrivate(e.currentTarget.checked)
   }
 
-  const addNewPack = async () => {
+  const addNewPack = () => {
     const CreatePackData = {
       name: newPackName,
       deckCover: baseCover,
       private: isPrivate,
     }
-    await dispatch(createCardsPackTC(CreatePackData))
-    await dispatch(getCardsPackTC())
+    dispatch(createCardsPackTC(CreatePackData))
     setNewPackName('My pack')
     setIsPrivate(false)
     setActive(false)

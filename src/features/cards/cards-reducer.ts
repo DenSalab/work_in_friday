@@ -96,6 +96,7 @@ export const deleteCardTC =
       dispatch(setAppStatusAC('loading'))
       const res = await cardsAPI.deleteCard(id)
       await dispatch(getCardsTC(res.data.deletedCard.cardsPack_id))
+      await dispatch(getCardsPackTC())
       dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
       serverErrorHandler(e as AxiosError | Error, dispatch)
