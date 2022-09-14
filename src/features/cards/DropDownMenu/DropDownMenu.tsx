@@ -7,6 +7,8 @@ import { teacher } from '../../../common/assets/images/svg/teacher'
 import { CardPackType } from '../../../api/packAPI'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../../common/hooks/hooks'
+import { useAppDispatch } from '../../../common/hooks/hooks'
+import {getCardsTC} from '../cards-reducer';
 
 type DropDownMenuType = {
   editCallback: () => void
@@ -16,16 +18,21 @@ type DropDownMenuType = {
 }
 
 export const DropDownMenu = (props: DropDownMenuType) => {
-  const [visible, setVisible] = useState(false)
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const [visible, setVisible] = useState(false)
   const user_id = useAppSelector((state) => state.profile.user._id)
   const isMyPack = user_id === props.pack.user_id
 
   const onClickMenu = () => {
     setVisible(!visible)
   }
-  const onClickTeacher = () => {
-    navigate(`/learn/${props.pack._id}/${props.pack.name}`)
+  const onClickTeacher = async () => {
+    if (props.pack.cardsCount === 0) alert('Нет карточек для изучения')
+    else {
+      await dispatch(getCardsTC(props.pack._id, props.pack.cardsCount));
+      navigate(`/learn/${props.pack._id}/${props.pack.name}`)
+    }
   }
   const onClickEdit = () => {
     props.editCallback()
