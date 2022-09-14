@@ -6,6 +6,8 @@ import { trash } from '../../../common/assets/images/svg/trash'
 import { teacher } from '../../../common/assets/images/svg/teacher'
 import { CardPackType } from '../../../api/packAPI'
 import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '../../../common/hooks/hooks'
+import {getCardsTC} from '../cards-reducer';
 
 type DropDownMenuType = {
   editCallback: () => void

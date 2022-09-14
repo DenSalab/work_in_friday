@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 import { trash } from '../../../common/assets/images/svg/trash'
 import {getCardsTC} from '../../cards/cards-reducer';
 type PackListTableType = {
-    cardPacks: CardPackType[]
     editCallback: (pack: CardPackType) => void
     deleteCallBack: (pack: CardPackType) => void
 }
