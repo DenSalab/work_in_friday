@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
 import { updateCardGradeTC } from '../cards/cards-reducer'
 import SuperButton from '../../common/components/SuperButton/SuperButton'
 import SuperRadio from '../../common/components/SuperRadio/SuperRadio'
-import { getCard } from './getCard'
+import { getRandomCard } from '../../common/utils/getRandomCard'
 
 const grades = ["don't know", 'forgot', 'long thought', 'confused', 'knew']
 
@@ -22,14 +22,14 @@ export const Learn = () => {
   const { packId, packName } = useParams()
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const [radioValue, setRadioValue] = useState(grades[0])
-  const [card, setCard] = useState(getCard(cards))
+  const [card, setCard] = useState(getRandomCard(cards))
 
   let radioValueIndex = grades.indexOf(radioValue)
 
   const onNext = async () => {
     setIsChecked(false)
     if (packId) await dispatch(updateCardGradeTC(packId, radioValueIndex + 1, card._id))
-    setCard(getCard(cards))
+    setCard(getRandomCard(cards))
   }
 
   console.log('Learn mount, cards:', cards)
