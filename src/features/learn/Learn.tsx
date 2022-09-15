@@ -17,6 +17,7 @@ export const Learn = () => {
   const navigate = useNavigate()
 
   const { cards } = useAppSelector((store) => store.cards)
+  const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const { packId, packName } = useParams()
   const [isChecked, setIsChecked] = useState<boolean>(false)
@@ -51,16 +52,21 @@ export const Learn = () => {
                   options={grades}
                   value={radioValue}
                   onChangeOption={setRadioValue}
+                  disabled={loading}
                 />
 
                 <div>
-                  <SuperButton onClick={onNext}>next</SuperButton>
+                  <SuperButton onClick={onNext} disabled={loading}>
+                    next
+                  </SuperButton>
                 </div>
               </>
             )}
             {!isChecked && (
               <div>
-                <SuperButton onClick={() => setIsChecked(true)}>Check</SuperButton>
+                <SuperButton onClick={() => setIsChecked(true)} disabled={loading}>
+                  Check
+                </SuperButton>
               </div>
             )}
           </div>
