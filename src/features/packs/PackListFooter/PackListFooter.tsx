@@ -6,7 +6,9 @@ import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
 
 export const PackListFooter = () => {
   const dispatch = useAppDispatch()
+
   const state = useAppSelector((state) => state.packs)
+  const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const onChangePageCount = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setPageCount(+e.currentTarget.value))
@@ -34,6 +36,7 @@ export const PackListFooter = () => {
           max={25}
           value={state.pageCount}
           onChange={onChangePageCount}
+          disabled={loading}
         />
         <span>cards per page</span>
       </div>
