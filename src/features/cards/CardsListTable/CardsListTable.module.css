@@ -48,6 +48,19 @@
 
     width: 30px;
     height: 30px;
+
+    background-color: inherit;
+    border: none;
+}
+.edit:disabled path, .trash:disabled path{
+    cursor: context-menu;
+
+    fill: #434e5b;
+}
+.teacher:disabled path{
+    cursor: context-menu;
+
+    stroke: #434e5b;
 }
 
 .teacher:hover path{

@@ -46,6 +46,7 @@ export const PacksList = () => {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
   const searchedPackName = useAppSelector((state) => state.packs.searchedPackName)
   const cardPacksTotalCount = useAppSelector((state) => state.packs.cardPacksTotalCount)
+  const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const isEmptyState = cardPacksTotalCount === 0
 
@@ -83,7 +84,9 @@ export const PacksList = () => {
           <ArrowBack title={'Back to Profile'} onClick={() => navigate('/profile')} />
           <h2>Packs list</h2>
         </div>
-        <SuperButton onClick={addNewPackHandler}>Add new pack</SuperButton>
+        <SuperButton onClick={addNewPackHandler} disabled={loading}>
+          Add new pack
+        </SuperButton>
       </div>
 
       <FilterPanel />

@@ -31,6 +31,7 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
   const user_id = useAppSelector((state) => state.profile.user._id)
   const cards = useAppSelector((state) => state.cards.cards)
   const sortCards = useAppSelector((state) => state.cards.sortCards)
+  const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const onSortCardHandler = () => {
     dispatch(setSortCardsAC(sortCards === '0updated' ? '1updated' : '0updated'))
@@ -58,19 +59,19 @@ export const CardsListTable: React.FC<CardsListTableType> = ({
         <StarRating grade={e.grade} />
 
         <div className={s.tb_actions}>
-          <div className={s.teacher} onClick={onClickTeacherHandler}>
+          <button className={s.teacher} onClick={onClickTeacherHandler} disabled={loading}>
             {teacher}
-          </div>
+          </button>
           {e.user_id === user_id && (
-            <div className={s.edit} onClick={onClickEditHandler}>
+            <button className={s.edit} onClick={onClickEditHandler} disabled={loading}>
               {edit}
-            </div>
+            </button>
           )}
 
           {e.user_id === user_id && (
-            <div className={s.trash} onClick={onClickDeleteHandler}>
+            <button className={s.trash} onClick={onClickDeleteHandler} disabled={loading}>
               {trash}
-            </div>
+            </button>
           )}
         </div>
       </div>

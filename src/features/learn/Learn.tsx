@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import mainStyles from '../../common/styles/Container.module.css'
+import s from './Learn.module.css'
 import { ArrowBack } from '../../common/components/ArrowBack/ArrowBack'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
@@ -16,6 +17,7 @@ export const Learn = () => {
   const navigate = useNavigate()
 
   const { cards } = useAppSelector((store) => store.cards)
+  const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const { packId, packName } = useParams()
   const [isChecked, setIsChecked] = useState<boolean>(false)
@@ -33,7 +35,7 @@ export const Learn = () => {
   console.log('Learn mount, cards:', cards)
 
   return (
-    <>
+    <div className={s.wrapper}>
       <ArrowBack title={'Back to Packs List'} onClick={() => navigate(`/cards_list/${packId}`)} />
       <h2>You are learning: {packName}</h2>
       <div className={mainStyles.container}>
@@ -50,21 +52,26 @@ export const Learn = () => {
                   options={grades}
                   value={radioValue}
                   onChangeOption={setRadioValue}
+                  disabled={loading}
                 />
 
                 <div>
-                  <SuperButton onClick={onNext}>next</SuperButton>
+                  <SuperButton onClick={onNext} disabled={loading}>
+                    next
+                  </SuperButton>
                 </div>
               </>
             )}
             {!isChecked && (
               <div>
-                <SuperButton onClick={() => setIsChecked(true)}>Check</SuperButton>
+                <SuperButton onClick={() => setIsChecked(true)} disabled={loading}>
+                  Check
+                </SuperButton>
               </div>
             )}
           </div>
         )}
       </div>
-    </>
+    </div>
   )
 }
