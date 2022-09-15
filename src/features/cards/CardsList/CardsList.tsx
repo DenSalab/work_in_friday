@@ -33,6 +33,7 @@ export const CardsList = () => {
 
   const packId = params.packId ? params.packId : ''
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+  const loading = useAppSelector((state) => state.app.status) === 'loading'
   const pageCount = useAppSelector((state) => state.cards.pageCount)
   const page = useAppSelector((state) => state.cards.page)
   const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
@@ -78,7 +79,9 @@ export const CardsList = () => {
             />
           </div>
         </div>
-        <SuperButton onClick={onAddNewCardHandler}>Add new card</SuperButton>
+        <SuperButton onClick={onAddNewCardHandler} disabled={loading}>
+          Add new card
+        </SuperButton>
       </div>
 
       {!isPackEmpty && <CardsSearchPanel />}
