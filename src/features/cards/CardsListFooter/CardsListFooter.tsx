@@ -6,9 +6,11 @@ import s from './CardsListFooter.module.css'
 
 export const CardsListFooter = () => {
   const dispatch = useAppDispatch()
+
   const pageCount = useAppSelector((state) => state.cards.pageCount)
   const cardsTotalCount = useAppSelector((state) => state.cards.cardsTotalCount)
   const page = useAppSelector((state) => state.cards.page)
+  const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const onChangePageHandler = (page: number) => {
     dispatch(setCardsListPageAC(page))
@@ -34,6 +36,7 @@ export const CardsListFooter = () => {
           max={25}
           value={pageCount}
           onChange={(e) => onSetPageCountHandler(+e.currentTarget.value)}
+          disabled={loading}
         />
         <span>cards per page</span>
       </div>
