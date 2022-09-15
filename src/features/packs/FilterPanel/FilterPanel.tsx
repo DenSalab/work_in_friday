@@ -47,6 +47,9 @@ export const FilterPanel = () => {
     if (debouncedMinCardsCount && debouncedMaxCardsCount) {
       dispatch(getCardsPackTC())
     }
+    return () => {
+      dispatch(setSearchedPackName(''))
+    }
   }, [state.minCardsCount, state.maxCardsCount])
 
   const filterRemote = () => {
