@@ -1,18 +1,16 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import mainStyles from '../../common/styles/Container.module.css'
 import { ArrowBack } from '../../common/components/ArrowBack/ArrowBack'
 import { useNavigate, useParams } from 'react-router-dom'
-import { CardType } from '../../api/cardsAPI'
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks'
-import {getCardsTC, setCardsAC, updateCardGradeTC} from '../cards/cards-reducer'
+import { updateCardGradeTC } from '../cards/cards-reducer'
 import SuperButton from '../../common/components/SuperButton/SuperButton'
 import SuperRadio from '../../common/components/SuperRadio/SuperRadio'
-import {getCard} from './getCard';
+import { getCard } from './getCard'
 
-const grades = ['не знал', 'забыл', 'долго думал', 'перепутал', 'знал']
+const grades = ["don't know", 'forgot', 'long thought', 'confused', 'knew']
 
 export const Learn = () => {
-
   const dispatch = useAppDispatch()
 
   const navigate = useNavigate()
@@ -32,8 +30,7 @@ export const Learn = () => {
     setCard(getCard(cards))
   }
 
-
-  console.log('Lern mount, cards:', cards)
+  console.log('Learn mount, cards:', cards)
 
   return (
     <>

@@ -8,7 +8,7 @@ import { CardPackType } from '../../../api/packAPI'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../../common/hooks/hooks'
 import { useAppDispatch } from '../../../common/hooks/hooks'
-import {getCardsTC} from '../cards-reducer';
+import { getCardsTC } from '../cards-reducer'
 
 type DropDownMenuType = {
   editCallback: () => void
@@ -28,9 +28,9 @@ export const DropDownMenu = (props: DropDownMenuType) => {
     setVisible(!visible)
   }
   const onClickTeacher = async () => {
-    if (props.pack.cardsCount === 0) alert('Нет карточек для изучения')
+    if (props.pack.cardsCount === 0) alert('No cards to learn')
     else {
-      await dispatch(getCardsTC(props.pack._id, props.pack.cardsCount));
+      await dispatch(getCardsTC(props.pack._id, props.pack.cardsCount))
       navigate(`/learn/${props.pack._id}/${props.pack.name}`)
     }
   }
