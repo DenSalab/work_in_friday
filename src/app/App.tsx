@@ -11,6 +11,7 @@ import s from './App.module.css'
 
 function App() {
   const dispatch = useAppDispatch()
+
   const isInitialized = useAppSelector((state) => state.app.isInitialized)
   const error = useAppSelector((state) => state.app.error)
 

@@ -28,7 +28,7 @@ export const DropDownMenu = (props: DropDownMenuType) => {
     setVisible(!visible)
   }
   const onClickTeacher = async () => {
-    if (props.pack.cardsCount === 0) alert('Нет карточек для изучения')
+    if (props.pack.cardsCount === 0) alert('No cards to learn')
     else {
       await dispatch(getCardsTC(props.pack._id, props.pack.cardsCount))
       navigate(`/learn/${props.pack._id}/${props.pack.name}`)
