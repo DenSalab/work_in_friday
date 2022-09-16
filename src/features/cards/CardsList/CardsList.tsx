@@ -40,8 +40,8 @@ export const CardsList = () => {
   const cardsTotalCount = useAppSelector((state) => state.cards.cardsTotalCount)
   const sortCards = useAppSelector((state) => state.cards.sortCards)
   const currentPack = useAppSelector((state) => state.packs.cardPacks).find((n) => n._id === packId)
-  const currentPackCardsCount = currentPack?.cardsCount
 
+  const currentPackCardsCount = currentPack?.cardsCount
   const isPackEmpty = currentPackCardsCount === 0
   const isCardsNotFound = cardsTotalCount === 0
 

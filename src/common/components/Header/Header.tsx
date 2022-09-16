@@ -20,11 +20,11 @@ export const Header = () => {
   const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const signInHandler = () => {
-    setSignInMode(true)
+    setSignInMode(false)
     navigate('/login')
   }
   const signUpHandler = () => {
-    setSignInMode(false)
+    setSignInMode(true)
     navigate('/register')
   }
 
@@ -73,9 +73,13 @@ export const Header = () => {
   const headerMode = (
     <div>
       {signInMode ? (
-        <SuperButton onClick={signInHandler}>Sign in</SuperButton>
+        <SuperButton onClick={signInHandler} disabled={loading}>
+          Sign in
+        </SuperButton>
       ) : (
-        <SuperButton onClick={signUpHandler}>Sign up</SuperButton>
+        <SuperButton onClick={signUpHandler} disabled={loading}>
+          Sign up
+        </SuperButton>
       )}
     </div>
   )
