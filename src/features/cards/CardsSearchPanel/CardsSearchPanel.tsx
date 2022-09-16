@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 
 import { useDebounce } from '../../../common/hooks/debounce'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks'
@@ -14,6 +14,11 @@ export const CardsSearchPanel = () => {
   const searchedQuestion = useAppSelector((state) => state.cards.cardQuestion)
 
   useDebounce(searchedQuestion, 500)
+  useEffect(() => {
+    return () => {
+      dispatch(setSearchedQuestionAC(''))
+    }
+  }, [])
 
   return (
     <div className={s.control}>
