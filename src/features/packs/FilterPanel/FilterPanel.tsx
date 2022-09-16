@@ -43,6 +43,7 @@ export const FilterPanel = () => {
 
   const debouncedMinCardsCount = useDebounce(state.minCardsCount, 500)
   const debouncedMaxCardsCount = useDebounce(state.minCardsCount, 500)
+
   useEffect(() => {
     if (debouncedMinCardsCount && debouncedMaxCardsCount) {
       dispatch(getCardsPackTC())
