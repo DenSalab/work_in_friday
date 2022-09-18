@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import s from './SuperRange.module.css'
+import { useAppSelector } from '../../hooks/hooks'
 
 type SuperDoubleRangePropsType = {
   onChangeRange?: (values: [number, number]) => void
@@ -12,6 +13,7 @@ const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({ onChangeRange, 
   let minVal = value[0]
   let maxVal = value[1]
   if (minVal >= maxVal) minVal = maxVal
+  const loading = useAppSelector((state) => state.app.status) === 'loading'
 
   const ref: any = useRef(null)
 
@@ -37,6 +39,7 @@ const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({ onChangeRange, 
         max={range[1]}
         type="range"
         value={minVal}
+        disabled={loading}
         onChange={(event) => {
           const value = Math.min(Number(event.target.value), maxVal - 1)
           if (onChangeRange) {
@@ -50,6 +53,7 @@ const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({ onChangeRange, 
         min={range[0]}
         max={range[1]}
         value={maxVal}
+        disabled={loading}
         onChange={(event) => {
           const value = Math.max(Number(event.target.value), minVal + 1)
           if (onChangeRange) {

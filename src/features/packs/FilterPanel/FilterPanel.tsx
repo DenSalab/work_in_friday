@@ -7,6 +7,7 @@ import {
   setMaxCardsCount,
   setMinCardsCount,
   setOnlyMyPacks,
+  setPage,
   setSearchedPackName,
 } from '../packs-reducer'
 import { ChangeEvent, useEffect } from 'react'
@@ -14,10 +15,14 @@ import { useDebounce } from '../../../common/hooks/debounce'
 
 export const FilterPanel = () => {
   const dispatch = useAppDispatch()
+
   const state = useAppSelector((state) => state.packs)
+  const searchedPackName = useAppSelector((state) => state.packs.searchedPackName)
+  const minCardsCount = useAppSelector((state) => state.packs.minCardsCount)
+  const maxCardsCount = useAppSelector((state) => state.packs.maxCardsCount)
   const loading = useAppSelector((state) => state.app.status) === 'loading'
 
-  const maxRangeValue = state.cardPacks.map((e) => e.cardsCount).sort((a, b) => b - a)[0]
+  //const maxRangeValue = state.cardPacks.map((e) => e.cardsCount).sort((a, b) => b - a)[0]
 
   const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchedPackName(e.currentTarget.value))
@@ -33,33 +38,34 @@ export const FilterPanel = () => {
   const onChangeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setMinCardsCount(+e.currentTarget.value))
   }
+
   const onChangeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setMaxCardsCount(+e.currentTarget.value))
   }
+
   const onChangeRange = ([min, max]: [number, number]) => {
     dispatch(setMinCardsCount(min))
     dispatch(setMaxCardsCount(max))
   }
 
-  const debouncedMinCardsCount = useDebounce(state.minCardsCount, 500)
-  const debouncedMaxCardsCount = useDebounce(state.minCardsCount, 500)
-
-  useEffect(() => {
-    if (debouncedMinCardsCount && debouncedMaxCardsCount) {
-      dispatch(getCardsPackTC())
-    }
-    return () => {
-      dispatch(setSearchedPackName(''))
-    }
-  }, [state.minCardsCount, state.maxCardsCount])
-
   const filterRemote = () => {
     dispatch(setOnlyMyPacks(false))
     dispatch(setSearchedPackName(''))
     dispatch(setMinCardsCount(0))
-    dispatch(setMaxCardsCount(maxRangeValue))
-    dispatch(getCardsPackTC())
+    dispatch(setMaxCardsCount(100))
   }
+
+  useDebounce(searchedPackName, 500)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      dispatch(getCardsPackTC())
+    }, 500)
+    return () => {
+      clearTimeout(handler)
+      dispatch(setPage(1))
+    }
+  }, [searchedPackName, minCardsCount, maxCardsCount])
 
   return (
     <div className={s.container}>
@@ -68,7 +74,7 @@ export const FilterPanel = () => {
         <input
           placeholder={'Provide your text'}
           className={s.search}
-          value={state.searchedPackName}
+          value={searchedPackName}
           onChange={onChangeSearch}
         />
       </div>
@@ -98,18 +104,18 @@ export const FilterPanel = () => {
         <div className={s.switch}>
           <input
             className={s.switch_min}
-            value={state.minCardsCount}
+            value={minCardsCount}
             onChange={onChangeMinValue}
             disabled={loading}
           />
           <SuperDoubleRange
-            value={[state.minCardsCount, state.maxCardsCount]}
+            value={[minCardsCount, maxCardsCount]}
             onChangeRange={onChangeRange}
             range={[0, 100]}
           />
           <input
             className={s.switch_max}
-            value={state.maxCardsCount}
+            value={maxCardsCount}
             onChange={onChangeMaxValue}
             disabled={loading}
           />
