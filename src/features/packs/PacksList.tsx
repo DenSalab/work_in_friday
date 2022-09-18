@@ -20,25 +20,25 @@ export const PacksList = () => {
   const [delModalActive, setDelModalActive] = useState(false)
 
   // временная заглушка. Если передать пустой объект, инпут перестает быть контролируемым
-  const temp = {
-    _id: 'string',
-    user_id: 'string',
-    user_name: 'string',
-    private: false,
-    name: 'string',
-    path: 'string',
-    grade: 1,
-    shots: 1,
-    cardsCount: 1,
-    type: 'string',
-    rating: 1,
-    created: 'string',
-    updated: 'string',
-    more_id: 'string',
-    __v: 1,
-    deckCover: 'string',
-  }
-  const [editedPack, setEditedPack] = useState(temp as CardPackType)
+  // const temp = {
+  //   _id: 'string',
+  //   user_id: 'string',
+  //   user_name: 'string',
+  //   private: false,
+  //   name: 'string',
+  //   path: 'string',
+  //   grade: 1,
+  //   shots: 1,
+  //   cardsCount: 1,
+  //   type: 'string',
+  //   rating: 1,
+  //   created: 'string',
+  //   updated: 'string',
+  //   more_id: 'string',
+  //   __v: 1,
+  //   deckCover: 'string',
+  // }
+  const [editedPack, setEditedPack] = useState({} as CardPackType)
 
   const navigate = useNavigate()
   const dispatch = useAppDispatch()

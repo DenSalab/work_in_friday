@@ -66,9 +66,9 @@ export const getCardsTC =
     dispatch(setAppStatusAC('loading'))
 
     try {
-      const res = count ?
-          await cardsAPI.getCard({ cardsPack_id, page:1, pageCount: count }) :
-          await cardsAPI.getCard({ cardsPack_id, page, pageCount, cardQuestion, sortCards })
+      const res = count
+        ? await cardsAPI.getCard({ cardsPack_id, page: 1, pageCount: count })
+        : await cardsAPI.getCard({ cardsPack_id, page, pageCount, cardQuestion, sortCards })
 
       dispatch(setCardsAC(res.data.cards))
       dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
