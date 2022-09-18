@@ -56,16 +56,19 @@
 }
 
 .thumbLeft {
+    cursor: e-resize;
+
     z-index: 3;
 }
 
 .thumbRight {
+    cursor: w-resize;
+
     z-index: 4;
 }
 
 .thumb::-webkit-slider-thumb {
     pointer-events: all;
-    cursor: e-resize;
 
     position: relative;
 
