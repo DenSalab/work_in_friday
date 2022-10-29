@@ -3,13 +3,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import s from './Header.module.css'
 import logo from '../../assets/images/logo.png'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
-import SuperButton from '../SuperButton/SuperButton'
 import { logoutTC } from '../../../features/auth/Profile/profile-reducer'
 import { LinearPreloader } from '../preloaders/LinearPreloader/LinearPreloader'
 import noAvatar from '../../assets/images/no_avatar.jpg'
 
 export const Header = () => {
-  const [signInMode, setSignInMode] = useState(true)
   const [select, setSelect] = useState(false)
 
   const dispatch = useAppDispatch()
@@ -18,15 +16,6 @@ export const Header = () => {
   const isLogin = useAppSelector((state) => state.auth.isLoggedIn)
   const userData = useAppSelector((state) => state.profile.user)
   const loading = useAppSelector((state) => state.app.status) === 'loading'
-
-  const signInHandler = () => {
-    setSignInMode(false)
-    navigate('/login')
-  }
-  const signUpHandler = () => {
-    setSignInMode(true)
-    navigate('/register')
-  }
 
   const onClickLoginHandler = () => {
     if (isLogin) {
@@ -70,20 +59,6 @@ export const Header = () => {
     </div>
   )
 
-  const headerMode = (
-    <div>
-      {signInMode ? (
-        <SuperButton onClick={signInHandler} disabled={loading}>
-          Sign in
-        </SuperButton>
-      ) : (
-        <SuperButton onClick={signUpHandler} disabled={loading}>
-          Sign up
-        </SuperButton>
-      )}
-    </div>
-  )
-
   return (
     <div className={s.header}>
       <LinearPreloader turnOn={loading} />
@@ -91,7 +66,7 @@ export const Header = () => {
         <div className={s.logo}>
           <img src={logo} alt="logo" onClick={() => navigate('/packs_list')} />
         </div>
-        {isLogin ? user : headerMode}
+        {isLogin && user}
       </div>
     </div>
   )

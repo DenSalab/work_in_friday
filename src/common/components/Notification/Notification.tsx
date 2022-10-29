@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { useAppSelector } from '../../hooks/hooks'
 
-import errorImg from './images/OOjs_UI_icon_error-destructive.svg.png'
+import errorImg from '../../assets/images/error_notification.png'
 import s from './Notification.module.css'
 
 const Notification = () => {

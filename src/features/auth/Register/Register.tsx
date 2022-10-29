@@ -43,7 +43,6 @@ export const Register = () => {
       return errors
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values))
       const data = { email: values.email, password: values.password }
 
       dispatch(registerTC(data))
