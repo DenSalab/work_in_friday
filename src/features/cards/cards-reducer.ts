@@ -63,9 +63,8 @@ export const getCardsTC =
     const cardQuestion = cards.cardQuestion
     const sortCards = cards.sortCards
 
-    dispatch(setAppStatusAC('loading'))
-
     try {
+      dispatch(setAppStatusAC('loading'))
       const res = count
         ? await cardsAPI.getCard({ cardsPack_id, page: 1, pageCount: count })
         : await cardsAPI.getCard({ cardsPack_id, page, pageCount, cardQuestion, sortCards })
@@ -82,8 +81,8 @@ export const getCardsTC =
 export const createCardTC =
   (card: CreatedCardType): AppThunk =>
   async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
     try {
+      dispatch(setAppStatusAC('loading'))
       await cardsAPI.createCard(card)
       await dispatch(getCardsTC(card.cardsPack_id))
       await dispatch(getCardsPackTC())
